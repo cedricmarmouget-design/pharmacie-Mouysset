@@ -1,0 +1,4 @@
+{"$$indexCreated":{"fieldName":"taskId","unique":false,"sparse":false}}
+{"$$indexCreated":{"fieldName":"date","unique":false,"sparse":false}}
+{"$$indexCreated":{"fieldName":"taskId"}}
+{"$$indexCreated":{"fieldName":"date"}}

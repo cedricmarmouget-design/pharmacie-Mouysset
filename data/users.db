@@ -1,0 +1,3 @@
+{"_id":"8436179d-163e-43d6-ab0b-36ab3b772c82","name":"Mathieu","role":"Référent – 6h30","color":"#0077B6","active":true,"isAdmin":true,"createdAt":1777058579009}
+{"_id":"52cb595f-e05e-41ca-a21c-1dec2530c3c7","name":"Maryline","role":"Logistique – 7h30","color":"#2E7D32","active":true,"isAdmin":false,"createdAt":1777058579009}
+{"_id":"6039897a-a3a8-4185-a118-8263a92431c7","name":"Marion","role":"Logistique – 7h45","color":"#AD1457","active":true,"isAdmin":false,"createdAt":1777058579009}
