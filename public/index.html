@@ -8,14 +8,12 @@
 <style>
 :root{
   --navy:#0F2240;--navy2:#1A3A5C;--teal:#00897B;--tl:#E0F2F1;
-  --gold:#F9A825;--red:#C62828;--green:#2E7D32;
-  --bg:#F0F4F8;--card:#fff;--border:#D8E2EE;--text:#1A2B45;--muted:#7A8FA6;
+  --gold:#F9A825;--red:#C62828;--bg:#F0F4F8;--card:#fff;
+  --border:#D8E2EE;--text:#1A2B45;--muted:#7A8FA6;
   --r:12px;--sh:0 2px 14px rgba(15,34,64,.09);--sh2:0 8px 32px rgba(15,34,64,.18);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-
-/* HEADER */
 .hdr{background:var(--navy);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 20px;position:sticky;top:0;z-index:200;box-shadow:0 2px 14px rgba(0,0,0,.25)}
 .logo{font-size:15px;font-weight:700;color:#fff}.logo span{color:var(--gold)}
 .hdr-r{display:flex;align-items:center;gap:10px}
@@ -24,16 +22,11 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .sdot{width:7px;height:7px;border-radius:50%;background:#4CAF50;animation:bl 2s infinite}
 .sdot.e{background:#F44336;animation:none}.sdot.l{background:var(--gold);animation:bl .5s infinite}
 @keyframes bl{0%,100%{opacity:1}50%{opacity:.3}}
-
-/* TABS */
 .tabs{display:flex;background:var(--navy2);padding:0 20px;overflow-x:auto}
 .tab{padding:11px 18px;font-size:13px;font-weight:600;color:rgba(255,255,255,.45);cursor:pointer;border-bottom:3px solid transparent;white-space:nowrap;transition:.18s;user-select:none}
 .tab:hover{color:rgba(255,255,255,.8)}.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
-
 .main{max-width:980px;margin:0 auto;padding:20px 14px}
 .page{display:none}.page.active{display:block}
-
-/* CARDS */
 .card{background:var(--card);border-radius:var(--r);padding:14px 18px;margin-bottom:14px;box-shadow:var(--sh)}
 
 /* DAY BAR */
@@ -50,17 +43,14 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .who-bar{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
 .who-lbl{font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap}
 .who-btns{display:flex;gap:8px;flex-wrap:wrap;flex:1}
-.wbtn{padding:8px 18px;border-radius:99px;border:2px solid var(--border);background:var(--bg);font-size:13px;font-weight:700;cursor:pointer;transition:.18s;color:var(--muted);display:flex;align-items:center;gap:6px}
+.wbtn{padding:8px 18px;border-radius:99px;border:2px solid var(--border);background:var(--bg);font-size:13px;font-weight:700;cursor:pointer;transition:.18s;color:var(--muted)}
 .wbtn.active{color:#fff;border-color:transparent;box-shadow:0 3px 10px rgba(0,0,0,.2)}
-.wbtn .absent-tag{font-size:9px;font-weight:700;padding:1px 5px;border-radius:99px;background:rgba(255,255,255,.25)}
 .who-hint{font-size:12px;color:var(--muted)}
 .shake{animation:shk .4s}
 @keyframes shk{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
-
-/* ATTENDANCE QUICK BAR */
 .att-bar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding-top:8px;border-top:1px solid var(--border);margin-top:10px}
 .att-lbl{font-size:11px;font-weight:600;color:var(--muted)}
-.att-btns{display:flex;gap:6px;flex-wrap:wrap}
+.att-btns{display:flex;gap:6px}
 .att-btn{padding:5px 12px;border-radius:99px;border:2px solid var(--border);background:var(--bg);font-size:11px;font-weight:700;cursor:pointer;transition:.14s}
 .att-btn.present{border-color:#C8E6C9;color:#2E7D32}.att-btn.present.active{background:#2E7D32;color:#fff;border-color:#2E7D32}
 .att-btn.absent{border-color:#FFCDD2;color:var(--red)}.att-btn.absent.active{background:var(--red);color:#fff;border-color:var(--red)}
@@ -73,7 +63,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .pi-track{height:7px;background:var(--border);border-radius:99px;overflow:hidden}
 .pi-fill{height:100%;border-radius:99px;transition:width .4s}
 
-/* TOOLBAR */
 .toolbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px;flex-wrap:wrap}
 .fbtns{display:flex;gap:6px;flex-wrap:wrap}
 .fbtn{padding:6px 13px;border-radius:99px;border:2px solid var(--border);background:var(--card);font-size:12px;font-weight:600;cursor:pointer;color:var(--muted);transition:.14s}
@@ -94,23 +83,28 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .scnt{font-size:11px;font-weight:700;background:rgba(255,255,255,.2);color:#fff;padding:2px 9px;border-radius:99px}
 .sbody{display:flex;flex-direction:column}.sbody.col{display:none}
 
-/* TASK ROW */
-.tr{background:var(--card);display:flex;align-items:center;gap:12px;padding:13px 18px;border-left:4px solid transparent;border-top:1px solid #F0F4F8;cursor:pointer;user-select:none;transition:.12s}
-.tr:hover{background:#F5F8FF}.tr.done{background:#F1FBF1!important;border-left-color:#4CAF50}
-.chk{width:34px;height:34px;flex-shrink:0;border-radius:9px;border:2.5px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:900;color:transparent;transition:.18s}
-.tr:hover .chk{border-color:#90CAF9;background:#EEF5FF}
-.tr.done .chk{border-color:transparent;color:#fff;transform:scale(1.08)}
-.tc{flex:1;min-width:0}
+/* TASK ROW — multi-check layout */
+.tr{background:var(--card);padding:12px 18px;border-left:4px solid transparent;border-top:1px solid #F0F4F8;transition:.12s}
+.tr:hover{background:#F5F8FF}
+.tr-top{display:flex;align-items:center;gap:12px}
+.tr-content{flex:1;min-width:0}
 .tn{font-size:14px;font-weight:500;color:var(--text)}
-.tr.done .tn{text-decoration:line-through;color:var(--muted)}
 .tm{display:flex;gap:5px;align-items:center;flex-wrap:wrap;margin-top:3px}
 .ttime{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted)}
 .prio{font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px}
 .p1{background:#FFEBEE;color:#C62828}.p2{background:#FFF8E1;color:#F57F17}.p3{background:#E8F5E9;color:#2E7D32}
 .dtag{font-size:9px;font-weight:700;padding:1px 5px;border-radius:4px;background:#EDE7F6;color:#6A1B9A}
 .dtag.cur{background:#6A1B9A;color:#fff}
-.wdone{flex-shrink:0;font-size:11px;font-weight:700;padding:4px 12px;border-radius:99px;opacity:0;transform:scale(.8);transition:.2s;pointer-events:none;white-space:nowrap}
-.wdone.vis{opacity:1;transform:scale(1)}
+
+/* MY check button */
+.my-chk{width:36px;height:36px;flex-shrink:0;border-radius:9px;border:2.5px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:900;color:transparent;transition:.18s;cursor:pointer;user-select:none}
+.my-chk:hover{border-color:#90CAF9;background:#EEF5FF}
+.my-chk.checked{border-color:transparent;color:#fff;transform:scale(1.08)}
+
+/* WHO DID badges row */
+.badges-row{display:flex;gap:5px;flex-wrap:wrap;margin-top:8px;padding-left:48px}
+.who-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:99px;color:#fff;display:flex;align-items:center;gap:4px}
+.who-badge .badge-time{font-size:9px;opacity:.8;font-family:'DM Mono',monospace}
 
 /* MANAGER */
 .gs-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
@@ -129,13 +123,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .mc-bar{height:5px;background:#EEE;border-radius:99px;overflow:hidden;margin-bottom:4px}
 .mc-fill{height:100%;border-radius:99px;transition:width .4s}
 .mc-sub{font-size:11px;color:var(--muted)}
-.mc-abs{font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;background:#FFEBEE;color:var(--red);display:inline-block;margin-top:2px}
 .mc-tasks{max-height:260px;overflow-y:auto}
-.mr{display:flex;align-items:center;gap:8px;padding:8px 16px;border-top:1px solid var(--border);font-size:12px}
-.mdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.mr{display:flex;align-items:flex-start;gap:8px;padding:8px 16px;border-top:1px solid var(--border);font-size:12px}
+.mdot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:4px}
 .mdot.done{background:#4CAF50}.mdot.todo{background:var(--border)}.mdot.skip{background:#EEE}
-.mtxt{flex:1;color:var(--text);line-height:1.3}.mtxt.done{text-decoration:line-through;color:var(--muted)}.mtxt.skip{color:var(--muted);font-style:italic}
-.mwt{font-size:10px;font-weight:700;padding:2px 8px;border-radius:99px;white-space:nowrap;flex-shrink:0;color:#fff}
+.mtxt{flex:1;color:var(--text);line-height:1.3}.mtxt.done{color:var(--muted)}.mtxt.skip{color:var(--muted);font-style:italic}
+.mbadges{display:flex;gap:3px;flex-wrap:wrap;margin-top:3px}
+.mbt{font-size:9px;font-weight:700;padding:1px 6px;border-radius:99px;color:#fff}
 
 /* HISTORY */
 .hf{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;align-items:center}
@@ -159,9 +153,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .rc{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden}
 .rc-h{padding:16px 20px;display:flex;align-items:center;gap:12px}
 .rc-av{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:#fff;flex-shrink:0}
-.rc-info{flex:1}
-.rc-name{font-size:15px;font-weight:700;color:#fff}
-.rc-role{font-size:11px;color:rgba(255,255,255,.65)}
+.rc-info{flex:1}.rc-name{font-size:15px;font-weight:700;color:#fff}.rc-role{font-size:11px;color:rgba(255,255,255,.65)}
 .rc-big{font-size:32px;font-weight:800;color:#fff;font-family:'DM Mono',monospace;line-height:1}
 .rc-big.na{font-size:14px;opacity:.7}
 .rc-body{padding:14px 20px}
@@ -169,21 +161,18 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .rc-stat{text-align:center;padding:8px;border-radius:8px;background:var(--bg)}
 .rc-stat-val{font-size:18px;font-weight:800;font-family:'DM Mono',monospace}
 .rc-stat-lbl{font-size:10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.4px}
-.rc-prog-lbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:5px;display:flex;justify-content:space-between}
 .rc-track{height:10px;background:var(--border);border-radius:99px;overflow:hidden;margin-bottom:10px}
 .rc-fill{height:100%;border-radius:99px;transition:width .6s}
-.rc-daily{margin-top:8px}
-.rc-daily-hdr{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px}
+.rc-prog-lbl{font-size:11px;font-weight:600;color:var(--muted);margin-bottom:5px;display:flex;justify-content:space-between}
+.rc-daily-hdr{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:6px;margin-top:8px}
 .rc-day-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid var(--border);font-size:12px}
 .rc-day-row:last-child{border-bottom:none}
 .rc-day-date{font-family:'DM Mono',monospace;font-size:11px;color:var(--muted);width:90px;flex-shrink:0}
 .rc-day-status{font-size:10px;font-weight:700;padding:1px 7px;border-radius:99px;flex-shrink:0;white-space:nowrap}
-.rc-day-status.present{background:#E8F5E9;color:#2E7D32}
-.rc-day-status.absent{background:#FFEBEE;color:#C62828}
-.rc-day-status.off{background:#EDE7F6;color:#6A1B9A}
-.rc-day-pct{margin-left:auto;font-family:'DM Mono',monospace;font-size:12px;font-weight:700}
+.rc-day-status.present{background:#E8F5E9;color:#2E7D32}.rc-day-status.absent{background:#FFEBEE;color:#C62828}.rc-day-status.off{background:#EDE7F6;color:#6A1B9A}
 .rc-day-bar-w{flex:1;height:6px;background:var(--border);border-radius:99px;overflow:hidden;margin:0 8px}
 .rc-day-fill{height:100%;border-radius:99px}
+.rc-day-pct{margin-left:auto;font-family:'DM Mono',monospace;font-size:12px;font-weight:700}
 
 /* ADMIN */
 .as{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;margin-bottom:16px}
@@ -193,12 +182,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .ar{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border)}
 .ar:last-child{border-bottom:none}
 .cdot{width:14px;height:14px;border-radius:50%;flex-shrink:0}
-.an{font-size:14px;font-weight:600;flex:1}
-.asub{font-size:12px;color:var(--muted)}
+.an{font-size:14px;font-weight:600;flex:1}.asub{font-size:12px;color:var(--muted)}
 .aact{display:flex;gap:6px}
 .ibtn{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;transition:.15s}
 .ibtn:hover{background:var(--border)}.ibtn.del:hover{background:#FFEBEE;border-color:#FFCDD2}
-.pin-set{font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;background:#E8F5E9;color:#2E7D32}
 
 /* MODALS */
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:500;display:none;align-items:center;justify-content:center;padding:20px}
@@ -211,9 +198,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .fi{width:100%;padding:10px 13px;border-radius:9px;border:2px solid var(--border);background:var(--bg);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none;transition:.15s}
 .fi:focus{border-color:var(--teal)}
 .fs{width:100%;padding:10px 13px;border-radius:9px;border:2px solid var(--border);background:var(--bg);font-family:'DM Sans',sans-serif;font-size:14px;color:var(--text);outline:none}
-.fs:focus{border-color:var(--teal)}
-
-/* PIN PAD */
 .pin-display{display:flex;justify-content:center;gap:10px;margin:14px 0}
 .pd{width:14px;height:14px;border-radius:50%;border:2px solid var(--border);background:var(--bg);transition:.15s}
 .pd.filled{background:var(--navy);border-color:var(--navy)}
@@ -222,20 +206,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .pk:hover{background:var(--navy);color:#fff;border-color:var(--navy)}.pk:active{transform:scale(.95)}
 .pk.del{font-size:14px;color:var(--red)}
 .pin-err{color:var(--red);font-size:13px;font-weight:600;text-align:center;margin-bottom:10px;min-height:20px}
-
-/* COLOR GRID */
 .cg{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
 .co{width:28px;height:28px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:.15s}
 .co.sel{border-color:var(--text);transform:scale(1.15)}
-
-/* DAYS SELECTOR */
 .ds{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
 .dsb{width:38px;height:30px;border-radius:7px;border:2px solid var(--border);background:var(--bg);font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.14s;color:var(--muted)}
 .dsb.on{background:var(--navy);border-color:var(--navy);color:#fff}
-
 .mbtns{display:flex;gap:8px;justify-content:flex-end;margin-top:20px}
-
-/* TOAST */
 .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%) translateY(14px);background:var(--navy);color:#fff;padding:11px 22px;border-radius:10px;font-size:13px;font-weight:500;box-shadow:0 8px 28px rgba(0,0,0,.22);opacity:0;transition:.28s;z-index:999;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}
@@ -262,9 +239,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 
 <div class="main">
 
-<!-- ═══ TÂCHES ═══ -->
+<!-- TÂCHES -->
 <div class="page active" id="page-tasks">
-
   <div class="card"><div class="day-bar">
     <span class="day-lbl">📅 Jour :</span>
     <div class="day-btns" id="dayBtns"></div>
@@ -278,10 +254,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     </div>
     <div class="att-bar" id="attBar" style="display:none">
       <span class="att-lbl">Présence aujourd'hui :</span>
-      <div class="att-btns" id="attBtns">
+      <div class="att-btns">
         <button class="att-btn present" onclick="setAttendance('present')">✅ Présent</button>
-        <button class="att-btn absent" onclick="setAttendance('absent')">❌ Absent</button>
-        <button class="att-btn off"    onclick="setAttendance('off')">🏖 Congé</button>
+        <button class="att-btn absent"  onclick="setAttendance('absent')">❌ Absent</button>
+        <button class="att-btn off"     onclick="setAttendance('off')">🏖 Congé</button>
       </div>
     </div>
   </div>
@@ -299,22 +275,22 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div id="sectionsContainer"><div class="loading">Chargement…</div></div>
 </div>
 
-<!-- ═══ MANAGER ═══ -->
+<!-- MANAGER -->
 <div class="page" id="page-manager">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
     <div style="font-size:20px;font-weight:700;color:var(--navy)">Tableau de bord — Traçabilité</div>
     <button class="btn-d" onclick="askReset()">🔄 Nouveau jour</button>
   </div>
   <div class="card">
-    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:14px">Avancement par collaborateur — aujourd'hui</div>
+    <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:14px">Avancement par collaborateur</div>
     <div id="gsRows"></div>
   </div>
   <div class="mgr-grid" id="mgrCards"></div>
 </div>
 
-<!-- ═══ HISTORIQUE ═══ -->
+<!-- HISTORIQUE -->
 <div class="page" id="page-history">
-  <div style="font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px">📜 Historique complet</div>
+  <div style="font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px">📜 Historique</div>
   <div class="hf">
     <select class="fi" id="histDate" onchange="loadHistory()" style="max-width:190px;padding:7px 12px"></select>
     <select class="fi" id="histUser" onchange="loadHistory()" style="max-width:160px;padding:7px 12px"><option value="">Tous</option></select>
@@ -326,26 +302,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
 </div>
 
-<!-- ═══ RAPPORT ═══ -->
+<!-- RAPPORT -->
 <div class="page" id="page-report">
   <div style="font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px">📊 Rapport de Rentabilité</div>
   <div class="card">
     <div class="rpt-controls">
-      <div class="rpt-group">
-        <span class="rpt-label">Du</span>
-        <input type="date" class="fi" id="rptFrom" style="max-width:160px">
-      </div>
-      <div class="rpt-group">
-        <span class="rpt-label">Au</span>
-        <input type="date" class="fi" id="rptTo" style="max-width:160px">
-      </div>
-      <button class="btn-p" onclick="loadReport()">📊 Générer le rapport</button>
+      <div class="rpt-group"><span class="rpt-label">Du</span><input type="date" class="fi" id="rptFrom" style="max-width:160px"></div>
+      <div class="rpt-group"><span class="rpt-label">Au</span><input type="date" class="fi" id="rptTo" style="max-width:160px"></div>
+      <button class="btn-p" onclick="loadReport()">📊 Générer</button>
     </div>
   </div>
-  <div id="rptBody"><div class="hempty">Sélectionnez une période et cliquez sur "Générer le rapport".</div></div>
+  <div id="rptBody"><div class="hempty">Sélectionnez une période et cliquez sur "Générer".</div></div>
 </div>
 
-<!-- ═══ ADMIN ═══ -->
+<!-- ADMIN -->
 <div class="page" id="page-admin">
   <div style="font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px">⚙️ Administration</div>
   <div class="as">
@@ -358,33 +328,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
 </div>
 
-</div><!-- /main -->
+</div>
 
-<!-- ═══ MODAL PIN ═══ -->
+<!-- PIN MODAL -->
 <div class="ov" id="pinModal">
   <div class="modal">
-    <h2 id="pinTitle">Confirmer votre identité</h2>
+    <h2 id="pinTitle">Confirmer</h2>
     <div class="modal-sub" id="pinSub">Entrez votre code PIN à 4 chiffres</div>
     <div class="pin-display" id="pinDots"></div>
     <div class="pin-pad">
-      <button class="pk" onclick="pinKey('1')">1</button>
-      <button class="pk" onclick="pinKey('2')">2</button>
-      <button class="pk" onclick="pinKey('3')">3</button>
-      <button class="pk" onclick="pinKey('4')">4</button>
-      <button class="pk" onclick="pinKey('5')">5</button>
-      <button class="pk" onclick="pinKey('6')">6</button>
-      <button class="pk" onclick="pinKey('7')">7</button>
-      <button class="pk" onclick="pinKey('8')">8</button>
-      <button class="pk" onclick="pinKey('9')">9</button>
-      <button class="pk del" onclick="pinKey('del')">⌫</button>
-      <button class="pk" onclick="pinKey('0')">0</button>
-      <button class="pk del" onclick="closeModal('pinModal')">✕</button>
+      <button class="pk" onclick="pinKey('1')">1</button><button class="pk" onclick="pinKey('2')">2</button><button class="pk" onclick="pinKey('3')">3</button>
+      <button class="pk" onclick="pinKey('4')">4</button><button class="pk" onclick="pinKey('5')">5</button><button class="pk" onclick="pinKey('6')">6</button>
+      <button class="pk" onclick="pinKey('7')">7</button><button class="pk" onclick="pinKey('8')">8</button><button class="pk" onclick="pinKey('9')">9</button>
+      <button class="pk del" onclick="pinKey('del')">⌫</button><button class="pk" onclick="pinKey('0')">0</button><button class="pk del" onclick="closeModal('pinModal')">✕</button>
     </div>
     <div class="pin-err" id="pinErr"></div>
   </div>
 </div>
 
-<!-- ═══ MODAL SALARIÉ ═══ -->
+<!-- USER MODAL -->
 <div class="ov" id="userModal">
   <div class="modal">
     <h2 id="uModalTitle">Ajouter un salarié</h2>
@@ -394,24 +356,20 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="fg">
       <label class="fl">Code PIN (4 chiffres)</label>
       <input class="fi" id="uPin" placeholder="1234" maxlength="4" type="password">
-      <div style="font-size:11px;color:var(--muted);margin-top:4px">Le salarié devra saisir ce code pour valider chaque tâche.</div>
+      <div style="font-size:11px;color:var(--muted);margin-top:4px">Obligatoire pour valider chaque tâche. Laisser vide pour ne pas changer.</div>
     </div>
     <div class="fg"><label class="fl">Couleur</label><div class="cg" id="colorGrid"></div><input type="hidden" id="uColor" value="#607D8B"></div>
-    <div class="mbtns">
-      <button class="btn-s" onclick="closeModal('userModal')">Annuler</button>
-      <button class="btn-p" onclick="saveUser()">💾 Enregistrer</button>
-    </div>
+    <div class="mbtns"><button class="btn-s" onclick="closeModal('userModal')">Annuler</button><button class="btn-p" onclick="saveUser()">💾 Enregistrer</button></div>
   </div>
 </div>
 
-<!-- ═══ MODAL TÂCHE ═══ -->
+<!-- TASK MODAL -->
 <div class="ov" id="taskModal">
   <div class="modal">
     <h2 id="tModalTitle">Ajouter une tâche</h2>
     <input type="hidden" id="tId">
-    <div class="fg"><label class="fl">Nom de la tâche *</label><input class="fi" id="tName" placeholder="Ex : Vérification DLC"></div>
-    <div class="fg">
-      <label class="fl">Rubrique *</label>
+    <div class="fg"><label class="fl">Nom *</label><input class="fi" id="tName" placeholder="Ex : Vérification DLC"></div>
+    <div class="fg"><label class="fl">Rubrique *</label>
       <select class="fs" id="tSection">
         <option value="Matin|1">⏰ Matin</option>
         <option value="Flux Principal|2">📦 Flux Principal</option>
@@ -421,76 +379,48 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
         <option value="Autre|9">📌 Autre</option>
       </select>
     </div>
-    <div class="fg"><label class="fl">Horaire indicatif</label><input class="fi" id="tTime" placeholder="Ex : 9h30–11h00"></div>
-    <div class="fg">
-      <label class="fl">Priorité</label>
+    <div class="fg"><label class="fl">Horaire</label><input class="fi" id="tTime" placeholder="Ex : 9h30–11h00"></div>
+    <div class="fg"><label class="fl">Priorité</label>
       <select class="fs" id="tPriority">
-        <option value="1">🔴 Priorité 1 — Incontournable</option>
-        <option value="2" selected>🟡 Priorité 2 — Important</option>
-        <option value="3">🟢 Priorité 3 — Selon disponibilité</option>
+        <option value="1">🔴 P1 — Incontournable</option>
+        <option value="2" selected>🟡 P2 — Important</option>
+        <option value="3">🟢 P3 — Selon disponibilité</option>
       </select>
     </div>
-    <div class="fg">
-      <label class="fl">Jours de la semaine</label>
-      <div class="ds" id="daysSel"></div>
-    </div>
-    <div class="mbtns">
-      <button class="btn-s" onclick="closeModal('taskModal')">Annuler</button>
-      <button class="btn-p" onclick="saveTask()">💾 Enregistrer</button>
-    </div>
+    <div class="fg"><label class="fl">Jours de la semaine</label><div class="ds" id="daysSel"></div></div>
+    <div class="mbtns"><button class="btn-s" onclick="closeModal('taskModal')">Annuler</button><button class="btn-p" onclick="saveTask()">💾 Enregistrer</button></div>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// ═══════════════════════════════════════════════════════════════════
-// CONFIG
-// ═══════════════════════════════════════════════════════════════════
-const API      = '';
-const KEY_USER = 'pm-user-v6';
-const COLORS   = ['#0077B6','#2E7D32','#AD1457','#E65100','#6A1B9A','#00838F','#558B2F','#4527A0','#BF360C','#00695C','#1565C0','#37474F'];
-const DAY_NAMES = ['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
-const DAY_FULL  = ['Dimanche','Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi'];
-const PRIO_LBL = ['','🔴 P1','🟡 P2','🟢 P3'];
-const PRIO_CLS = ['','p1','p2','p3'];
-const SEC_ICONS = {'Matin':'⏰','Flux Principal':'📦','2ème Vague':'🔁','Après-midi':'🌤','Selon Besoin':'⚡'};
-const SEC_COLORS = ['#0F2240','#00695C','#4A148C','#B71C1C','#37474F','#1B5E20','#4E342E'];
+const API='', KEY_USER='pm-user-v6';
+const COLORS=['#0077B6','#2E7D32','#AD1457','#E65100','#6A1B9A','#00838F','#558B2F','#4527A0','#BF360C','#00695C','#1565C0','#37474F'];
+const DAY_NAMES=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+const PRIO_LBL=['','🔴 P1','🟡 P2','🟢 P3'];
+const PRIO_CLS=['','p1','p2','p3'];
+const SEC_ICONS={'Matin':'⏰','Flux Principal':'📦','2ème Vague':'🔁','Après-midi':'🌤','Selon Besoin':'⚡'};
+const SEC_COLORS=['#0F2240','#00695C','#4A148C','#B71C1C','#37474F','#1B5E20','#4E342E'];
 
-// ═══════════════════════════════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════════════════════════════
-let users=[], tasks=[], checks={}, attendance={}, currentUser=null, currentFilter='all', currentDay=null, pollingTimer=null;
+let users=[], tasks=[], checks=[], attendance={}, currentUser=null, currentFilter='all', currentDay=null, pollingTimer=null;
 let pinCallback=null, pinBuffer='';
+try{ currentUser=localStorage.getItem(KEY_USER); }catch(e){}
 
-try{ currentUser = localStorage.getItem(KEY_USER); }catch(e){}
-
-// ═══════════════════════════════════════════════════════════════════
-// API
-// ═══════════════════════════════════════════════════════════════════
 async function api(path, opts={}) {
   setSyncStatus('l');
   try {
-    const r = await fetch(API + path, { headers:{'Content-Type':'application/json'}, ...opts });
-    const data = await r.json();
-    setSyncStatus('ok');
-    return data;
+    const r = await fetch(API+path, { headers:{'Content-Type':'application/json'}, ...opts });
+    const d = await r.json(); setSyncStatus('ok'); return d;
   } catch(e) { setSyncStatus('e'); showToast('❌ Erreur réseau'); throw e; }
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// INIT
-// ═══════════════════════════════════════════════════════════════════
 async function init() {
   const now = new Date();
   document.getElementById('datePill').textContent = now.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
   currentDay = now.getDay();
-  buildColorGrid();
-  buildDaysBtns();
-  buildDaysSelector();
-  await loadAll();
-  startPolling();
-  // set default report dates
+  buildColorGrid(); buildDaysBtns(); buildDaysSelector();
+  await loadAll(); startPolling();
   const d = now.toISOString().slice(0,10);
   const wAgo = new Date(now); wAgo.setDate(wAgo.getDate()-6);
   document.getElementById('rptFrom').value = wAgo.toISOString().slice(0,10);
@@ -500,15 +430,11 @@ async function init() {
 async function loadAll() {
   try {
     [users, tasks] = await Promise.all([api('/api/users'), api('/api/tasks')]);
-    const [cl, al] = await Promise.all([
-      api('/api/checks?date='+today()),
-      api('/api/attendance?date='+today()),
-    ]);
-    checks = {}; cl.forEach(c => checks[c.taskId] = c);
+    const [cl, al] = await Promise.all([api('/api/checks?date='+today()), api('/api/attendance?date='+today())]);
+    checks = cl;
     attendance = {}; al.forEach(a => attendance[a.userId] = a.status);
     renderWhoBar(); renderDayBtns(); renderSections(); renderProgress();
-    renderManager(); renderAdminUsers(); renderAdminTasks();
-    populateHistFilters();
+    renderManager(); renderAdminUsers(); renderAdminTasks(); populateHistFilters();
   } catch(e) {}
 }
 
@@ -516,11 +442,8 @@ function startPolling() {
   clearInterval(pollingTimer);
   pollingTimer = setInterval(async () => {
     try {
-      const [cl, al] = await Promise.all([
-        api('/api/checks?date='+today()),
-        api('/api/attendance?date='+today()),
-      ]);
-      checks = {}; cl.forEach(c => checks[c.taskId] = c);
+      const [cl, al] = await Promise.all([api('/api/checks?date='+today()), api('/api/attendance?date='+today())]);
+      checks = cl;
       attendance = {}; al.forEach(a => attendance[a.userId] = a.status);
       renderSections(); renderProgress();
       if (document.getElementById('page-manager').classList.contains('active')) renderManager();
@@ -530,279 +453,231 @@ function startPolling() {
 
 function today() { return new Date().toISOString().slice(0,10); }
 
-// ═══════════════════════════════════════════════════════════════════
-// DAY BAR
-// ═══════════════════════════════════════════════════════════════════
-function buildDaysBtns() {
-  const c = document.getElementById('dayBtns');
-  c.innerHTML = '';
-  // Add "Tous" button
-  const all = document.createElement('button');
-  all.className = 'dbtn';
-  all.textContent = 'Tous';
-  all.onclick = () => { currentDay = null; renderDayBtns(); renderSections(); };
-  c.appendChild(all);
-
-  [1,2,3,4,5,6,0].forEach(d => {
-    const btn = document.createElement('button');
-    btn.className = 'dbtn';
-    btn.dataset.day = d;
-    btn.textContent = DAY_NAMES[d];
-    btn.onclick = () => { currentDay = d; renderDayBtns(); renderSections(); };
-    c.appendChild(btn);
-  });
-}
-
-function renderDayBtns() {
-  const todayDow = new Date().getDay();
-  document.querySelectorAll('.dbtn').forEach(btn => {
-    btn.classList.remove('active','today-marker');
-    const d = btn.dataset.day !== undefined ? parseInt(btn.dataset.day) : null;
-    if (d === null && currentDay === null) btn.classList.add('active');
-    if (d !== null && d === currentDay) btn.classList.add('active');
-    if (d === todayDow) btn.classList.add('today-marker');
-  });
-}
-
-// ═══════════════════════════════════════════════════════════════════
-// WHO BAR + ATTENDANCE
-// ═══════════════════════════════════════════════════════════════════
+// ── WHO ────────────────────────────────────────────────────────────
 function renderWhoBar() {
-  const btns = document.getElementById('whoBtns');
-  btns.innerHTML = users.map(u => {
-    const att = attendance[u._id] || 'present';
-    const isActive = currentUser === u._id;
-    const style = isActive ? `background:${u.color};border-color:${u.color}` : '';
-    const absentTag = att === 'absent' ? '<span class="absent-tag">Absent</span>' : att === 'off' ? '<span class="absent-tag">Congé</span>' : '';
-    return `<button class="wbtn${isActive?' active':''}" style="${style}" onclick="selectWho('${u._id}',this,'${u.color}')" data-color="${u.color}">
-      👤 ${u.name}${absentTag}
-    </button>`;
+  document.getElementById('whoBtns').innerHTML = users.map(u => {
+    const isActive = currentUser===u._id;
+    const att = attendance[u._id]||'present';
+    const attTag = att!=='present' ? `<span style="font-size:9px;background:rgba(255,255,255,.25);padding:1px 5px;border-radius:99px">${att==='absent'?'Absent':'Congé'}</span>` : '';
+    return `<button class="wbtn${isActive?' active':''}" style="${isActive?'background:'+u.color+';border-color:'+u.color:''}" onclick="selectWho('${u._id}',this,'${u.color}')">👤 ${u.name}${attTag}</button>`;
   }).join('');
   if (currentUser) {
     const u = users.find(x=>x._id===currentUser);
-    if (u) {
-      document.getElementById('whoHint').textContent = `Bonjour ${u.name} 👋`;
-      renderAttBar();
-    }
+    if (u) { document.getElementById('whoHint').textContent=`Bonjour ${u.name} 👋`; renderAttBar(); }
   }
 }
-
-function renderAttBar() {
-  const bar = document.getElementById('attBar');
-  if (!currentUser) { bar.style.display='none'; return; }
-  bar.style.display = 'flex';
-  const status = attendance[currentUser] || 'present';
-  document.querySelectorAll('.att-btn').forEach(b => {
-    b.classList.toggle('active', b.classList.contains(status));
-  });
-}
-
 function selectWho(id, btn, color) {
-  currentUser = id;
-  try{ localStorage.setItem(KEY_USER, id); }catch(e){}
-  document.querySelectorAll('.wbtn').forEach(b => { b.classList.remove('active'); b.style.background=''; b.style.borderColor=''; });
-  btn.classList.add('active'); btn.style.background = color; btn.style.borderColor = color;
-  const u = users.find(x=>x._id===id);
-  document.getElementById('whoHint').textContent = `Bonjour ${u.name} 👋`;
+  currentUser=id; try{localStorage.setItem(KEY_USER,id);}catch(e){}
+  document.querySelectorAll('.wbtn').forEach(b=>{b.classList.remove('active');b.style.background='';b.style.borderColor='';});
+  btn.classList.add('active'); btn.style.background=color; btn.style.borderColor=color;
+  const u=users.find(x=>x._id===id);
+  document.getElementById('whoHint').textContent=`Bonjour ${u.name} 👋`;
   renderAttBar();
 }
-
+function renderAttBar() {
+  const bar=document.getElementById('attBar');
+  if (!currentUser){bar.style.display='none';return;}
+  bar.style.display='flex';
+  const status=attendance[currentUser]||'present';
+  document.querySelectorAll('.att-btn').forEach(b=>b.classList.toggle('active',b.classList.contains(status)));
+}
 async function setAttendance(status) {
   if (!currentUser) return;
-  await api('/api/attendance', { method:'POST', body: JSON.stringify({ userId: currentUser, status, date: today() }) });
-  attendance[currentUser] = status;
+  await api('/api/attendance',{method:'POST',body:JSON.stringify({userId:currentUser,status,date:today()})});
+  attendance[currentUser]=status;
   renderAttBar(); renderWhoBar(); renderProgress(); renderManager();
-  const lbl = status==='present'?'✅ Présent marqué':status==='absent'?'❌ Absent marqué':'🏖 Congé marqué';
-  showToast(lbl);
+  showToast(status==='present'?'✅ Présent marqué':status==='absent'?'❌ Absent marqué':'🏖 Congé marqué');
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// SECTIONS & TASKS
-// ═══════════════════════════════════════════════════════════════════
-function visibleTasks() {
-  if (currentDay === null) return tasks;
-  return tasks.filter(t => (t.days||[1,2,3,4,5,6]).includes(currentDay));
+// ── DAYS ───────────────────────────────────────────────────────────
+function buildDaysBtns() {
+  const c=document.getElementById('dayBtns');
+  c.innerHTML='';
+  const all=document.createElement('button'); all.className='dbtn'; all.textContent='Tous';
+  all.onclick=()=>{currentDay=null;renderDayBtns();renderSections();};
+  c.appendChild(all);
+  [1,2,3,4,5,6,0].forEach(d=>{
+    const btn=document.createElement('button'); btn.className='dbtn'; btn.dataset.day=d; btn.textContent=DAY_NAMES[d];
+    btn.onclick=()=>{currentDay=d;renderDayBtns();renderSections();};
+    c.appendChild(btn);
+  });
 }
+function renderDayBtns() {
+  const td=new Date().getDay();
+  document.querySelectorAll('.dbtn').forEach(btn=>{
+    btn.classList.remove('active','today-marker');
+    const d=btn.dataset.day!==undefined?parseInt(btn.dataset.day):null;
+    if(d===null&&currentDay===null) btn.classList.add('active');
+    if(d!==null&&d===currentDay) btn.classList.add('active');
+    if(d===td) btn.classList.add('today-marker');
+  });
+}
+
+// ── SECTIONS & TASKS ────────────────────────────────────────────────
+function visibleTasks() { return currentDay===null?tasks:tasks.filter(t=>(t.days||[1,2,3,4,5,6]).includes(currentDay)); }
+
+// Get all checks for a task
+function taskChecks(taskId) { return checks.filter(c=>c.taskId===taskId&&c.done); }
+// Get my check for a task
+function myCheck(taskId) { return currentUser ? checks.find(c=>c.taskId===taskId&&c.userId===currentUser&&c.done) : null; }
 
 function renderSections() {
-  const container = document.getElementById('sectionsContainer');
-  const vTasks = visibleTasks();
-  if (!vTasks.length) { container.innerHTML = '<div class="loading">Aucune tâche pour ce jour.</div>'; return; }
-
-  const secs = {};
-  vTasks.forEach(t => {
-    if (!secs[t.section]) secs[t.section] = { name:t.section, order:t.sectionOrder, tasks:[] };
-    secs[t.section].tasks.push(t);
-  });
-
-  container.innerHTML = Object.values(secs).sort((a,b)=>a.order-b.order).map((sec, i) => {
-    const icon = SEC_ICONS[sec.name]||'📌';
-    const col  = SEC_COLORS[i % SEC_COLORS.length];
-    const done = sec.tasks.filter(t=>checks[t._id]?.done).length;
+  const container=document.getElementById('sectionsContainer');
+  const vt=visibleTasks();
+  if(!vt.length){container.innerHTML='<div class="loading">Aucune tâche pour ce jour.</div>';return;}
+  const secs={};
+  vt.forEach(t=>{if(!secs[t.section])secs[t.section]={name:t.section,order:t.sectionOrder,tasks:[]};secs[t.section].tasks.push(t);});
+  container.innerHTML=Object.values(secs).sort((a,b)=>a.order-b.order).map((sec,i)=>{
+    const icon=SEC_ICONS[sec.name]||'📌', col=SEC_COLORS[i%SEC_COLORS.length];
+    const doneCount=sec.tasks.filter(t=>taskChecks(t._id).length>0).length;
     return `<div class="section">
       <div class="sh" style="background:${col}" onclick="toggleSec('s${i}')">
         <h2>${icon} ${sec.name}</h2>
-        <span class="scnt" id="sc-s${i}">${done}/${sec.tasks.length}</span>
+        <span class="scnt" id="sc-s${i}">${doneCount}/${sec.tasks.length}</span>
         <span class="stog open" id="st-s${i}">›</span>
       </div>
-      <div class="sbody" id="sb-s${i}">
-        ${sec.tasks.map(t => buildTaskRow(t)).join('')}
-      </div>
+      <div class="sbody" id="sb-s${i}">${sec.tasks.map(t=>buildTaskRow(t)).join('')}</div>
     </div>`;
   }).join('');
-
   applyFilter(currentFilter);
 }
 
 function buildTaskRow(t) {
-  const s = checks[t._id]||{done:false};
-  const byU = s.done ? users.find(u=>u._id===s.userId) : null;
+  const chks = taskChecks(t._id);
+  const myChk = myCheck(t._id);
   const todayDow = new Date().getDay();
-  const dayTagsHtml = (t.days||[1,2,3,4,5,6]).map(d =>
-    `<span class="dtag${d===todayDow?' cur':''}">${DAY_NAMES[d]}</span>`).join('');
+  const isFullyDone = chks.length > 0;
+  const dayTagsHtml = (t.days||[1,2,3,4,5,6]).map(d=>`<span class="dtag${d===todayDow?' cur':''}">${DAY_NAMES[d]}</span>`).join('');
 
-  return `<div class="tr${s.done?' done':''}" id="row-${t._id}" data-id="${t._id}" onclick="handleTaskClick('${t._id}')">
-    <div class="chk" id="chk-${t._id}" style="${s.done&&byU?'background:'+byU.color:''}">${s.done?'✓':''}</div>
-    <div class="tc">
-      <div class="tn">${t.name}</div>
-      <div class="tm">
-        ${t.time?`<span class="ttime">${t.time}</span>`:''}
-        <span class="prio ${PRIO_CLS[t.priority]}">${PRIO_LBL[t.priority]}</span>
-        <div class="day-tags">${dayTagsHtml}</div>
+  // Who-did badges
+  const badgesHtml = chks.map(c => {
+    const u=users.find(x=>x._id===c.userId);
+    if (!u) return '';
+    const hhmm=c.doneAt?new Date(c.doneAt).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'';
+    return `<span class="who-badge" style="background:${u.color}">${u.name}<span class="badge-time">${hhmm}</span></span>`;
+  }).join('');
+
+  const myChkStyle = myChk ? `background:${users.find(u=>u._id===currentUser)?.color||'#43A047'}` : '';
+  const myChkCls = myChk ? 'my-chk checked' : 'my-chk';
+
+  return `<div class="tr${isFullyDone?' done':''}" id="row-${t._id}" data-id="${t._id}">
+    <div class="tr-top">
+      <div class="${myChkCls}" id="chk-${t._id}" style="${myChkStyle}" onclick="handleTaskClick('${t._id}')">${myChk?'✓':''}</div>
+      <div class="tr-content">
+        <div class="tn">${t.name}</div>
+        <div class="tm">
+          ${t.time?`<span class="ttime">${t.time}</span>`:''}
+          <span class="prio ${PRIO_CLS[t.priority]}">${PRIO_LBL[t.priority]}</span>
+          <div style="display:flex;gap:3px;flex-wrap:wrap">${dayTagsHtml}</div>
+        </div>
       </div>
     </div>
-    <div class="wdone${s.done?' vis':''}" id="wd-${t._id}" style="${byU?'background:'+byU.color+'22;color:'+byU.color:''}">${byU?'✓ '+byU.name:''}</div>
+    ${badgesHtml?`<div class="badges-row" id="badges-${t._id}">${badgesHtml}</div>`:`<div class="badges-row" id="badges-${t._id}"></div>`}
   </div>`;
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// PIN FLOW
-// ═══════════════════════════════════════════════════════════════════
+// ── PIN & TOGGLE ────────────────────────────────────────────────────
 function openPinModal(title, sub, onSuccess) {
-  pinCallback = onSuccess;
-  pinBuffer = '';
-  document.getElementById('pinTitle').textContent = title;
-  document.getElementById('pinSub').textContent = sub;
-  document.getElementById('pinErr').textContent = '';
+  pinCallback=onSuccess; pinBuffer='';
+  document.getElementById('pinTitle').textContent=title;
+  document.getElementById('pinSub').textContent=sub;
+  document.getElementById('pinErr').textContent='';
   renderPinDots();
   document.getElementById('pinModal').classList.add('open');
 }
-
 function renderPinDots() {
-  document.getElementById('pinDots').innerHTML = [0,1,2,3].map(i =>
-    `<div class="pd${i<pinBuffer.length?' filled':''}"></div>`).join('');
+  document.getElementById('pinDots').innerHTML=[0,1,2,3].map(i=>`<div class="pd${i<pinBuffer.length?' filled':''}"></div>`).join('');
 }
-
 function pinKey(k) {
-  if (k === 'del') { pinBuffer = pinBuffer.slice(0,-1); renderPinDots(); document.getElementById('pinErr').textContent=''; return; }
-  if (pinBuffer.length >= 4) return;
-  pinBuffer += k;
-  renderPinDots();
-  if (pinBuffer.length === 4) submitPin();
+  if(k==='del'){pinBuffer=pinBuffer.slice(0,-1);renderPinDots();document.getElementById('pinErr').textContent='';return;}
+  if(pinBuffer.length>=4) return;
+  pinBuffer+=k; renderPinDots();
+  if(pinBuffer.length===4) submitPin();
 }
-
 async function submitPin() {
-  const res = await api('/api/users/verify-pin', { method:'POST', body: JSON.stringify({ userId: currentUser, pin: pinBuffer }) });
-  if (res.ok) {
-    closeModal('pinModal');
-    if (pinCallback) pinCallback(pinBuffer);
-  } else {
-    document.getElementById('pinErr').textContent = res.error || 'PIN incorrect';
-    pinBuffer = '';
-    renderPinDots();
-  }
+  const res=await api('/api/users/verify-pin',{method:'POST',body:JSON.stringify({userId:currentUser,pin:pinBuffer})});
+  if(res.ok){closeModal('pinModal');if(pinCallback)pinCallback(pinBuffer);}
+  else{document.getElementById('pinErr').textContent=res.error||'PIN incorrect';pinBuffer='';renderPinDots();}
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// TOGGLE TASK
-// ═══════════════════════════════════════════════════════════════════
 function handleTaskClick(taskId) {
   if (!currentUser) {
     document.getElementById('whoBar').classList.add('shake');
     setTimeout(()=>document.getElementById('whoBar').classList.remove('shake'),500);
-    showToast('👆 Sélectionnez votre prénom !');
-    return;
+    showToast('👆 Sélectionnez votre prénom !'); return;
   }
-  const u = users.find(x=>x._id===currentUser);
-  const att = attendance[currentUser]||'present';
-  if (att === 'absent') { showToast('❌ Vous êtes marqué absent aujourd\'hui'); return; }
-
-  const s = checks[taskId]||{done:false};
-  if (s.done && s.userId !== currentUser) {
-    const byU = users.find(x=>x._id===s.userId);
-    if (!confirm(`Tâche faite par ${byU?.name||'un collègue'}.\nVoulez-vous la décocher ?`)) return;
-  }
-  openPinModal(`${u.name} — Confirmation`, 'Entrez votre code PIN pour valider', (pin) => toggleTask(taskId, pin));
+  const att=attendance[currentUser]||'present';
+  if(att==='absent'){showToast('❌ Vous êtes marqué absent aujourd\'hui');return;}
+  const u=users.find(x=>x._id===currentUser);
+  const myChk=myCheck(taskId);
+  const action=myChk?'Décocher':'Cocher';
+  openPinModal(`${u.name} — ${action}`,`Entrez votre PIN pour ${action.toLowerCase()} cette tâche`,(pin)=>toggleTask(taskId,pin));
 }
 
 async function toggleTask(taskId, pin) {
   try {
-    const s = checks[taskId]||{done:false};
-    const result = await api('/api/checks/toggle', { method:'POST', body: JSON.stringify({ taskId, userId: currentUser, pin }) });
-    if (result.ok === false) { showToast(result.error||'Erreur'); return; }
-    checks[taskId] = { ...checks[taskId], ...result, taskId };
-    const task = tasks.find(t=>t._id===taskId);
-    showToast(result.done ? `✅ ${users.find(u=>u._id===currentUser)?.name} — ${task?.name?.slice(0,30)}` : '↩ Décochée');
+    const result=await api('/api/checks/toggle',{method:'POST',body:JSON.stringify({taskId,userId:currentUser,pin})});
+    if(result.ok===false){showToast(result.error||'Erreur');return;}
+    // Update local checks
+    const idx=checks.findIndex(c=>c.taskId===taskId&&c.userId===currentUser);
+    if(result.done) {
+      const entry={taskId,userId:currentUser,date:today(),done:true,doneAt:Date.now()};
+      if(idx>=0) checks[idx]=entry; else checks.push(entry);
+      showToast(`✅ ${users.find(u=>u._id===currentUser)?.name} — tâche validée`);
+    } else {
+      if(idx>=0) checks.splice(idx,1);
+      showToast('↩ Tâche décochée');
+    }
     updateTaskRow(taskId); renderProgress();
-    if (document.getElementById('page-manager').classList.contains('active')) renderManager();
-  } catch(e) {}
+    if(document.getElementById('page-manager').classList.contains('active')) renderManager();
+  } catch(e){}
 }
 
 function updateTaskRow(taskId) {
-  const s = checks[taskId]||{done:false};
-  const byU = s.done ? users.find(u=>u._id===s.userId) : null;
-  const row = document.getElementById(`row-${taskId}`);
-  const chk = document.getElementById(`chk-${taskId}`);
-  const wd  = document.getElementById(`wd-${taskId}`);
-  if (!row) return;
-  row.className = s.done ? 'tr done' : 'tr';
-  chk.textContent = s.done ? '✓' : '';
-  chk.style.background = s.done && byU ? byU.color : '';
-  if (s.done && byU) { wd.textContent=`✓ ${byU.name}`; wd.className='wdone vis'; wd.style.background=byU.color+'22'; wd.style.color=byU.color; }
-  else { wd.className='wdone'; wd.textContent=''; }
+  const chks=taskChecks(taskId);
+  const myChk=myCheck(taskId);
+  const row=document.getElementById(`row-${taskId}`);
+  const chkEl=document.getElementById(`chk-${taskId}`);
+  const badgesEl=document.getElementById(`badges-${taskId}`);
+  if(!row) return;
+  row.classList.toggle('done', chks.length>0);
+  chkEl.textContent=myChk?'✓':'';
+  chkEl.className=myChk?'my-chk checked':'my-chk';
+  if(myChk){const u=users.find(x=>x._id===currentUser);chkEl.style.background=u?.color||'#43A047';}
+  else chkEl.style.background='';
+  // Update badges
+  badgesEl.innerHTML=chks.map(c=>{
+    const u=users.find(x=>x._id===c.userId); if(!u)return'';
+    const hhmm=c.doneAt?new Date(c.doneAt).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'';
+    return `<span class="who-badge" style="background:${u.color}">${u.name}<span class="badge-time">${hhmm}</span></span>`;
+  }).join('');
   applyFilter(currentFilter);
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// PROGRESS
-// ═══════════════════════════════════════════════════════════════════
+// ── PROGRESS ───────────────────────────────────────────────────────
 function renderProgress() {
-  const vt = visibleTasks();
-  const total = vt.length;
-  let html = users.map(u => {
-    const att = attendance[u._id]||'present';
-    if (att !== 'present') {
-      return `<div class="pi">
-        <div class="pi-lbl"><span style="color:${u.color}">● ${u.name}</span><span style="color:var(--red)">Absent</span></div>
-        <div class="pi-track"><div class="pi-fill" style="background:#EEE;width:100%"></div></div>
-      </div>`;
-    }
-    const done = vt.filter(t=>checks[t._id]?.done&&checks[t._id]?.userId===u._id).length;
-    const pct  = total ? Math.round(done/total*100) : 0;
-    return `<div class="pi">
-      <div class="pi-lbl"><span style="color:${u.color}">● ${u.name}</span><span>${pct}%</span></div>
-      <div class="pi-track"><div class="pi-fill" style="background:${u.color};width:${pct}%"></div></div>
-    </div>`;
+  const vt=visibleTasks(); const total=vt.length;
+  let html=users.map(u=>{
+    const att=attendance[u._id]||'present';
+    if(att!=='present') return `<div class="pi"><div class="pi-lbl"><span style="color:${u.color}">● ${u.name}</span><span style="color:var(--red)">${att==='absent'?'Absent':'Congé'}</span></div><div class="pi-track"><div class="pi-fill" style="background:#EEE;width:100%"></div></div></div>`;
+    const done=vt.filter(t=>checks.some(c=>c.taskId===t._id&&c.userId===u._id&&c.done)).length;
+    const pct=total?Math.round(done/total*100):0;
+    return `<div class="pi"><div class="pi-lbl"><span style="color:${u.color}">● ${u.name}</span><span>${pct}%</span></div><div class="pi-track"><div class="pi-fill" style="background:${u.color};width:${pct}%"></div></div></div>`;
   }).join('');
-  const td = vt.filter(t=>checks[t._id]?.done).length;
-  const g  = total ? Math.round(td/total*100) : 0;
-  html += `<div class="pi">
-    <div class="pi-lbl"><span>Global</span><span>${g}%</span></div>
-    <div class="pi-track"><div class="pi-fill" style="background:var(--teal);width:${g}%"></div></div>
-  </div>`;
-  document.getElementById('progWrap').innerHTML = html;
+  const totalDone=new Set(checks.filter(c=>c.done).map(c=>c.taskId)).size;
+  const g=total?Math.round(totalDone/total*100):0;
+  html+=`<div class="pi"><div class="pi-lbl"><span>Global</span><span>${g}%</span></div><div class="pi-track"><div class="pi-fill" style="background:var(--teal);width:${g}%"></div></div></div>`;
+  document.getElementById('progWrap').innerHTML=html;
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// MANAGER
-// ═══════════════════════════════════════════════════════════════════
+// ── MANAGER ─────────────────────────────────────────────────────────
 function renderManager() {
-  const total = tasks.length;
-  document.getElementById('gsRows').innerHTML = users.map(u => {
-    const att = attendance[u._id]||'present';
-    const done = tasks.filter(t=>checks[t._id]?.done&&checks[t._id]?.userId===u._id).length;
-    const pct  = att==='present'&&total ? Math.round(done/total*100) : null;
-    const attLbl = att==='absent'?'<span style="font-size:10px;color:var(--red);font-weight:700;margin-left:6px">ABSENT</span>':att==='off'?'<span style="font-size:10px;color:#6A1B9A;font-weight:700;margin-left:6px">CONGÉ</span>':'';
+  const total=tasks.length;
+  document.getElementById('gsRows').innerHTML=users.map(u=>{
+    const att=attendance[u._id]||'present';
+    const done=tasks.filter(t=>checks.some(c=>c.taskId===t._id&&c.userId===u._id&&c.done)).length;
+    const pct=att==='present'&&total?Math.round(done/total*100):null;
+    const attLbl=att!=='present'?`<span style="font-size:10px;color:${att==='absent'?'var(--red)':'#6A1B9A'};font-weight:700;margin-left:6px">${att==='absent'?'ABSENT':'CONGÉ'}</span>`:'';
     return `<div class="gs-row">
       <span class="gs-name" style="color:${u.color}">${u.name}${attLbl}</span>
       <div class="gs-track"><div class="gs-fill" style="background:${u.color};width:${pct||0}%"></div></div>
@@ -811,340 +686,237 @@ function renderManager() {
     </div>`;
   }).join('');
 
-  document.getElementById('mgrCards').innerHTML = users.map(u => {
-    const att = attendance[u._id]||'present';
-    const myDone = tasks.filter(t=>checks[t._id]?.done&&checks[t._id]?.userId===u._id).length;
-    const pct    = att==='present'&&total ? Math.round(myDone/total*100) : null;
-    const initials = u.name.slice(0,2).toUpperCase();
-    const absBar = att!=='present' ? `<div style="padding:8px 16px;background:#FFF3E0;font-size:12px;font-weight:700;color:${att==='absent'?'var(--red)':'#6A1B9A'}">${att==='absent'?'❌ Absent aujourd\'hui':'🏖 En congé aujourd\'hui'}</div>` : '';
-    const rows = tasks.map(t => {
-      const s = checks[t._id]||{};
-      const byU = s.done ? users.find(x=>x._id===s.userId) : null;
-      const cls = att!=='present' ? 'skip' : s.done ? 'done' : '';
-      const dotCls = att!=='present' ? 'skip' : s.done ? 'done' : 'todo';
+  document.getElementById('mgrCards').innerHTML=users.map(u=>{
+    const att=attendance[u._id]||'present';
+    const myDone=tasks.filter(t=>checks.some(c=>c.taskId===t._id&&c.userId===u._id&&c.done)).length;
+    const pct=att==='present'&&total?Math.round(myDone/total*100):null;
+    const absBar=att!=='present'?`<div style="padding:8px 16px;background:#FFF3E0;font-size:12px;font-weight:700;color:${att==='absent'?'var(--red)':'#6A1B9A'}">${att==='absent'?'❌ Absent aujourd\'hui':'🏖 En congé'}</div>`:'';
+    const rows=tasks.map(t=>{
+      const tChks=taskChecks(t._id);
+      const isDone=tChks.length>0;
+      const cls=att!=='present'?'skip':isDone?'done':'';
+      const dotCls=att!=='present'?'skip':isDone?'done':'todo';
+      const badges=tChks.map(c=>{const u2=users.find(x=>x._id===c.userId);return u2?`<span class="mbt" style="background:${u2.color}">${u2.name}</span>`:''}).join('');
       return `<div class="mr">
         <div class="mdot ${dotCls}"></div>
-        <span class="mtxt ${cls}">${t.name}</span>
-        ${s.done&&byU?`<span class="mwt" style="background:${byU.color}">${byU.name}</span>`:`<span style="font-size:10px;color:var(--muted)">${t.time||''}</span>`}
+        <div style="flex:1">
+          <div class="mtxt ${cls}">${t.name}</div>
+          ${badges?`<div class="mbadges">${badges}</div>`:''}
+        </div>
       </div>`;
     }).join('');
     return `<div class="mc">
       <div class="mc-h" style="background:${u.color}">
-        <div class="mc-av">${initials}</div>
+        <div class="mc-av">${u.name.slice(0,2).toUpperCase()}</div>
         <div><div class="mc-n">${u.name}</div><div class="mc-r">${u.role||''}</div></div>
         <div class="mc-pct">${pct!==null?pct+'%':'—'}</div>
       </div>
       ${absBar}
       <div class="mc-bar-w">
         <div class="mc-bar"><div class="mc-fill" style="background:${u.color};width:${pct||0}%"></div></div>
-        <div class="mc-sub">${att==='present'?myDone+' tâche(s) cochée(s) par '+u.name:'Non comptabilisé ('+att+')'}</div>
+        <div class="mc-sub">${att==='present'?myDone+' tâche(s) cochée(s)':'Non comptabilisé'}</div>
       </div>
       <div class="mc-tasks">${rows}</div>
     </div>`;
   }).join('');
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// RESET
-// ═══════════════════════════════════════════════════════════════════
+// ── RESET ──────────────────────────────────────────────────────────
 function askReset() {
-  if (!currentUser) { showToast('👆 Sélectionnez votre prénom d\'abord'); return; }
-  const u = users.find(x=>x._id===currentUser);
-  openPinModal(`${u.name} — Nouveau jour`, 'Entrez votre PIN pour confirmer la remise à zéro', async (pin) => {
-    if (!confirm('Remettre toutes les tâches à zéro ?\n(L\'historique est conservé)')) return;
-    await api('/api/checks/reset', { method:'POST', body: JSON.stringify({ userId: currentUser, pin }) });
-    await loadAll();
-    showToast('🌅 Nouvelle journée initialisée !');
+  if(!currentUser){showToast('👆 Sélectionnez votre prénom d\'abord');return;}
+  const u=users.find(x=>x._id===currentUser);
+  openPinModal(`${u.name} — Nouveau jour`,'Entrez votre PIN pour confirmer',async(pin)=>{
+    if(!confirm('Remettre toutes les tâches à zéro ?\n(L\'historique est conservé)')) return;
+    await api('/api/checks/reset',{method:'POST',body:JSON.stringify({userId:currentUser,pin})});
+    await loadAll(); showToast('🌅 Nouvelle journée !');
   });
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// HISTORY
-// ═══════════════════════════════════════════════════════════════════
+// ── HISTORY ─────────────────────────────────────────────────────────
 async function populateHistFilters() {
-  const dates = await api('/api/history/dates');
-  const sel = document.getElementById('histDate');
-  sel.innerHTML = '<option value="">— Choisir une date —</option>' +
-    dates.map(d=>`<option value="${d}"${d===today()?' selected':''}>${fmtDate(d)}</option>`).join('');
-  const uSel = document.getElementById('histUser');
-  uSel.innerHTML = '<option value="">Tous les salariés</option>' +
-    users.map(u=>`<option value="${u._id}">${u.name}</option>`).join('');
-  if (dates.includes(today())) loadHistory();
+  const dates=await api('/api/history/dates');
+  const sel=document.getElementById('histDate');
+  sel.innerHTML='<option value="">— Choisir une date —</option>'+dates.map(d=>`<option value="${d}"${d===today()?' selected':''}>${fmtDate(d)}</option>`).join('');
+  document.getElementById('histUser').innerHTML='<option value="">Tous les salariés</option>'+users.map(u=>`<option value="${u._id}">${u.name}</option>`).join('');
+  if(dates.includes(today())) loadHistory();
 }
-
 async function loadHistory() {
-  const date   = document.getElementById('histDate').value;
-  const userId = document.getElementById('histUser').value;
-  if (!date) return;
-  const params = new URLSearchParams({ date });
-  if (userId) params.append('userId', userId);
-  const entries = await api('/api/history?'+params);
-  const tMap = Object.fromEntries(tasks.map(t=>[t._id,t]));
-  const uMap = Object.fromEntries(users.map(u=>[u._id,u]));
-  const filtered = entries.filter(e=>e.action!=='reset');
-  document.getElementById('histCount').textContent = `${filtered.length} action(s)`;
-  if (!filtered.length) { document.getElementById('histBody').innerHTML='<div class="hempty">Aucune action pour cette sélection.</div>'; return; }
-  document.getElementById('histBody').innerHTML = filtered.map(e => {
-    const u = uMap[e.userId], t = tMap[e.taskId];
-    if (!u) return '';
-    const hhmm = new Date(e.createdAt).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
-    const act = e.action==='check'?'✅ Coché':'↩ Décoché';
+  const date=document.getElementById('histDate').value, userId=document.getElementById('histUser').value;
+  if(!date) return;
+  const params=new URLSearchParams({date}); if(userId) params.append('userId',userId);
+  const entries=await api('/api/history?'+params);
+  const tMap=Object.fromEntries(tasks.map(t=>[t._id,t]));
+  const uMap=Object.fromEntries(users.map(u=>[u._id,u]));
+  const filtered=entries.filter(e=>e.action!=='reset');
+  document.getElementById('histCount').textContent=`${filtered.length} action(s)`;
+  if(!filtered.length){document.getElementById('histBody').innerHTML='<div class="hempty">Aucune action.</div>';return;}
+  document.getElementById('histBody').innerHTML=filtered.map(e=>{
+    const u=uMap[e.userId],t=tMap[e.taskId]; if(!u)return'';
+    const hhmm=new Date(e.createdAt).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
     return `<div class="hrow">
       <span class="htm">${hhmm}</span>
       <span class="hwho" style="background:${u.color}">${u.name}</span>
       <span class="hdb">${fmtDate(e.date)}</span>
       <span class="htask">${t?.name||'—'}</span>
-      <span class="hact ${e.action}">${act}</span>
+      <span class="hact ${e.action}">${e.action==='check'?'✅ Coché':'↩ Décoché'}</span>
     </div>`;
   }).join('');
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// RAPPORT DE RENTABILITÉ
-// ═══════════════════════════════════════════════════════════════════
+// ── RAPPORT ─────────────────────────────────────────────────────────
 async function loadReport() {
-  const from = document.getElementById('rptFrom').value;
-  const to   = document.getElementById('rptTo').value;
-  if (!from || !to) { showToast('⚠️ Sélectionnez une période'); return; }
-  const data = await api(`/api/report?from=${from}&to=${to}`);
-  if (!data.report) { document.getElementById('rptBody').innerHTML='<div class="hempty">Erreur lors du chargement.</div>'; return; }
-
-  const prodColor = (p) => p===null?'#999':p>=80?'#2E7D32':p>=50?'#F57F17':'#C62828';
-
-  document.getElementById('rptBody').innerHTML = `
-    <div style="font-size:13px;color:var(--muted);margin-bottom:16px">
-      Période : <strong>${fmtDate(from)}</strong> → <strong>${fmtDate(to)}</strong> (${data.totalDays} jour${data.totalDays>1?'s':''})
-    </div>
-    <div class="rpt-cards">
-      ${data.report.map(r => {
-        const u   = r.user;
-        const pct = r.productivity;
-        const col = prodColor(pct);
-        const dailyRows = r.byDay.filter(d => {
-          const dow = new Date(d.date+'T12:00:00').getDay();
-          return dow !== 0; // skip sundays
-        }).map(d => {
-          const dp = d.pct;
-          const fillCol = dp===null?'#EEE':dp>=80?'#4CAF50':dp>=50?'#FF9800':'#F44336';
-          const statusLbl = d.status==='present'?'Présent':d.status==='absent'?'Absent':'Congé';
-          return `<div class="rc-day-row">
-            <span class="rc-day-date">${fmtDateShort(d.date)}</span>
-            <span class="rc-day-status ${d.status}">${statusLbl}</span>
-            <div class="rc-day-bar-w"><div class="rc-day-fill" style="background:${fillCol};width:${dp||0}%"></div></div>
-            <span class="rc-day-pct" style="color:${fillCol}">${dp!==null?dp+'%':'—'}</span>
-          </div>`;
-        }).join('');
-
-        return `<div class="rc">
-          <div class="rc-h" style="background:${u.color}">
-            <div class="rc-av" style="background:rgba(255,255,255,.2)">${u.name.slice(0,2).toUpperCase()}</div>
-            <div class="rc-info"><div class="rc-name">${u.name}</div><div class="rc-role">${u.role||''}</div></div>
-            <div>
-              <div class="rc-big${pct===null?' na':''}" style="color:#fff">${pct!==null?pct+'%':'N/A'}</div>
-              <div style="font-size:10px;color:rgba(255,255,255,.65);text-align:right">rentabilité</div>
-            </div>
-          </div>
-          <div class="rc-body">
-            <div class="rc-stat-grid">
-              <div class="rc-stat">
-                <div class="rc-stat-val" style="color:#2E7D32">${r.presentDays}</div>
-                <div class="rc-stat-lbl">Présent</div>
-              </div>
-              <div class="rc-stat">
-                <div class="rc-stat-val" style="color:var(--red)">${r.absentDays}</div>
-                <div class="rc-stat-lbl">Absent</div>
-              </div>
-              <div class="rc-stat">
-                <div class="rc-stat-val" style="color:#6A1B9A">${r.offDays}</div>
-                <div class="rc-stat-lbl">Congé</div>
-              </div>
-            </div>
-            <div class="rc-prog-lbl">
-              <span>Tâches accomplies</span>
-              <span style="color:${col};font-weight:700">${r.doneTotal} / ${r.expectedTotal}</span>
-            </div>
-            <div class="rc-track"><div class="rc-fill" style="background:${col};width:${pct||0}%"></div></div>
-            <div class="rc-daily">
-              <div class="rc-daily-hdr">Détail jour par jour</div>
-              ${dailyRows || '<div style="color:var(--muted);font-size:12px">Aucune donnée</div>'}
-            </div>
-          </div>
+  const from=document.getElementById('rptFrom').value, to=document.getElementById('rptTo').value;
+  if(!from||!to){showToast('⚠️ Sélectionnez une période');return;}
+  const data=await api(`/api/report?from=${from}&to=${to}`);
+  if(!data.report){document.getElementById('rptBody').innerHTML='<div class="hempty">Erreur.</div>';return;}
+  const pc=p=>p===null?'#999':p>=80?'#2E7D32':p>=50?'#F57F17':'#C62828';
+  document.getElementById('rptBody').innerHTML=`
+    <div style="font-size:13px;color:var(--muted);margin-bottom:16px">Période : <strong>${fmtDate(from)}</strong> → <strong>${fmtDate(to)}</strong> (${data.totalDays} jour${data.totalDays>1?'s':''})</div>
+    <div class="rpt-cards">${data.report.map(r=>{
+      const u=r.user, pct=r.productivity, col=pc(pct);
+      const dailyRows=r.byDay.filter(d=>new Date(d.date+'T12:00:00').getDay()!==0).map(d=>{
+        const fc=d.pct===null?'#EEE':d.pct>=80?'#4CAF50':d.pct>=50?'#FF9800':'#F44336';
+        const sl=d.status==='present'?'Présent':d.status==='absent'?'Absent':'Congé';
+        return `<div class="rc-day-row">
+          <span class="rc-day-date">${fmtDateShort(d.date)}</span>
+          <span class="rc-day-status ${d.status}">${sl}</span>
+          <div class="rc-day-bar-w"><div class="rc-day-fill" style="background:${fc};width:${d.pct||0}%"></div></div>
+          <span class="rc-day-pct" style="color:${fc}">${d.pct!==null?d.pct+'%':'—'}</span>
         </div>`;
-      }).join('')}
-    </div>`;
+      }).join('');
+      return `<div class="rc">
+        <div class="rc-h" style="background:${u.color}">
+          <div class="rc-av" style="background:rgba(255,255,255,.2)">${u.name.slice(0,2).toUpperCase()}</div>
+          <div class="rc-info"><div class="rc-name">${u.name}</div><div class="rc-role">${u.role||''}</div></div>
+          <div><div class="rc-big${pct===null?' na':''}">${pct!==null?pct+'%':'N/A'}</div><div style="font-size:10px;color:rgba(255,255,255,.65);text-align:right">rentabilité</div></div>
+        </div>
+        <div class="rc-body">
+          <div class="rc-stat-grid">
+            <div class="rc-stat"><div class="rc-stat-val" style="color:#2E7D32">${r.presentDays}</div><div class="rc-stat-lbl">Présent</div></div>
+            <div class="rc-stat"><div class="rc-stat-val" style="color:var(--red)">${r.absentDays}</div><div class="rc-stat-lbl">Absent</div></div>
+            <div class="rc-stat"><div class="rc-stat-val" style="color:#6A1B9A">${r.offDays}</div><div class="rc-stat-lbl">Congé</div></div>
+          </div>
+          <div class="rc-prog-lbl"><span>Tâches accomplies</span><span style="color:${col};font-weight:700">${r.doneTotal} / ${r.expectedTotal}</span></div>
+          <div class="rc-track"><div class="rc-fill" style="background:${col};width:${pct||0}%"></div></div>
+          <div class="rc-daily-hdr">Détail jour par jour</div>
+          ${dailyRows||'<div style="color:var(--muted);font-size:12px">Aucune donnée</div>'}
+        </div>
+      </div>`;
+    }).join('')}</div>`;
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// ADMIN — USERS
-// ═══════════════════════════════════════════════════════════════════
+// ── ADMIN ────────────────────────────────────────────────────────────
 function renderAdminUsers() {
-  const el = document.getElementById('adminUsers');
-  if (!users.length) { el.innerHTML='<div class="loading">Aucun salarié.</div>'; return; }
-  el.innerHTML = users.map(u => `
-    <div class="ar">
-      <div class="cdot" style="background:${u.color}"></div>
-      <div style="flex:1">
-        <div class="an">${u.name}${u.isAdmin?' <span style="font-size:10px;background:#E3F2FD;color:#0077B6;padding:1px 6px;border-radius:99px;font-weight:700">Admin</span>':''}</div>
-        <div class="asub">${u.role||'—'} &nbsp;|&nbsp; <span class="pin-set">🔐 PIN défini</span></div>
-      </div>
-      <div class="aact">
-        <button class="ibtn" onclick="openUserModal('${u._id}')" title="Modifier">✏️</button>
-        <button class="ibtn del" onclick="deleteUser('${u._id}','${u.name}')" title="Supprimer">🗑️</button>
-      </div>
-    </div>`).join('');
+  const el=document.getElementById('adminUsers');
+  if(!users.length){el.innerHTML='<div class="loading">Aucun salarié.</div>';return;}
+  el.innerHTML=users.map(u=>`<div class="ar">
+    <div class="cdot" style="background:${u.color}"></div>
+    <div style="flex:1"><div class="an">${u.name}${u.isAdmin?' <span style="font-size:10px;background:#E3F2FD;color:#0077B6;padding:1px 6px;border-radius:99px;font-weight:700">Admin</span>':''}</div><div class="asub">${u.role||'—'} | 🔐 PIN défini</div></div>
+    <div class="aact"><button class="ibtn" onclick="openUserModal('${u._id}')">✏️</button><button class="ibtn del" onclick="deleteUser('${u._id}','${u.name}')">🗑️</button></div>
+  </div>`).join('');
 }
-
 function openUserModal(id) {
-  const u = id ? users.find(x=>x._id===id) : null;
-  document.getElementById('uModalTitle').textContent = u ? 'Modifier le salarié' : 'Ajouter un salarié';
-  document.getElementById('uId').value    = u?._id||'';
-  document.getElementById('uName').value  = u?.name||'';
-  document.getElementById('uRole').value  = u?.role||'';
-  document.getElementById('uPin').value   = '';
-  document.getElementById('uColor').value = u?.color||'#607D8B';
-  document.querySelectorAll('.co').forEach(el => el.classList.toggle('sel', el.dataset.color===(u?.color||'#607D8B')));
+  const u=id?users.find(x=>x._id===id):null;
+  document.getElementById('uModalTitle').textContent=u?'Modifier le salarié':'Ajouter un salarié';
+  document.getElementById('uId').value=u?._id||''; document.getElementById('uName').value=u?.name||'';
+  document.getElementById('uRole').value=u?.role||''; document.getElementById('uPin').value='';
+  document.getElementById('uColor').value=u?.color||'#607D8B';
+  document.querySelectorAll('.co').forEach(el=>el.classList.toggle('sel',el.dataset.color===(u?.color||'#607D8B')));
   document.getElementById('userModal').classList.add('open');
 }
-
 async function saveUser() {
-  const id    = document.getElementById('uId').value;
-  const name  = document.getElementById('uName').value.trim();
-  const role  = document.getElementById('uRole').value.trim();
-  const pin   = document.getElementById('uPin').value.trim();
-  const color = document.getElementById('uColor').value;
-  if (!name) { showToast('⚠️ Le prénom est obligatoire'); return; }
-  if (pin && !/^\d{4}$/.test(pin)) { showToast('⚠️ Le PIN doit être 4 chiffres'); return; }
-  const body = { name, role, color };
-  if (pin) body.pin = pin;
-  if (id) { await api(`/api/users/${id}`, { method:'PUT', body: JSON.stringify(body) }); showToast(`✅ ${name} modifié`); }
-  else    { await api('/api/users', { method:'POST', body: JSON.stringify(body) }); showToast(`✅ ${name} ajouté`); }
+  const id=document.getElementById('uId').value, name=document.getElementById('uName').value.trim();
+  const role=document.getElementById('uRole').value.trim(), pin=document.getElementById('uPin').value.trim();
+  const color=document.getElementById('uColor').value;
+  if(!name){showToast('⚠️ Le prénom est obligatoire');return;}
+  if(pin&&!/^\d{4}$/.test(pin)){showToast('⚠️ Le PIN doit être 4 chiffres');return;}
+  const body={name,role,color}; if(pin) body.pin=pin;
+  if(id){await api(`/api/users/${id}`,{method:'PUT',body:JSON.stringify(body)});showToast(`✅ ${name} modifié`);}
+  else  {await api('/api/users',{method:'POST',body:JSON.stringify(body)});showToast(`✅ ${name} ajouté`);}
   closeModal('userModal'); await loadAll();
 }
-
 async function deleteUser(id, name) {
-  if (!confirm(`Supprimer ${name} ?`)) return;
-  await api(`/api/users/${id}`, { method:'DELETE' });
-  showToast(`🗑️ ${name} supprimé`); await loadAll();
+  if(!confirm(`Supprimer ${name} ?`)) return;
+  await api(`/api/users/${id}`,{method:'DELETE'}); showToast(`🗑️ ${name} supprimé`); await loadAll();
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// ADMIN — TASKS
-// ═══════════════════════════════════════════════════════════════════
 function renderAdminTasks() {
-  const el = document.getElementById('adminTasks');
-  if (!tasks.length) { el.innerHTML='<div class="loading">Aucune tâche.</div>'; return; }
-  const secs = {};
-  tasks.forEach(t => { if (!secs[t.section]) secs[t.section]=[]; secs[t.section].push(t); });
-  el.innerHTML = Object.entries(secs).map(([sec,ts]) => `
+  const el=document.getElementById('adminTasks');
+  if(!tasks.length){el.innerHTML='<div class="loading">Aucune tâche.</div>';return;}
+  const secs={};
+  tasks.forEach(t=>{if(!secs[t.section])secs[t.section]=[];secs[t.section].push(t);});
+  el.innerHTML=Object.entries(secs).map(([sec,ts])=>`
     <div style="margin-bottom:16px">
       <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--muted);margin-bottom:8px">${SEC_ICONS[sec]||'📌'} ${sec}</div>
-      ${ts.map(t=>`
-        <div class="ar">
-          <span class="prio ${PRIO_CLS[t.priority]}">${PRIO_LBL[t.priority]}</span>
-          <div style="flex:1">
-            <div class="an" style="font-size:13px">${t.name}</div>
-            <div class="asub">${t.time||'—'} &nbsp;|&nbsp; ${(t.days||[]).map(d=>`<span style="font-size:10px;font-weight:700;color:#6A1B9A">${DAY_NAMES[d]}</span>`).join(' ')}</div>
-          </div>
-          <div class="aact">
-            <button class="ibtn" onclick="openTaskModal('${t._id}')" title="Modifier">✏️</button>
-            <button class="ibtn del" onclick="deleteTask('${t._id}','${t.name.slice(0,20)}')" title="Supprimer">🗑️</button>
-          </div>
-        </div>`).join('')}
+      ${ts.map(t=>`<div class="ar">
+        <span class="prio ${PRIO_CLS[t.priority]}">${PRIO_LBL[t.priority]}</span>
+        <div style="flex:1"><div class="an" style="font-size:13px">${t.name}</div><div class="asub">${t.time||'—'} | ${(t.days||[]).map(d=>`<span style="font-size:10px;font-weight:700;color:#6A1B9A">${DAY_NAMES[d]}</span>`).join(' ')}</div></div>
+        <div class="aact"><button class="ibtn" onclick="openTaskModal('${t._id}')">✏️</button><button class="ibtn del" onclick="deleteTask('${t._id}','${t.name.slice(0,20)}')">🗑️</button></div>
+      </div>`).join('')}
     </div>`).join('');
 }
-
 function openTaskModal(id) {
-  const t = id ? tasks.find(x=>x._id===id) : null;
-  document.getElementById('tModalTitle').textContent = t ? 'Modifier la tâche' : 'Ajouter une tâche';
-  document.getElementById('tId').value       = t?._id||'';
-  document.getElementById('tName').value     = t?.name||'';
-  document.getElementById('tTime').value     = t?.time||'';
-  document.getElementById('tPriority').value = t?.priority||2;
-  if (t) {
-    const sel = document.getElementById('tSection');
-    const opt = [...sel.options].find(o=>o.value.startsWith(t.section+'|'));
-    if (opt) sel.value = opt.value;
-  }
-  const days = t?.days||[1,2,3,4,5,6];
-  document.querySelectorAll('.dsb').forEach(b => b.classList.toggle('on', days.includes(parseInt(b.dataset.day))));
+  const t=id?tasks.find(x=>x._id===id):null;
+  document.getElementById('tModalTitle').textContent=t?'Modifier la tâche':'Ajouter une tâche';
+  document.getElementById('tId').value=t?._id||''; document.getElementById('tName').value=t?.name||'';
+  document.getElementById('tTime').value=t?.time||''; document.getElementById('tPriority').value=t?.priority||2;
+  if(t){const sel=document.getElementById('tSection');const opt=[...sel.options].find(o=>o.value.startsWith(t.section+'|'));if(opt)sel.value=opt.value;}
+  const days=t?.days||[1,2,3,4,5,6];
+  document.querySelectorAll('.dsb').forEach(b=>b.classList.toggle('on',days.includes(parseInt(b.dataset.day))));
   document.getElementById('taskModal').classList.add('open');
 }
-
 async function saveTask() {
-  const id   = document.getElementById('tId').value;
-  const name = document.getElementById('tName').value.trim();
-  const [section, sO] = document.getElementById('tSection').value.split('|');
-  const time     = document.getElementById('tTime').value.trim();
-  const priority = parseInt(document.getElementById('tPriority').value);
-  const days = [...document.querySelectorAll('.dsb.on')].map(b=>parseInt(b.dataset.day));
-  if (!name) { showToast('⚠️ Le nom est obligatoire'); return; }
-  const body = { name, section, sectionOrder: parseInt(sO), time, priority, days };
-  if (id) { await api(`/api/tasks/${id}`, { method:'PUT', body: JSON.stringify(body) }); showToast('✅ Tâche modifiée'); }
-  else    { await api('/api/tasks',        { method:'POST', body: JSON.stringify(body) }); showToast('✅ Tâche ajoutée'); }
+  const id=document.getElementById('tId').value, name=document.getElementById('tName').value.trim();
+  const [section,sO]=document.getElementById('tSection').value.split('|');
+  const time=document.getElementById('tTime').value.trim(), priority=parseInt(document.getElementById('tPriority').value);
+  const days=[...document.querySelectorAll('.dsb.on')].map(b=>parseInt(b.dataset.day));
+  if(!name){showToast('⚠️ Le nom est obligatoire');return;}
+  const body={name,section,sectionOrder:parseInt(sO),time,priority,days};
+  if(id){await api(`/api/tasks/${id}`,{method:'PUT',body:JSON.stringify(body)});showToast('✅ Tâche modifiée');}
+  else  {await api('/api/tasks',{method:'POST',body:JSON.stringify(body)});showToast('✅ Tâche ajoutée');}
   closeModal('taskModal'); await loadAll();
 }
-
 async function deleteTask(id, name) {
-  if (!confirm(`Supprimer la tâche "${name}…" ?`)) return;
-  await api(`/api/tasks/${id}`, { method:'DELETE' });
-  showToast('🗑️ Tâche supprimée'); await loadAll();
+  if(!confirm(`Supprimer "${name}…" ?`)) return;
+  await api(`/api/tasks/${id}`,{method:'DELETE'}); showToast('🗑️ Tâche supprimée'); await loadAll();
 }
 
-// ═══════════════════════════════════════════════════════════════════
-// UTILS
-// ═══════════════════════════════════════════════════════════════════
+// ── UTILS ────────────────────────────────────────────────────────────
 function buildColorGrid() {
-  document.getElementById('colorGrid').innerHTML = COLORS.map(c =>
-    `<div class="co" data-color="${c}" style="background:${c}" onclick="selectColor('${c}',this)"></div>`).join('');
+  document.getElementById('colorGrid').innerHTML=COLORS.map(c=>`<div class="co" data-color="${c}" style="background:${c}" onclick="selectColor('${c}',this)"></div>`).join('');
 }
-function selectColor(c, el) {
-  document.getElementById('uColor').value = c;
-  document.querySelectorAll('.co').forEach(x=>x.classList.remove('sel')); el.classList.add('sel');
-}
+function selectColor(c,el){document.getElementById('uColor').value=c;document.querySelectorAll('.co').forEach(x=>x.classList.remove('sel'));el.classList.add('sel');}
 function buildDaysSelector() {
-  document.getElementById('daysSel').innerHTML = [1,2,3,4,5,6,0].map(d =>
-    `<button class="dsb on" data-day="${d}" onclick="this.classList.toggle('on')">${DAY_NAMES[d]}</button>`).join('');
+  document.getElementById('daysSel').innerHTML=[1,2,3,4,5,6,0].map(d=>`<button class="dsb on" data-day="${d}" onclick="this.classList.toggle('on')">${DAY_NAMES[d]}</button>`).join('');
 }
-function toggleSec(id) {
-  document.getElementById('sb-'+id).classList.toggle('col');
-  document.getElementById('st-'+id).classList.toggle('open');
-}
+function toggleSec(id){document.getElementById('sb-'+id).classList.toggle('col');document.getElementById('st-'+id).classList.toggle('open');}
 function applyFilter(f) {
-  currentFilter = f;
-  document.querySelectorAll('.tr').forEach(row => {
-    const id = row.dataset.id;
-    if (f==='all')  { row.style.display=''; return; }
-    if (f==='todo') { row.style.display = checks[id]?.done?'none':''; return; }
-    if (f==='done') { row.style.display = checks[id]?.done?'':'none'; return; }
+  currentFilter=f;
+  document.querySelectorAll('.tr').forEach(row=>{
+    const id=row.dataset.id;
+    if(f==='all'){row.style.display='';return;}
+    const chks=taskChecks(id);
+    if(f==='todo'){row.style.display=chks.length?'none':'';return;}
+    if(f==='done'){row.style.display=chks.length?'':'none';return;}
   });
 }
-function setFilter(f, btn) {
-  document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); applyFilter(f);
-}
-function switchTab(tab, el) {
+function setFilter(f,btn){document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');applyFilter(f);}
+function switchTab(tab,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   el.classList.add('active'); document.getElementById('page-'+tab).classList.add('active');
-  if (tab==='manager') renderManager();
-  if (tab==='history') { populateHistFilters(); loadHistory(); }
-  if (tab==='admin')   { renderAdminUsers(); renderAdminTasks(); }
+  if(tab==='manager') renderManager();
+  if(tab==='history'){populateHistFilters();loadHistory();}
+  if(tab==='admin'){renderAdminUsers();renderAdminTasks();}
 }
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open')}));
-function setSyncStatus(s) {
-  const d=document.getElementById('sdot'), l=document.getElementById('slbl');
-  d.className='sdot'+(s==='e'?' e':s==='l'?' l':'');
-  l.textContent=s==='ok'?'Synchronisé':s==='l'?'Chargement…':'Hors ligne';
-}
-function fmtDate(d) { if(!d)return''; return new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long',year:'numeric'}); }
-function fmtDateShort(d) { if(!d)return''; return new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'}); }
+function closeModal(id){document.getElementById(id).classList.remove('open');}
+document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
+function setSyncStatus(s){const d=document.getElementById('sdot'),l=document.getElementById('slbl');d.className='sdot'+(s==='e'?' e':s==='l'?' l':'');l.textContent=s==='ok'?'Synchronisé':s==='l'?'Chargement…':'Hors ligne';}
+function fmtDate(d){if(!d)return'';return new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'long',year:'numeric'});}
+function fmtDateShort(d){if(!d)return'';return new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});}
 let _t;
-function showToast(msg) { const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(_t);_t=setTimeout(()=>el.classList.remove('show'),2800); }
+function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(_t);_t=setTimeout(()=>el.classList.remove('show'),2800);}
 
-// ── INIT ───────────────────────────────────────────────────────────
-if (currentUser) {
-  // Restore who button after render (done in renderWhoBar)
-}
 init();
 </script>
 </body>
