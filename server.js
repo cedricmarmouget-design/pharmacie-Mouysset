@@ -389,4 +389,19 @@ async function start() {
   }
   app.listen(PORT, () => console.log(`🚀 http://localhost:${PORT}`));
 }
+async function start() {
+  console.log('🔄 Connexion à la base de données...');
+  for (let i = 0; i < 10; i++) {
+    try {
+      await initDB();
+      await seed();
+      console.log('✅ Base de données connectée !');
+      break;
+    } catch(e) {
+      console.log(`⏳ Tentative ${i+1}/10 - Attente 5s... (${e.message})`);
+      await new Promise(r => setTimeout(r, 5000));
+    }
+  }
+  app.listen(PORT, () => console.log(`🚀 http://localhost:${PORT}`));
+}
 start();
