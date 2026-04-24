@@ -10,7 +10,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: { rejectUnauthorized: false } });
+const connStr = (process.env.DATABASE_URL || '').replace('&channel_binding=require', '').replace('?channel_binding=require&', '?').replace('?channel_binding=require', '');
+const pool = new Pool({ connectionString: connStr, ssl: { rejectUnauthorized: false } });
 const db   = (t, p) => pool.query(t, p);
 
 const ADMIN_PWD = process.env.ADMIN_PASSWORD || 'Mouysset2026!';
@@ -381,4 +382,4 @@ app.get('/api/report', async (req, res) => {
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
-initDB().then(seed).then(()=>app.listen(PORT,()=>console.log(`🚀 http://localhost:${PORT}`))).catch(e=>{console.error('❌',e.message);process.exit(1);});
+initDB().then(seed).then(()=>app.listen(PORT,()=>console.log(`🚀 http://localhost:${PORT}`))).catch(e=>{console.error('❌ STARTUP ERROR:', e.message); console.error(e.stack); process.exit(1);});
