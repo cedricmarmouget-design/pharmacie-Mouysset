@@ -382,4 +382,11 @@ app.get('/api/report', async (req, res) => {
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
-initDB().then(seed).then(()=>app.listen(PORT,()=>console.log(`🚀 http://localhost:${PORT}`))).catch(e=>{console.error('❌ STARTUP ERROR:', e.message); console.error(e.stack); process.exit(1);});
+async function start() {
+  for (let i = 0; i < 5; i++) {
+    try { await initDB(); await seed(); break; }
+    catch(e) { console.log(`Tentative ${i+1}/5...`); await new Promise(r=>setTimeout(r,3000)); }
+  }
+  app.listen(PORT, () => console.log(`🚀 http://localhost:${PORT}`));
+}
+start();
