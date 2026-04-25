@@ -496,12 +496,17 @@ try{ currentUser=localStorage.getItem(KEY_USER); }catch(e){}
 try{ adminToken=sessionStorage.getItem(KEY_ADMIN); }catch(e){}
 
 // ══ API ═══════════════════════════════════════════════════════════════════════
-async function api(path, opts={}) {
+async function api(path, opts={}, retry=5) {
   setSyncStatus('l');
-  try {
-    const r=await fetch(API+path,{headers:{'Content-Type':'application/json'},...opts});
-    const d=await r.json(); setSyncStatus('ok'); return d;
-  } catch(e){setSyncStatus('e');showToast('❌ Erreur réseau');throw e;}
+  for(let i=0;i<retry;i++){
+    try {
+      const r=await fetch(API+path,{headers:{'Content-Type':'application/json'},...opts});
+      const d=await r.json(); setSyncStatus('ok'); return d;
+    } catch(e){
+      if(i===retry-1){setSyncStatus('e');showToast('❌ Erreur réseau');throw e;}
+      await new Promise(r=>setTimeout(r,3000));
+    }
+  }
 }
 
 // ══ INIT ══════════════════════════════════════════════════════════════════════
@@ -841,7 +846,9 @@ function renderProgress(){
     const att=attendance[u._id]||'present';
     if(att!=='present')return `<div class="pi"><div class="pi-lbl"><span style="color:${u.color}">● ${u.name}</span><span style="color:var(--red)">${att==='absent'?'Absent':'Congé'}</span></div><div class="pi-track"><div class="pi-fill" style="background:#EEE;width:100%"></div></div></div>`;
     // For progress: count tasks relevant to this user
-    const myTasks=vt.filter(t=>{const a=t.assignedUserIds||[];return a.length===0||a.includes(u._id);});
+    // Rentabilité : tâches assignées à ce salarié uniquement (si assignées), sinon toutes si aucune assignation n'existe
+    const assignedTasks=vt.filter(t=>{const a=t.assignedUserIds||[];return a.includes(u._id);});
+    const myTasks=assignedTasks.length>0?assignedTasks:vt.filter(t=>(t.assignedUserIds||[]).length===0);
     const done=myTasks.filter(t=>checks.some(c=>c.taskId===t._id&&c.userId===u._id&&c.done)).length;
     const pct=myTasks.length?Math.round(done/myTasks.length*100):0;
     return `<div class="pi"><div class="pi-lbl"><span style="color:${u.color}">● ${u.name}</span><span>${pct}%</span></div><div class="pi-track"><div class="pi-fill" style="background:${u.color};width:${pct}%"></div></div></div>`;
@@ -857,7 +864,8 @@ function renderManager(){
   const total=tasks.length;
   document.getElementById('gsRows').innerHTML=users.map(u=>{
     const att=attendance[u._id]||'present';
-    const myTasks=tasks.filter(t=>{const a=t.assignedUserIds||[];return a.length===0||a.includes(u._id);});
+    const assignedTasks=tasks.filter(t=>(t.assignedUserIds||[]).includes(u._id));
+    const myTasks=assignedTasks.length>0?assignedTasks:tasks.filter(t=>(t.assignedUserIds||[]).length===0);
     const done=myTasks.filter(t=>checks.some(c=>c.taskId===t._id&&c.userId===u._id&&c.done)).length;
     const pct=att==='present'&&myTasks.length?Math.round(done/myTasks.length*100):null;
     const attLbl=att!=='present'?`<span style="font-size:10px;color:${att==='absent'?'var(--red)':'#6A1B9A'};font-weight:700;margin-left:6px">${att==='absent'?'ABSENT':'CONGÉ'}</span>`:'';
@@ -870,7 +878,8 @@ function renderManager(){
   }).join('');
   document.getElementById('mgrCards').innerHTML=users.map(u=>{
     const att=attendance[u._id]||'present';
-    const myTasks=tasks.filter(t=>{const a=t.assignedUserIds||[];return a.length===0||a.includes(u._id);});
+    const assignedTasks=tasks.filter(t=>(t.assignedUserIds||[]).includes(u._id));
+    const myTasks=assignedTasks.length>0?assignedTasks:tasks.filter(t=>(t.assignedUserIds||[]).length===0);
     const done=myTasks.filter(t=>checks.some(c=>c.taskId===t._id&&c.userId===u._id&&c.done)).length;
     const pct=att==='present'&&myTasks.length?Math.round(done/myTasks.length*100):null;
     const absBar=att!=='present'?`<div style="padding:8px 16px;background:#FFF3E0;font-size:12px;font-weight:700;color:${att==='absent'?'var(--red)':'#6A1B9A'}">${att==='absent'?'❌ Absent':'🏖 Congé'}</div>`:'';
