@@ -20,32 +20,9 @@ async function initDB() {
   await db(`CREATE TABLE IF NOT EXISTS users (id TEXT PRIMARY KEY, name TEXT NOT NULL, role TEXT DEFAULT '', color TEXT DEFAULT '#607D8B', active BOOLEAN DEFAULT true, is_super_admin BOOLEAN DEFAULT false, pin TEXT DEFAULT '1234', created_at BIGINT)`);
   await db(`CREATE TABLE IF NOT EXISTS zones (id TEXT PRIMARY KEY, name TEXT NOT NULL, icon TEXT DEFAULT '📍', color TEXT DEFAULT '#607D8B', active BOOLEAN DEFAULT true, ord INT DEFAULT 99, created_at BIGINT)`);
   await db(`CREATE TABLE IF NOT EXISTS tasks (id TEXT PRIMARY KEY, name TEXT NOT NULL, section TEXT NOT NULL, section_order INT DEFAULT 99, ord INT DEFAULT 1, time TEXT DEFAULT '', priority INT DEFAULT 2, days TEXT DEFAULT '[1,2,3,4,5,6]', zone_id TEXT DEFAULT NULL, assigned_user_ids TEXT DEFAULT '[]', active BOOLEAN DEFAULT true, created_at BIGINT)`);
-  await db(`CREATE TABLE IF NOT EXISTS checks (id TEXT PRIMARY KEY, task_id TEXT NOT NULL, user_id TEXT NOT NULL, date TEXT NOT NULL, done BOOLEAN DEFAULT true, done_at BIGINT, comment TEXT DEFAULT '', UNIQUE(task_id, user_id, date))`);
-  // Migration: add comment column if missing
-  try { await db("ALTER TABLE checks ADD COLUMN IF NOT EXISTS comment TEXT DEFAULT ''"); } catch(e) {}
-  // Migration: add ord column to tasks if missing
-  try { await db('ALTER TABLE tasks ADD COLUMN IF NOT EXISTS custom_order INT DEFAULT 0'); } catch(e) {}
+  await db(`CREATE TABLE IF NOT EXISTS checks (id TEXT PRIMARY KEY, task_id TEXT NOT NULL, user_id TEXT NOT NULL, date TEXT NOT NULL, done BOOLEAN DEFAULT true, done_at BIGINT, UNIQUE(task_id, user_id, date))`);
   await db(`CREATE TABLE IF NOT EXISTS history (id TEXT PRIMARY KEY, task_id TEXT, user_id TEXT, date TEXT, action TEXT, created_at BIGINT)`);
   await db(`CREATE TABLE IF NOT EXISTS attendance (id TEXT PRIMARY KEY, user_id TEXT, date TEXT, status TEXT DEFAULT 'present', updated_at BIGINT, UNIQUE(user_id, date))`);
-  await db(`CREATE TABLE IF NOT EXISTS messages (
-    id TEXT PRIMARY KEY,
-    from_user_id TEXT NOT NULL,
-    to_user_id TEXT,
-    content TEXT NOT NULL,
-    color TEXT DEFAULT '#607D8B',
-    read_by TEXT DEFAULT '[]',
-    created_at BIGINT
-  )`);
-  await db(`CREATE TABLE IF NOT EXISTS documents (
-    id TEXT PRIMARY KEY,
-    name TEXT NOT NULL,
-    description TEXT DEFAULT '',
-    file_data TEXT NOT NULL,
-    file_size INT DEFAULT 0,
-    assigned_user_ids TEXT DEFAULT '[]',
-    uploaded_by TEXT DEFAULT '',
-    created_at BIGINT
-  )`);
 }
 
 async function seed() {
@@ -107,60 +84,9 @@ app.post('/api/admin/verify', (req, res) => {
   res.json({ ok: req.body.token === Buffer.from(ADMIN_PWD).toString('base64') });
 });
 
-// DOCUMENTS
-app.get('/api/documents', async (req, res) => {
-  try {
-    const { userId } = req.query;
-    let rows;
-    if (userId) {
-      // Get docs for this user (assigned to them or to everyone)
-      const all = await db('SELECT id, name, description, assigned_user_ids, uploaded_by, file_size, created_at FROM documents ORDER BY created_at DESC');
-      rows = all.rows.filter(d => {
-        const assigned = JSON.parse(d.assigned_user_ids || '[]');
-        return assigned.length === 0 || assigned.includes(userId);
-      });
-    } else {
-      const result = await db('SELECT id, name, description, assigned_user_ids, uploaded_by, file_size, created_at FROM documents ORDER BY created_at DESC');
-      rows = result.rows;
-    }
-    res.json(rows.map(d => ({ ...d, assignedUserIds: JSON.parse(d.assigned_user_ids||'[]') })));
-  } catch(e) { res.status(500).json({ error: e.message }); }
-});
-
-app.get('/api/documents/:id/file', async (req, res) => {
-  try {
-    const { rows } = await db('SELECT * FROM documents WHERE id=$1', [req.params.id]);
-    if (!rows.length) return res.status(404).json({ error: 'Document introuvable' });
-    const doc = rows[0];
-    const buf = Buffer.from(doc.file_data, 'base64');
-    res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', `inline; filename="${doc.name}.pdf"`);
-    res.send(buf);
-  } catch(e) { res.status(500).json({ error: e.message }); }
-});
-
-app.post('/api/documents', async (req, res) => {
-  try {
-    const { name, description, fileData, fileSize, assignedUserIds, uploadedBy } = req.body;
-    if (!name || !fileData) return res.status(400).json({ error: 'name et fileData requis' });
-    if (fileSize > 5 * 1024 * 1024) return res.status(400).json({ error: 'Fichier trop volumineux (max 5MB)' });
-    const id = require('uuid').v4();
-    await db('INSERT INTO documents VALUES($1,$2,$3,$4,$5,$6,$7,$8)',
-      [id, name, description||'', fileData, fileSize||0, JSON.stringify(assignedUserIds||[]), uploadedBy||'', Date.now()]);
-    res.json({ ok: true, id });
-  } catch(e) { res.status(500).json({ error: e.message }); }
-});
-
-app.delete('/api/documents/:id', async (req, res) => {
-  try {
-    await db('DELETE FROM documents WHERE id=$1', [req.params.id]);
-    res.json({ ok: true });
-  } catch(e) { res.status(500).json({ error: e.message }); }
-});
-
 app.get('/api/users', async (req, res) => {
   try { const { rows } = await db('SELECT * FROM users WHERE active=true ORDER BY created_at'); res.json(rows.map(su)); }
-  catch(e) { res.status(500).json({ error: e.message }); }
+  catch(e) { console.error('USERS ERROR:', e); res.status(500).json({ error: e.message, detail: e.detail, code: e.code }); }
 });
 app.post('/api/users', async (req, res) => {
   try {
@@ -281,12 +207,12 @@ app.post('/api/attendance', async (req, res) => {
 });
 
 app.get('/api/checks', async (req, res) => {
-  try { const { rows } = await db('SELECT * FROM checks WHERE date=$1 AND done=true', [req.query.date||today()]); res.json(rows.map(r=>({ taskId:r.task_id, userId:r.user_id, date:r.date, done:r.done, doneAt:r.done_at, comment:r.comment||'' }))); }
+  try { const { rows } = await db('SELECT * FROM checks WHERE date=$1 AND done=true', [req.query.date||today()]); res.json(rows.map(r=>({ taskId:r.task_id, userId:r.user_id, date:r.date, done:r.done, doneAt:r.done_at }))); }
   catch(e) { res.status(500).json({ error: e.message }); }
 });
 app.post('/api/checks/toggle', async (req, res) => {
   try {
-    const { taskId, userId, pin, date:d, comment } = req.body;
+    const { taskId, userId, pin, date:d } = req.body;
     const { rows: ur } = await db('SELECT * FROM users WHERE id=$1 AND active=true', [userId]);
     if (!ur.length) return res.status(403).json({ ok:false, error:'Utilisateur introuvable' });
     if (ur[0].pin && ur[0].pin !== pin) return res.status(403).json({ ok:false, error:'Code PIN incorrect ❌' });
@@ -298,7 +224,7 @@ app.post('/api/checks/toggle', async (req, res) => {
       result = { done:false, userId };
       await db('INSERT INTO history VALUES($1,$2,$3,$4,$5,$6)', [uuid(),taskId,userId,date,'uncheck',Date.now()]);
     } else {
-      await db('INSERT INTO checks(id,task_id,user_id,date,done,done_at,comment) VALUES($1,$2,$3,$4,true,$5,$6) ON CONFLICT(task_id,user_id,date) DO UPDATE SET done=true,done_at=$5,comment=$6', [uuid(),taskId,userId,date,Date.now(),comment||'']);
+      await db('INSERT INTO checks VALUES($1,$2,$3,$4,true,$5) ON CONFLICT(task_id,user_id,date) DO UPDATE SET done=true,done_at=$5', [uuid(),taskId,userId,date,Date.now()]);
       result = { done:true, userId };
       await db('INSERT INTO history VALUES($1,$2,$3,$4,$5,$6)', [uuid(),taskId,userId,date,'check',Date.now()]);
     }
@@ -376,108 +302,6 @@ app.get('/api/report', async (req, res) => {
   } catch(e) { res.status(500).json({ error: e.message }); }
 });
 
-// TASK REORDER
-app.post('/api/tasks/reorder', async (req, res) => {
-  try {
-    const { order } = req.body; // [{id, ord}]
-    for (const item of order) {
-      await db('UPDATE tasks SET custom_order=$1 WHERE id=$2', [item.ord, item.id]);
-    }
-    res.json({ ok: true });
-  } catch(e) { res.status(500).json({ error: e.message }); }
-});
-
-// MESSAGES
-app.get('/api/messages', async (req, res) => {
-  try {
-    const { userId } = req.query;
-    let rows;
-    if (userId) {
-      const r = await db('SELECT * FROM messages WHERE to_user_id IS NULL OR to_user_id=$1 OR from_user_id=$1 ORDER BY created_at DESC LIMIT 50', [userId]);
-      rows = r.rows;
-    } else {
-      const r = await db('SELECT * FROM messages ORDER BY created_at DESC LIMIT 100');
-      rows = r.rows;
-    }
-    res.json(rows.map(m=>({ _id:m.id, fromUserId:m.from_user_id, toUserId:m.to_user_id, content:m.content, color:m.color, readBy:JSON.parse(m.read_by||'[]'), createdAt:m.created_at })));
-  } catch(e) { res.status(500).json({ error: e.message }); }
-});
-
-app.post('/api/messages', async (req, res) => {
-  try {
-    const { fromUserId, toUserId, content, color } = req.body;
-    if (!fromUserId || !content) return res.status(400).json({ error: 'fromUserId et content requis' });
-    const id = require('uuid').v4();
-    await db('INSERT INTO messages VALUES($1,$2,$3,$4,$5,$6,$7)',
-      [id, fromUserId, toUserId||null, content, color||'#607D8B', JSON.stringify([fromUserId]), Date.now()]);
-    res.json({ ok: true, id });
-  } catch(e) { res.status(500).json({ error: e.message }); }
-});
-
-app.post('/api/messages/:id/read', async (req, res) => {
-  try {
-    const { userId } = req.body;
-    const { rows } = await db('SELECT * FROM messages WHERE id=$1', [req.params.id]);
-    if (!rows.length) return res.json({ ok: false });
-    const readBy = JSON.parse(rows[0].read_by||'[]');
-    if (!readBy.includes(userId)) readBy.push(userId);
-    await db('UPDATE messages SET read_by=$1 WHERE id=$2', [JSON.stringify(readBy), req.params.id]);
-    res.json({ ok: true });
-  } catch(e) { res.status(500).json({ error: e.message }); }
-});
-
-app.delete('/api/messages/:id', async (req, res) => {
-  try {
-    await db('DELETE FROM messages WHERE id=$1', [req.params.id]);
-    res.json({ ok: true });
-  } catch(e) { res.status(500).json({ error: e.message }); }
-});
-
-// STATS - tâches oubliées / en retard
-app.get('/api/stats/forgotten', async (req, res) => {
-  try {
-    const { days: d } = req.query;
-    const daysBack = parseInt(d||30);
-    const from = new Date(); from.setDate(from.getDate()-daysBack);
-    const fromStr = from.toISOString().slice(0,10);
-    const toStr = today();
-
-    const { rows: tasks } = await db('SELECT * FROM tasks WHERE active=true');
-    const { rows: checks } = await db('SELECT * FROM checks WHERE date>=$1 AND date<=$2 AND done=true', [fromStr, toStr]);
-    const { rows: attends } = await db('SELECT * FROM attendance WHERE date>=$1 AND date<=$2', [fromStr, toStr]);
-
-    // Build date list
-    const dates = [];
-    let cur = new Date(fromStr+'T12:00:00'), end = new Date(toStr+'T12:00:00');
-    while(cur<=end){dates.push(cur.toISOString().slice(0,10));cur.setDate(cur.getDate()+1);}
-
-    const aMap = {}; attends.forEach(a=>{aMap[a.user_id+'_'+a.date]=a.status;});
-
-    // For each task, count how many days it was expected but not done
-    const taskStats = tasks.map(t => {
-      const taskDays = JSON.parse(t.days||'[1,2,3,4,5,6]');
-      let expected = 0, done = 0, comments = [];
-      dates.forEach(d => {
-        const dow = new Date(d+'T12:00:00').getDay();
-        if (!taskDays.includes(dow)) return;
-        expected++;
-        const taskChecks = checks.filter(c => c.task_id===t.id && c.date===d);
-        if (taskChecks.length > 0) {
-          done++;
-          taskChecks.forEach(c => { if(c.comment) comments.push({ comment:c.comment, date:d, userId:c.user_id }); });
-        }
-      });
-      const missed = expected - done;
-      const rate = expected > 0 ? Math.round(done/expected*100) : null;
-      return { taskId:t.id, taskName:t.name, section:t.section, expected, done, missed, rate, comments };
-    });
-
-    // Sort by most missed
-    taskStats.sort((a,b) => b.missed - a.missed);
-    res.json({ from:fromStr, to:toStr, tasks: taskStats });
-  } catch(e) { res.status(500).json({ error: e.message }); }
-});
-
 // Start server immediately, connect DB in background
 app.listen(PORT, () => console.log(`🚀 http://localhost:${PORT}`));
 
@@ -495,3 +319,8 @@ async function start() {
   }
 }
 start();
+// Garder Neon actif - ping toutes les 4 minutes
+setInterval(async () => {
+  try { await db('SELECT 1'); console.log('💓 Neon actif'); }
+  catch(e) { console.log('⚠️ Ping échoué:', e.message); }
+}, 240000);
