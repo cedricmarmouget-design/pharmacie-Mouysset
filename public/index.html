@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pharmacie Mouysset — Suivi Missions</title>
+<title id="pageTitle">Chargement…</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -330,7 +330,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <canvas id="fw-canvas"></canvas>
 <div class="fw-msg" id="fwMsg"><div class="fw-msg-inner"><span class="fw-emoji">🎉</span><div class="fw-name" id="fwName"></div><div class="fw-sub">Toutes les taches accomplies !</div></div></div>
 <header class="hdr">
-  <div class="logo">💊 Pharmacie <span>Mouysset</span></div>
+  <div class="logo" id="appLogo">💊 Chargement…</div>
   <div class="hdr-r">
     <div class="date-pill" id="datePill"></div>
     <div class="admin-pill" id="adminPill" onclick="adminLogout()" title="Cliquez pour vous déconnecter">⭐ Super Admin</div>
@@ -769,6 +769,23 @@ async function init() {
   document.getElementById('datePill').textContent=now.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
   currentDay=now.getDay();
   buildColorGrids(); buildDaysSelector();
+
+  // Chargement config client (nom, logo, couleur)
+  try {
+    const cfg = await api('/api/config');
+    // Nom & logo dans le header
+    document.getElementById('appLogo').innerHTML =
+      cfg.clientLogo + ' <span style="font-weight:400">' + cfg.clientName.split(' ')[0] + '</span> <span style="color:var(--gold)">' + cfg.clientName.split(' ').slice(1).join(' ') + '</span>';
+    // Titre de l'onglet
+    document.getElementById('pageTitle').textContent = cfg.clientName + ' — Suivi Missions';
+    // Couleur principale dynamique
+    if (cfg.clientColor) {
+      document.documentElement.style.setProperty('--navy', cfg.clientColor);
+    }
+  } catch(e) {
+    document.getElementById('appLogo').textContent = '💊 Mon Officine';
+  }
+
   await loadAll(); startPolling();
   const d=now.toISOString().slice(0,10);
   const wAgo=new Date(now); wAgo.setDate(wAgo.getDate()-6);
@@ -2016,4 +2033,3 @@ init();
 </script>
 </body>
 </html>
- 
