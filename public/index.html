@@ -215,8 +215,8 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .pk.del{font-size:14px;color:var(--red)}
 .pin-err{color:var(--red);font-size:13px;font-weight:600;text-align:center;margin-bottom:10px;min-height:20px}
 /* COLOR / DAYS */
-.cg{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
-.co{width:28px;height:28px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:.15s}
+.cg{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;max-width:100%}
+.co{width:24px;height:24px;border-radius:50%;cursor:pointer;border:3px solid transparent;transition:.15s}
 .co.sel{border-color:var(--text);transform:scale(1.15)}
 .ds{display:flex;gap:5px;flex-wrap:wrap;margin-top:5px}
 .dsb{width:38px;height:30px;border-radius:7px;border:2px solid var(--border);background:var(--bg);font-size:11px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.14s;color:var(--muted)}
@@ -240,6 +240,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .fw-emoji{font-size:52px;display:block;margin-bottom:8px}
 .fw-name{font-size:24px;font-weight:800;color:#F9A825}
 .fw-sub{font-size:14px;color:rgba(255,255,255,.7);margin-top:4px}
+
+/* PLANNING */
+.plan-grid{display:grid;gap:10px}
+.plan-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.plan-row:last-child{border-bottom:none}
+.plan-user{display:flex;align-items:center;gap:8px;width:130px;flex-shrink:0}
+.plan-user-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.plan-user-name{font-size:13px;font-weight:700}
+.plan-periods{display:flex;flex-direction:column;gap:6px;flex:1}
+.plan-period{display:flex;align-items:center;gap:8px;background:var(--bg);padding:6px 10px;border-radius:8px;flex-wrap:wrap}
+.plan-type{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px}
+.plan-type.absent{background:#FFEBEE;color:var(--red)}
+.plan-type.off{background:#EDE7F6;color:#6A1B9A}
+.plan-dates{font-size:12px;color:var(--muted);font-family:'DM Mono',monospace}
+.plan-del{width:24px;height:24px;border-radius:6px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:11px;margin-left:auto;flex-shrink:0}
+.plan-del:hover{background:#FFEBEE;border-color:#FFCDD2}
+.plan-add{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px;background:var(--bg);border-radius:10px;margin-top:8px}
+.plan-add .fs{padding:7px 10px;font-size:13px}
+.plan-add .fi{padding:7px 10px;font-size:13px}
 </style>
 </head>
 <body>
@@ -390,6 +409,25 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
       <div class="ah"><h3>✅ Tâches</h3><button class="btn-p" onclick="openTaskModal()">+ Ajouter</button></div>
       <div class="ab" id="adminTasks"><div class="loading">Chargement…</div></div>
     </div>
+
+    <div class="as">
+      <div class="ah"><h3>📅 Planning Congés & Absences</h3></div>
+      <div class="ab">
+        <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Planifiez les congés et absences à l'avance. Le statut du salarié se mettra à jour automatiquement le jour J.</div>
+        <div class="plan-add">
+          <select class="fs" id="planUser" style="max-width:140px"></select>
+          <select class="fs" id="planType" style="max-width:120px">
+            <option value="off">🏖 Congé</option>
+            <option value="absent">❌ Absence</option>
+          </select>
+          <input type="date" class="fi" id="planFrom" style="max-width:150px">
+          <span style="font-size:13px;color:var(--muted)">→</span>
+          <input type="date" class="fi" id="planTo" style="max-width:150px">
+          <button class="btn-p" onclick="savePlanning()">+ Ajouter</button>
+        </div>
+        <div id="planningList" style="margin-top:12px"><div class="loading">Chargement…</div></div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -489,7 +527,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <script>
 // ══ CONFIG ════════════════════════════════════════════════════════════════════
 const API='', KEY_USER='pm-user-v7', KEY_ADMIN='pm-admin-v7';
-const COLORS=['#0077B6','#2E7D32','#AD1457','#E65100','#6A1B9A','#00838F','#558B2F','#4527A0','#BF360C','#00695C','#1565C0','#37474F'];
+const COLORS=['#0077B6','#0288D1','#26C6DA','#00897B','#2E7D32','#558B2F','#9CCC65','#F9A825','#FF8F00','#E65100','#BF360C','#C62828','#AD1457','#880E4F','#6A1B9A','#4527A0','#283593','#1565C0','#00838F','#00695C','#37474F','#455A64','#5D4037','#4E342E','#212121','#607D8B','#FF4081','#E040FB','#40C4FF','#69F0AE'];
 const DAY_NAMES=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 const PRIO_LBL=['','🔴 P1','🟡 P2','🟢 P3'];
 const PRIO_CLS=['','p1','p2','p3'];
@@ -603,7 +641,7 @@ function showAdminGate() {
 function showAdminContent() {
   document.getElementById('adminGate').style.display='none';
   document.getElementById('adminContent').style.display='block';
-  renderAdminUsers(); renderAdminZones(); renderAdminTasks();
+  renderAdminUsers(); renderAdminZones(); renderAdminTasks(); loadPlanning();
 }
 function updateAdminBadge() {
   document.getElementById('adminPill').style.display=adminToken?'block':'none';
@@ -1162,7 +1200,7 @@ function switchTab(tab,el){
   el.classList.add('active');document.getElementById('page-'+tab).classList.add('active');
   if(tab==='manager')renderManager();
   if(tab==='history'){populateHistFilters();loadHistory();}
-  if(tab==='admin'){if(adminToken)showAdminContent();else showAdminGate();}
+  if(tab==='admin'){if(adminToken){showAdminContent();loadPlanning();}else showAdminGate();}
 }
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
@@ -1231,6 +1269,146 @@ function checkAllTasksDone(){
   if(myTasks.length===0)return;
   var allDone=myTasks.every(function(t){return checks.some(function(c){return c.taskId===t._id&&c.userId===currentUser&&c.done;});});
   if(allDone)launchFireworks(u.name,u.color);
+}
+
+
+// PLANNING
+let planningData = [];
+
+async function loadPlanning() {
+  // Load next 90 days of attendance for all users
+  const from = today();
+  const d90 = new Date(); d90.setDate(d90.getDate()+90);
+  const to = d90.toISOString().slice(0,10);
+  try {
+    const rows = await api('/api/attendance/range?from='+from+'&to='+to);
+    // Filter only future planned (off/absent)
+    planningData = rows.filter(r => r.status !== 'present');
+    renderPlanning();
+  } catch(e) {}
+}
+
+function renderPlanning() {
+  const el = document.getElementById('planningList');
+  if (!el) return;
+
+  // Populate user select
+  const sel = document.getElementById('planUser');
+  if (sel && sel.options.length <= 1) {
+    sel.innerHTML = users.map(u => `<option value="${u._id}">${u.name}</option>`).join('');
+  }
+
+  if (!planningData.length) {
+    el.innerHTML = '<div style="color:var(--muted);font-size:13px;padding:10px 0">Aucune période planifiée.</div>';
+    return;
+  }
+
+  // Group by user
+  const byUser = {};
+  planningData.forEach(r => {
+    if (!byUser[r.userId]) byUser[r.userId] = [];
+    byUser[r.userId].push(r);
+  });
+
+  el.innerHTML = Object.entries(byUser).map(([uid, periods]) => {
+    const u = users.find(x => x._id === uid);
+    if (!u) return '';
+    // Group consecutive dates
+    const grouped = groupPeriods(periods);
+    return `<div class="plan-row">
+      <div class="plan-user">
+        <div class="plan-user-dot" style="background:${u.color}"></div>
+        <div class="plan-user-name">${u.name}</div>
+      </div>
+      <div class="plan-periods">
+        ${grouped.map(g => `
+          <div class="plan-period">
+            <span class="plan-type ${g.status}">${g.status==='off'?'🏖 Congé':'❌ Absence'}</span>
+            <span class="plan-dates">${fmtDateShort(g.from)} → ${fmtDateShort(g.to)}</span>
+            <button class="plan-del" onclick="deletePlanning('${uid}','${g.from}','${g.to}')" title="Supprimer">✕</button>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function groupPeriods(periods) {
+  // Sort by date
+  const sorted = [...periods].sort((a,b) => a.date.localeCompare(b.date));
+  const groups = [];
+  sorted.forEach(p => {
+    const last = groups[groups.length-1];
+    if (last && last.status === p.status) {
+      // Check if consecutive
+      const lastDate = new Date(last.to + 'T12:00:00');
+      lastDate.setDate(lastDate.getDate() + 1);
+      if (lastDate.toISOString().slice(0,10) === p.date) {
+        last.to = p.date;
+        return;
+      }
+    }
+    groups.push({ from: p.date, to: p.date, status: p.status });
+  });
+  return groups;
+}
+
+async function savePlanning() {
+  const userId = document.getElementById('planUser').value;
+  const status = document.getElementById('planType').value;
+  const from   = document.getElementById('planFrom').value;
+  const to     = document.getElementById('planTo').value;
+  if (!userId || !from || !to) { showToast('⚠️ Remplissez tous les champs'); return; }
+  if (from > to) { showToast('⚠️ La date de début doit être avant la fin'); return; }
+
+  // Create one attendance record per day
+  const dates = [];
+  let cur = new Date(from + 'T12:00:00');
+  const end = new Date(to + 'T12:00:00');
+  while (cur <= end) {
+    dates.push(cur.toISOString().slice(0,10));
+    cur.setDate(cur.getDate() + 1);
+  }
+
+  let count = 0;
+  for (const date of dates) {
+    await api('/api/attendance', { method:'POST', body: JSON.stringify({ userId, date, status }) });
+    count++;
+  }
+
+  showToast(`✅ ${count} jour(s) planifié(s)`);
+  await loadPlanning();
+  // If today is in the range, update live attendance
+  if (from <= today() && today() <= to) {
+    attendance[userId] = status;
+    renderWhoBar(); renderProgress(); renderManager();
+  }
+}
+
+async function deletePlanning(userId, from, to) {
+  if (!confirm(`Supprimer cette période ?`)) return;
+  const dates = [];
+  let cur = new Date(from + 'T12:00:00');
+  const end = new Date(to + 'T12:00:00');
+  while (cur <= end) { dates.push(cur.toISOString().slice(0,10)); cur.setDate(cur.getDate()+1); }
+  for (const date of dates) {
+    await api('/api/attendance', { method:'POST', body: JSON.stringify({ userId, date, status: 'present' }) });
+  }
+  showToast('🗑️ Période supprimée');
+  await loadPlanning();
+  if (from <= today() && today() <= to) {
+    attendance[userId] = 'present';
+    renderWhoBar(); renderProgress(); renderManager();
+  }
+}
+
+// Auto-apply planned attendance on load
+async function applyPlannedAttendance() {
+  const t = today();
+  try {
+    const rows = await api('/api/attendance?date=' + t);
+    attendance = {};
+    rows.forEach(r => attendance[r.userId] = r.status);
+  } catch(e) {}
 }
 
 init();
