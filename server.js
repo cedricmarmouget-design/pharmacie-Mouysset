@@ -319,3 +319,8 @@ async function start() {
   }
 }
 start();
+// Garder Neon actif - ping toutes les 4 minutes
+setInterval(async () => {
+  try { await db('SELECT 1'); console.log('💓 Neon actif'); }
+  catch(e) { console.log('⚠️ Ping échoué:', e.message); }
+}, 240000);
