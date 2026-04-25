@@ -616,12 +616,13 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="modal">
     <h2 id="commentTitle">Valider la tâche</h2>
     <div class="modal-sub" id="commentTaskName"></div>
+    <input id="pinHiddenInput" type="tel" inputmode="numeric" style="position:absolute;opacity:0;width:1px;height:1px;pointer-events:none;" autocomplete="off">
     <div class="pin-display" id="commentPinDots"></div>
     <div class="pin-pad">
-      <button class="pk" onclick="cPinKey('1')">1</button><button class="pk" onclick="cPinKey('2')">2</button><button class="pk" onclick="cPinKey('3')">3</button>
-      <button class="pk" onclick="cPinKey('4')">4</button><button class="pk" onclick="cPinKey('5')">5</button><button class="pk" onclick="cPinKey('6')">6</button>
-      <button class="pk" onclick="cPinKey('7')">7</button><button class="pk" onclick="cPinKey('8')">8</button><button class="pk" onclick="cPinKey('9')">9</button>
-      <button class="pk del" onclick="cPinKey('del')">⌫</button><button class="pk" onclick="cPinKey('0')">0</button><button class="pk del" onclick="closeModal('commentModal')">✕</button>
+      <button class="pk" tabindex="-1" onclick="cPinKey('1')">1</button><button class="pk" tabindex="-1" onclick="cPinKey('2')">2</button><button class="pk" tabindex="-1" onclick="cPinKey('3')">3</button>
+      <button class="pk" tabindex="-1" onclick="cPinKey('4')">4</button><button class="pk" tabindex="-1" onclick="cPinKey('5')">5</button><button class="pk" tabindex="-1" onclick="cPinKey('6')">6</button>
+      <button class="pk" tabindex="-1" onclick="cPinKey('7')">7</button><button class="pk" tabindex="-1" onclick="cPinKey('8')">8</button><button class="pk" tabindex="-1" onclick="cPinKey('9')">9</button>
+      <button class="pk del" tabindex="-1" onclick="cPinKey('del')">⌫</button><button class="pk" tabindex="-1" onclick="cPinKey('0')">0</button><button class="pk del" tabindex="-1" onclick="closeModal('commentModal')">✕</button>
     </div>
     <div class="pin-err" id="commentPinErr"></div>
     <div id="commentSection" style="display:none">
@@ -647,10 +648,10 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     <div class="modal-sub" id="pinSub">Entrez votre code PIN à 4 chiffres</div>
     <div class="pin-display" id="pinDots"></div>
     <div class="pin-pad">
-      <button class="pk" onclick="pinKey('1')">1</button><button class="pk" onclick="pinKey('2')">2</button><button class="pk" onclick="pinKey('3')">3</button>
-      <button class="pk" onclick="pinKey('4')">4</button><button class="pk" onclick="pinKey('5')">5</button><button class="pk" onclick="pinKey('6')">6</button>
-      <button class="pk" onclick="pinKey('7')">7</button><button class="pk" onclick="pinKey('8')">8</button><button class="pk" onclick="pinKey('9')">9</button>
-      <button class="pk del" onclick="pinKey('del')">⌫</button><button class="pk" onclick="pinKey('0')">0</button><button class="pk del" onclick="closeModal('pinModal')">✕</button>
+      <button class="pk" tabindex="-1" onclick="pinKey('1')">1</button><button class="pk" tabindex="-1" onclick="pinKey('2')">2</button><button class="pk" tabindex="-1" onclick="pinKey('3')">3</button>
+      <button class="pk" tabindex="-1" onclick="pinKey('4')">4</button><button class="pk" tabindex="-1" onclick="pinKey('5')">5</button><button class="pk" tabindex="-1" onclick="pinKey('6')">6</button>
+      <button class="pk" tabindex="-1" onclick="pinKey('7')">7</button><button class="pk" tabindex="-1" onclick="pinKey('8')">8</button><button class="pk" tabindex="-1" onclick="pinKey('9')">9</button>
+      <button class="pk del" tabindex="-1" onclick="pinKey('del')">⌫</button><button class="pk" tabindex="-1" onclick="pinKey('0')">0</button><button class="pk del" tabindex="-1" onclick="closeModal('pinModal')">✕</button>
     </div>
     <div class="pin-err" id="pinErr"></div>
   </div>
@@ -774,8 +775,12 @@ async function init() {
   try {
     const cfg = await api('/api/config');
     // Nom & logo dans le header
+    // Affiche logo + nom complet (premier mot normal, reste en doré)
+    const words = cfg.clientName.split(' ');
+    const first = words[0];
+    const rest = words.slice(1).join(' ');
     document.getElementById('appLogo').innerHTML =
-      cfg.clientLogo + ' <span style="font-weight:400">' + cfg.clientName.split(' ')[0] + '</span> <span style="color:var(--gold)">' + cfg.clientName.split(' ').slice(1).join(' ') + '</span>';
+      cfg.clientLogo + ' ' + first + (rest ? ' <span style="color:var(--gold)">' + rest + '</span>' : '');
     // Titre de l'onglet
     document.getElementById('pageTitle').textContent = cfg.clientName + ' — Suivi Missions';
     // Couleur principale dynamique
@@ -1059,16 +1064,46 @@ function openPinModal(title,sub,onSuccess){
   renderPinDots();
   const modal = document.getElementById('pinModal');
   modal.classList.add('open');
-  // Focus le modal pour que les touches clavier soient captées
-  setTimeout(() => { modal.focus(); }, 50);
+  // Blur tout élément focalisé pour que le keydown document fonctionne
+  if(document.activeElement) document.activeElement.blur();
 }
-// Clavier physique pour le PIN
-document.addEventListener('keydown', function(e){
-  if(!document.getElementById('pinModal').classList.contains('open')) return;
-  if(e.key>='0' && e.key<='9') { pinKey(e.key); e.preventDefault(); }
-  else if(e.key==='Backspace') { pinKey('del'); e.preventDefault(); }
-  else if(e.key==='Escape') { closeModal('pinModal'); e.preventDefault(); }
+// Écoute l'input sur le champ caché (meilleur support mobile/desktop)
+document.addEventListener('input', function(e){
+  if(e.target.id !== 'pinHiddenInput') return;
+  const val = e.target.value;
+  e.target.value = '';
+  if(!val) return;
+  const commentOpen = document.getElementById('commentModal').classList.contains('open');
+  const pinEl = document.getElementById('pinModal');
+  const pinOpen = pinEl ? pinEl.classList.contains('open') : false;
+  if(commentOpen) { for(const c of val) { if(c>='0'&&c<='9') cPinKey(c); } }
+  else if(pinOpen) { for(const c of val) { if(c>='0'&&c<='9') pinKey(c); } }
 });
+
+// Clavier physique pour le PIN (pinModal et commentModal)
+document.addEventListener('keydown', function(e){
+  // Ignorer si on est dans un vrai champ texte
+  const tag = document.activeElement.tagName;
+  if(tag === 'INPUT' || tag === 'TEXTAREA') return;
+  // Vérification sécurisée avec null check
+  const pinEl     = document.getElementById('pinModal');
+  const commentEl = document.getElementById('commentModal');
+  const pinOpen     = pinEl     ? pinEl.classList.contains('open')     : false;
+  const commentOpen = commentEl ? commentEl.classList.contains('open') : false;
+  if(!pinOpen && !commentOpen) return;
+  // Bloquer l'action par défaut
+  if((e.key>='0'&&e.key<='9')||e.key==='Backspace'||e.key==='Escape') e.preventDefault();
+  // commentModal a priorité (s'ouvre en premier pour les tâches)
+  if(commentOpen) {
+    if(e.key>='0' && e.key<='9') cPinKey(e.key);
+    else if(e.key==='Backspace') cPinKey('del');
+    else if(e.key==='Escape') closeModal('commentModal');
+  } else if(pinOpen) {
+    if(e.key>='0' && e.key<='9') pinKey(e.key);
+    else if(e.key==='Backspace') pinKey('del');
+    else if(e.key==='Escape') closeModal('pinModal');
+  }
+}, true); // true = phase de capture, prioritaire sur tout
 function renderPinDots(){document.getElementById('pinDots').innerHTML=[0,1,2,3].map(i=>`<div class="pd${i<pinBuffer.length?' filled':''}"></div>`).join('');}
 function pinKey(k){
   if(k==='del'){pinBuffer=pinBuffer.slice(0,-1);renderPinDots();document.getElementById('pinErr').textContent='';return;}
@@ -1113,6 +1148,7 @@ function openCommentModal(taskId) {
   document.getElementById('commentSection').style.display = 'none';
   renderCommentPinDots();
   document.getElementById('commentModal').classList.add('open');
+  setTimeout(()=>{ const i=document.getElementById('pinHiddenInput'); if(i){i.value='';i.focus();} },50);
 }
 
 function renderCommentPinDots() {
