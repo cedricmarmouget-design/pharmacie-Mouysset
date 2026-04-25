@@ -259,6 +259,70 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .plan-add{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px;background:var(--bg);border-radius:10px;margin-top:8px}
 .plan-add .fs{padding:7px 10px;font-size:13px}
 .plan-add .fi{padding:7px 10px;font-size:13px}
+
+/* DOCUMENTS */
+.doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:14px}
+.doc-card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;transition:.15s}
+.doc-card:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
+.doc-card-top{padding:16px;display:flex;align-items:flex-start;gap:12px}
+.doc-icon{width:44px;height:44px;border-radius:10px;background:#FFEBEE;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
+.doc-info{flex:1;min-width:0}
+.doc-name{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.doc-desc{font-size:12px;color:var(--muted);margin-top:2px}
+.doc-meta{font-size:10px;color:var(--muted);margin-top:4px;font-family:'DM Mono',monospace}
+.doc-tags{display:flex;gap:4px;flex-wrap:wrap;padding:0 16px 10px}
+.doc-tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;color:#fff}
+.doc-tag.all{background:#00897B}
+.doc-actions{display:flex;border-top:1px solid var(--border)}
+.doc-btn{flex:1;padding:10px;border:none;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;transition:.15s;display:flex;align-items:center;justify-content:center;gap:5px}
+.doc-btn.view{color:var(--teal)}.doc-btn.view:hover{background:var(--tl)}
+.doc-btn.del{color:var(--red)}.doc-btn.del:hover{background:#FFEBEE}
+.doc-btn-sep{width:1px;background:var(--border)}
+.doc-upload-zone{border:2px dashed var(--border);border-radius:var(--r);padding:28px;text-align:center;cursor:pointer;transition:.15s;background:var(--bg)}
+.doc-upload-zone:hover{border-color:var(--teal);background:var(--tl)}
+.doc-upload-zone.dragover{border-color:var(--teal);background:var(--tl)}
+.doc-upload-icon{font-size:36px;margin-bottom:8px}
+.doc-upload-txt{font-size:14px;font-weight:600;color:var(--muted)}
+.doc-upload-sub{font-size:12px;color:var(--muted);margin-top:4px}
+.doc-size{font-size:10px;font-weight:600;padding:2px 6px;border-radius:99px;background:#E8F5E9;color:#2E7D32}
+
+/* COMMENT MODAL */
+.comment-suggestions{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.cs-btn{padding:5px 12px;border-radius:99px;border:2px solid var(--border);background:var(--bg);font-size:12px;cursor:pointer;transition:.14s}
+.cs-btn:hover{border-color:var(--teal);background:var(--tl);color:var(--teal)}
+
+/* MESSAGES */
+.msg-compose{background:var(--card);border-radius:var(--r);padding:14px 18px;margin-bottom:14px;box-shadow:var(--sh)}
+.msg-feed{display:flex;flex-direction:column;gap:10px}
+.msg-card{background:var(--card);border-radius:var(--r);padding:14px 18px;box-shadow:var(--sh);position:relative}
+.msg-card.mine{border-left:4px solid var(--teal)}
+.msg-card.unread{border-left:4px solid var(--gold)}
+.msg-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.msg-avatar{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#fff;flex-shrink:0}
+.msg-from{font-size:13px;font-weight:700}
+.msg-to{font-size:11px;color:var(--muted)}
+.msg-time{font-size:11px;color:var(--muted);margin-left:auto;font-family:'DM Mono',monospace}
+.msg-content{font-size:14px;color:var(--text);line-height:1.5;white-space:pre-wrap}
+.msg-unread-badge{font-size:9px;font-weight:700;padding:2px 6px;border-radius:99px;background:var(--gold);color:var(--navy)}
+.msg-del{position:absolute;top:10px;right:10px;width:24px;height:24px;border-radius:6px;border:1.5px solid var(--border);background:var(--bg);cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center}
+.msg-del:hover{background:#FFEBEE;border-color:#FFCDD2}
+.msg-notif{position:absolute;top:-4px;right:-4px;width:16px;height:16px;border-radius:50%;background:var(--red);color:#fff;font-size:9px;font-weight:800;display:flex;align-items:center;justify-content:center}
+
+/* STATS */
+.stat-bar-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.stat-bar-row:last-child{border-bottom:none}
+.stat-task-name{flex:1;font-size:13px;font-weight:500;color:var(--text)}
+.stat-track{width:120px;height:8px;background:var(--border);border-radius:99px;overflow:hidden;flex-shrink:0}
+.stat-fill{height:100%;border-radius:99px}
+.stat-pct{font-size:12px;font-weight:700;width:36px;text-align:right;font-family:'DM Mono',monospace;flex-shrink:0}
+.stat-missed{font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;flex-shrink:0;white-space:nowrap}
+.stat-comments{margin-top:4px;font-size:11px;color:var(--muted);font-style:italic}
+
+/* DRAG DROP */
+.tr.dragging{opacity:.4;background:#EEF5FF}
+.tr.drag-over{border-top:3px solid var(--teal)}
+.drag-handle{cursor:grab;color:var(--muted);font-size:16px;padding:0 4px;flex-shrink:0;user-select:none}
+.drag-handle:active{cursor:grabbing}
 </style>
 </head>
 <body>
@@ -279,12 +343,15 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="tab" onclick="switchTab('manager',this)">👁 Tableau de bord</div>
   <div class="tab" onclick="switchTab('history',this)">📜 Historique</div>
   <div class="tab" onclick="switchTab('report',this)">📊 Rapport</div>
+
+  <div class="tab" id="msgTab" onclick="switchTab('messages',this)">💬 Messages<span class="msg-notif" id="msgNotif" style="display:none">0</span></div>
+  <div class="tab" onclick="switchTab('stats',this)">📈 Statistiques</div>
   <div class="tab" id="adminTab" onclick="handleAdminTab(this)">⚙️ Admin</div>
 </nav>
 
 <div class="main">
 
-<!-- ══ TÂCHES ══ -->
+<!-- -- TÂCHES -- -->
 <div class="page active" id="page-tasks">
   <!-- Day filter -->
   <div class="card"><div class="filter-bar">
@@ -332,7 +399,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div id="sectionsContainer"><div class="loading">Chargement…</div></div>
 </div>
 
-<!-- ══ MANAGER ══ -->
+<!-- -- MANAGER -- -->
 <div class="page" id="page-manager">
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
     <div style="font-size:20px;font-weight:700;color:var(--navy)">Tableau de bord — Traçabilité</div>
@@ -345,7 +412,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="mgr-grid" id="mgrCards"></div>
 </div>
 
-<!-- ══ HISTORIQUE ══ -->
+<!-- -- HISTORIQUE -- -->
 <div class="page" id="page-history">
   <div style="font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px">📜 Historique</div>
   <div class="hf">
@@ -359,7 +426,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   </div>
 </div>
 
-<!-- ══ RAPPORT ══ -->
+<!-- -- RAPPORT -- -->
 <div class="page" id="page-report">
   <div style="font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px">📊 Rapport de Rentabilité</div>
   <div class="card">
@@ -372,7 +439,118 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div id="rptBody"><div class="hempty">Sélectionnez une période et cliquez sur "Générer".</div></div>
 </div>
 
-<!-- ══ ADMIN ══ -->
+<!-- DOCUMENTS -->
+<div class="page" id="page-docs">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
+    <div style="font-size:20px;font-weight:700;color:var(--navy)">📄 Documents</div>
+  </div>
+
+  <!-- Vue salarié : sélectionner qui je suis + PIN pour accéder -->
+  <div id="docsUserView">
+    <div class="card">
+      <div class="who-bar" id="docsWhoBar">
+        <span class="who-lbl">Accéder en tant que :</span>
+        <div class="who-btns" id="docsWhoBtns"></div>
+        <span class="who-hint" id="docsHint">Sélectionnez votre prénom</span>
+      </div>
+    </div>
+    <div id="docsList"><div class="loading">Sélectionnez votre prénom pour accéder aux documents.</div></div>
+  </div>
+
+  <!-- Vue admin : upload + gestion -->
+  <div id="docsAdminView" style="display:none">
+    <div class="card">
+      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:14px">⬆️ Déposer un document</div>
+      <div class="doc-upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)">
+        <div class="doc-upload-icon">📄</div>
+        <div class="doc-upload-txt">Cliquez ou glissez un PDF ici</div>
+        <div class="doc-upload-sub">Maximum 5 MB</div>
+      </div>
+      <input type="file" id="fileInput" accept=".pdf" style="display:none" onchange="fileSelected(event)">
+      <div id="uploadForm" style="display:none;margin-top:14px">
+        <div class="fg"><label class="fl">Nom du document *</label><input class="fi" id="docName" placeholder="Ex : Procédure réception OCP"></div>
+        <div class="fg"><label class="fl">Description</label><input class="fi" id="docDesc" placeholder="Ex : Étapes à suivre pour la réception"></div>
+        <div class="fg">
+          <label class="fl">Visible par</label>
+          <div class="user-chk-list" id="docUserList"></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:5px">Laisser vide = visible par tout le monde</div>
+        </div>
+        <div id="uploadFileInfo" style="font-size:12px;color:var(--muted);margin-bottom:12px"></div>
+        <div class="mbtns">
+          <button class="btn-s" onclick="cancelUpload()">Annuler</button>
+          <button class="btn-p" id="uploadBtn" onclick="uploadDocument()">⬆️ Déposer</button>
+        </div>
+      </div>
+    </div>
+    <div id="docsAdminList"><div class="loading">Chargement…</div></div>
+  </div>
+</div>
+
+<!-- MESSAGES -->
+<div class="page" id="page-messages">
+  <div style="font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px">💬 Messages & Post-its</div>
+
+  <!-- Compose -->
+  <div class="msg-compose" id="msgComposeArea" style="display:none">
+    <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:12px">✍️ Nouveau message</div>
+    <div class="fg">
+      <label class="fl">Destinataire</label>
+      <select class="fs" id="msgTo">
+        <option value="">📢 Tout le monde</option>
+      </select>
+    </div>
+    <div class="fg">
+      <label class="fl">Message</label>
+      <textarea class="fi" id="msgContent" rows="3" placeholder="Écrivez votre message…" style="resize:vertical"></textarea>
+    </div>
+    <div class="mbtns" style="margin-top:0">
+      <button class="btn-s" onclick="document.getElementById('msgComposeArea').style.display='none'">Annuler</button>
+      <button class="btn-p" onclick="sendMessage()">📤 Envoyer</button>
+    </div>
+  </div>
+
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px">
+    <div class="who-bar" style="flex:1">
+      <span class="who-lbl">Je suis :</span>
+      <div class="who-btns" id="msgWhoBtns"></div>
+    </div>
+    <button class="btn-p" id="msgNewBtn" onclick="document.getElementById('msgComposeArea').style.display='block'" style="display:none">✍️ Nouveau</button>
+  </div>
+  <div class="msg-feed" id="msgFeed"><div class="loading">Sélectionnez votre prénom pour voir vos messages.</div></div>
+</div>
+
+<!-- STATS -->
+<div class="page" id="page-stats">
+  <div style="font-size:20px;font-weight:700;color:var(--navy);margin-bottom:16px">📈 Statistiques des tâches</div>
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <span style="font-size:13px;font-weight:600;color:var(--muted)">Période :</span>
+      <select class="fs" id="statsPeriod" onchange="loadStats()" style="max-width:180px;padding:7px 12px">
+        <option value="7">7 derniers jours</option>
+        <option value="30" selected>30 derniers jours</option>
+        <option value="90">3 derniers mois</option>
+      </select>
+      <button class="btn-s" onclick="loadStats()" style="padding:7px 14px">🔄 Actualiser</button>
+    </div>
+  </div>
+  <div class="card">
+    <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px">🏆 Tâches les mieux accomplies</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Les tâches faites le plus régulièrement</div>
+    <div id="statsTop"></div>
+  </div>
+  <div class="card">
+    <div style="font-size:13px;font-weight:700;color:var(--red);margin-bottom:4px">⚠️ Tâches les plus oubliées</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Les tâches manquées le plus souvent</div>
+    <div id="statsForgotten"></div>
+  </div>
+  <div class="card">
+    <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:4px">💬 Commentaires récents</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:14px">Notes laissées lors de la validation des tâches</div>
+    <div id="statsComments"></div>
+  </div>
+</div>
+
+<!-- -- ADMIN -- -->
 <div class="page" id="page-admin">
   <!-- Login gate -->
   <div id="adminGate">
@@ -432,6 +610,35 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 </div><!-- /main -->
+
+<!-- COMMENT MODAL -->
+<div class="ov" id="commentModal">
+  <div class="modal">
+    <h2 id="commentTitle">Valider la tâche</h2>
+    <div class="modal-sub" id="commentTaskName"></div>
+    <div class="pin-display" id="commentPinDots"></div>
+    <div class="pin-pad">
+      <button class="pk" onclick="cPinKey('1')">1</button><button class="pk" onclick="cPinKey('2')">2</button><button class="pk" onclick="cPinKey('3')">3</button>
+      <button class="pk" onclick="cPinKey('4')">4</button><button class="pk" onclick="cPinKey('5')">5</button><button class="pk" onclick="cPinKey('6')">6</button>
+      <button class="pk" onclick="cPinKey('7')">7</button><button class="pk" onclick="cPinKey('8')">8</button><button class="pk" onclick="cPinKey('9')">9</button>
+      <button class="pk del" onclick="cPinKey('del')">⌫</button><button class="pk" onclick="cPinKey('0')">0</button><button class="pk del" onclick="closeModal('commentModal')">✕</button>
+    </div>
+    <div class="pin-err" id="commentPinErr"></div>
+    <div id="commentSection" style="display:none">
+      <div style="font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px">Commentaire (optionnel)</div>
+      <div class="comment-suggestions">
+        <button class="cs-btn" onclick="setComment('RAS')">RAS</button>
+        <button class="cs-btn" onclick="setComment('Fait ✓')">Fait ✓</button>
+        <button class="cs-btn" onclick="setComment('Problème fournisseur')">Problème fournisseur</button>
+        <button class="cs-btn" onclick="setComment('En attente livraison')">En attente livraison</button>
+        <button class="cs-btn" onclick="setComment('Stock insuffisant')">Stock insuffisant</button>
+        <button class="cs-btn" onclick="setComment('Fait partiellement')">Fait partiellement</button>
+      </div>
+      <textarea class="fi" id="commentText" rows="2" placeholder="Ou écrivez un commentaire libre…" style="resize:none;margin-bottom:12px"></textarea>
+      <button class="btn-p" style="width:100%" onclick="submitWithComment()">✅ Valider</button>
+    </div>
+  </div>
+</div>
 
 <!-- PIN MODAL -->
 <div class="ov" id="pinModal">
@@ -525,7 +732,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 <div class="toast" id="toast"></div>
 
 <script>
-// ══ CONFIG ════════════════════════════════════════════════════════════════════
+// -- CONFIG --------------------------------------------------------------------
 const API='', KEY_USER='pm-user-v7', KEY_ADMIN='pm-admin-v7';
 const COLORS=['#0077B6','#0288D1','#26C6DA','#00897B','#2E7D32','#558B2F','#9CCC65','#F9A825','#FF8F00','#E65100','#BF360C','#C62828','#AD1457','#880E4F','#6A1B9A','#4527A0','#283593','#1565C0','#00838F','#00695C','#37474F','#455A64','#5D4037','#4E342E','#212121','#607D8B','#FF4081','#E040FB','#40C4FF','#69F0AE'];
 const DAY_NAMES=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
@@ -534,7 +741,7 @@ const PRIO_CLS=['','p1','p2','p3'];
 const SEC_ICONS={'Matin':'⏰','Flux Principal':'📦','2ème Vague':'🔁','Après-midi':'🌤','Selon Besoin':'⚡'};
 const SEC_COLORS=['#0F2240','#00695C','#4A148C','#B71C1C','#37474F','#1B5E20','#4E342E'];
 
-// ══ STATE ════════════════════════════════════════════════════════════════════
+// -- STATE --------------------------------------------------------------------
 let users=[], tasks=[], zones=[], checks=[], attendance={};
 let currentUser=null, currentDay=null, currentZone=null, currentFilter='all';
 let adminToken=null, pinCallback=null, pinBuffer='', pollingTimer=null;
@@ -542,7 +749,7 @@ let adminToken=null, pinCallback=null, pinBuffer='', pollingTimer=null;
 try{ currentUser=localStorage.getItem(KEY_USER); }catch(e){}
 try{ adminToken=sessionStorage.getItem(KEY_ADMIN); }catch(e){}
 
-// ══ API ═══════════════════════════════════════════════════════════════════════
+// -- API -----------------------------------------------------------------------
 async function api(path, opts={}, retry=5) {
   setSyncStatus('l');
   for(let i=0;i<retry;i++){
@@ -550,13 +757,13 @@ async function api(path, opts={}, retry=5) {
       const r=await fetch(API+path,{headers:{'Content-Type':'application/json'},...opts});
       const d=await r.json(); setSyncStatus('ok'); return d;
     } catch(e){
-      if(i===retry-1){setSyncStatus('e');showToast('❌ Erreur réseau');throw e;}
+      if(i===retry-1){setSyncStatus('e');showToast('Erreur reseau');throw e;}
       await new Promise(r=>setTimeout(r,3000));
     }
   }
 }
 
-// ══ INIT ══════════════════════════════════════════════════════════════════════
+// -- INIT ----------------------------------------------------------------------
 async function init() {
   const now=new Date();
   document.getElementById('datePill').textContent=now.toLocaleDateString('fr-FR',{weekday:'long',day:'numeric',month:'long'});
@@ -601,7 +808,7 @@ function startPolling() {
 
 function today(){return new Date().toISOString().slice(0,10);}
 
-// ══ SUPER ADMIN ═══════════════════════════════════════════════════════════════
+// -- SUPER ADMIN ---------------------------------------------------------------
 function handleAdminTab(el) {
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
@@ -642,12 +849,18 @@ function showAdminContent() {
   document.getElementById('adminGate').style.display='none';
   document.getElementById('adminContent').style.display='block';
   renderAdminUsers(); renderAdminZones(); renderAdminTasks(); loadPlanning();
+  // Update docs view if on docs tab
+  if(document.getElementById('page-docs').classList.contains('active')){
+    
+    
+    
+  }
 }
 function updateAdminBadge() {
   document.getElementById('adminPill').style.display=adminToken?'block':'none';
 }
 
-// ══ FILTERS ═══════════════════════════════════════════════════════════════════
+// -- FILTERS -------------------------------------------------------------------
 function buildDayBtns() {
   const c=document.getElementById('dayBtns'); c.innerHTML='';
   const todayDow=new Date().getDay();
@@ -684,7 +897,7 @@ function buildZoneBtns() {
   });
 }
 
-// ══ WHO BAR ═══════════════════════════════════════════════════════════════════
+// -- WHO BAR -------------------------------------------------------------------
 function renderWhoBar() {
   document.getElementById('whoBtns').innerHTML=users.map(u=>{
     const isActive=currentUser===u._id;
@@ -721,7 +934,7 @@ async function setAttendance(status){
   showToast(status==='present'?'✅ Présent':status==='absent'?'❌ Absent':'🏖 Congé');
 }
 
-// ══ TASK VISIBILITY ═══════════════════════════════════════════════════════════
+// -- TASK VISIBILITY -----------------------------------------------------------
 function isTaskVisible(t) {
   // Day filter
   if(currentDay!==null&&!(t.days||[1,2,3,4,5,6]).includes(currentDay)) return false;
@@ -743,7 +956,7 @@ function isTaskCheckable(t) {
   return assigned.length===0 || assigned.includes(currentUser);
 }
 
-// ══ SECTIONS ══════════════════════════════════════════════════════════════════
+// -- SECTIONS ------------------------------------------------------------------
 function renderSections() {
   const container=document.getElementById('sectionsContainer');
   let vt=tasks.filter(isTaskVisible);
@@ -772,6 +985,7 @@ function renderSections() {
   }).join('');
 
   applyFilter(currentFilter==='mine'?'all':currentFilter);
+  setTimeout(enableDragDrop, 100);
 }
 
 function buildTaskRow(t) {
@@ -788,7 +1002,8 @@ function buildTaskRow(t) {
   const badgesHtml=chks.map(c=>{
     const u=users.find(x=>x._id===c.userId); if(!u)return'';
     const hhmm=c.doneAt?new Date(c.doneAt).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'}):'';
-    return `<span class="who-badge" style="background:${u.color}">${u.name}<span class="badge-time">${hhmm}</span></span>`;
+    const commentTxt = c.comment ? ' · '+c.comment : '';
+    return `<span class="who-badge" style="background:${u.color}">${u.name}<span class="badge-time">${hhmm}${commentTxt}</span></span>`;
   }).join('');
 
   const myColor=currentUser?users.find(u=>u._id===currentUser)?.color||'#43A047':'#43A047';
@@ -816,11 +1031,11 @@ function buildTaskRow(t) {
   </div>`;
 }
 
-// ══ TASK HELPERS ══════════════════════════════════════════════════════════════
+// -- TASK HELPERS --------------------------------------------------------------
 function taskChecks(id){return checks.filter(c=>c.taskId===id&&c.done);}
 function myCheck(id){return currentUser?checks.find(c=>c.taskId===id&&c.userId===currentUser&&c.done):null;}
 
-// ══ PIN FLOW ══════════════════════════════════════════════════════════════════
+// -- PIN FLOW ------------------------------------------------------------------
 function openPinModal(title,sub,onSuccess){
   pinCallback=onSuccess; pinBuffer='';
   document.getElementById('pinTitle').textContent=title;
@@ -842,18 +1057,74 @@ async function submitPin(){
   else{document.getElementById('pinErr').textContent=r.error||'PIN incorrect';pinBuffer='';renderPinDots();}
 }
 
-// ══ TOGGLE TASK ═══════════════════════════════════════════════════════════════
+// -- TOGGLE TASK ---------------------------------------------------------------
+let commentTaskId = null, commentPin = '', commentPinBuffer = '';
+
 function handleTaskClick(taskId){
   if(!currentUser){document.getElementById('whoBar').classList.add('shake');setTimeout(()=>document.getElementById('whoBar').classList.remove('shake'),500);showToast('👆 Sélectionnez votre prénom !');return;}
   const att=attendance[currentUser]||'present';
   if(att==='absent'){showToast('❌ Vous êtes marqué absent aujourd\'hui');return;}
-  const u=users.find(x=>x._id===currentUser);
   const myChk=myCheck(taskId);
-  openPinModal(`${u.name} — ${myChk?'Décocher':'Cocher'}`,'Entrez votre PIN pour valider',(pin)=>toggleTask(taskId,pin));
+  if(myChk) {
+    // Uncheck - just PIN
+    const u=users.find(x=>x._id===currentUser);
+    openPinModal(u.name+' — Décocher','Entrez votre PIN pour décocher',(pin)=>toggleTask(taskId,pin,''));
+    return;
+  }
+  // Check - open comment modal
+  openCommentModal(taskId);
 }
-async function toggleTask(taskId,pin){
+
+function openCommentModal(taskId) {
+  commentTaskId = taskId;
+  commentPinBuffer = '';
+  commentPin = '';
+  const t = tasks.find(x=>x._id===taskId);
+  const u = users.find(x=>x._id===currentUser);
+  document.getElementById('commentTitle').textContent = u.name + ' — Valider';
+  document.getElementById('commentTaskName').textContent = t ? t.name : '';
+  document.getElementById('commentPinErr').textContent = '';
+  document.getElementById('commentText').value = '';
+  document.getElementById('commentSection').style.display = 'none';
+  renderCommentPinDots();
+  document.getElementById('commentModal').classList.add('open');
+}
+
+function renderCommentPinDots() {
+  document.getElementById('commentPinDots').innerHTML = [0,1,2,3].map(i=>`<div class="pd${i<commentPinBuffer.length?' filled':''}"></div>`).join('');
+}
+
+async function cPinKey(k) {
+  if(k==='del'){commentPinBuffer=commentPinBuffer.slice(0,-1);renderCommentPinDots();document.getElementById('commentPinErr').textContent='';return;}
+  if(commentPinBuffer.length>=4)return;
+  commentPinBuffer+=k; renderCommentPinDots();
+  if(commentPinBuffer.length===4){
+    // Verify PIN
+    const r = await api('/api/users/verify-pin',{method:'POST',body:JSON.stringify({userId:currentUser,pin:commentPinBuffer})});
+    if(r.ok){
+      commentPin = commentPinBuffer;
+      document.getElementById('commentSection').style.display='block';
+      document.getElementById('commentPinDots').style.display='none';
+    } else {
+      document.getElementById('commentPinErr').textContent=r.error||'PIN incorrect';
+      commentPinBuffer=''; renderCommentPinDots();
+    }
+  }
+}
+
+function setComment(txt) {
+  document.getElementById('commentText').value = txt;
+}
+
+async function submitWithComment() {
+  const comment = document.getElementById('commentText').value.trim();
+  closeModal('commentModal');
+  document.getElementById('commentPinDots').style.display='flex';
+  await toggleTask(commentTaskId, commentPin, comment);
+}
+async function toggleTask(taskId,pin,comment=''){
   try{
-    const result=await api('/api/checks/toggle',{method:'POST',body:JSON.stringify({taskId,userId:currentUser,pin})});
+    const result=await api('/api/checks/toggle',{method:'POST',body:JSON.stringify({taskId,userId:currentUser,pin,comment:comment||''})});
     if(result.ok===false){showToast(result.error||'Erreur');return;}
     const idx=checks.findIndex(c=>c.taskId===taskId&&c.userId===currentUser);
     if(result.done){
@@ -886,7 +1157,7 @@ function updateTaskRow(taskId){
   applyFilter(currentFilter);
 }
 
-// ══ PROGRESS ══════════════════════════════════════════════════════════════════
+// -- PROGRESS ------------------------------------------------------------------
 function renderProgress(){
   const vt=tasks.filter(isTaskVisible); const total=vt.length;
   let html=users.map(u=>{
@@ -906,7 +1177,7 @@ function renderProgress(){
   document.getElementById('progWrap').innerHTML=html;
 }
 
-// ══ MANAGER ═══════════════════════════════════════════════════════════════════
+// -- MANAGER -------------------------------------------------------------------
 function renderManager(){
   const total=tasks.length;
   document.getElementById('gsRows').innerHTML=users.map(u=>{
@@ -958,7 +1229,7 @@ function renderManager(){
   }).join('');
 }
 
-// ══ RESET ════════════════════════════════════════════════════════════════════
+// -- RESET --------------------------------------------------------------------
 function askReset(){
   if(!currentUser){showToast('👆 Sélectionnez votre prénom');return;}
   // Only super admins can reset
@@ -971,7 +1242,7 @@ function askReset(){
   });
 }
 
-// ══ HISTORY ═══════════════════════════════════════════════════════════════════
+// -- HISTORY -------------------------------------------------------------------
 async function populateHistFilters(){
   const dates=await api('/api/history/dates');
   const sel=document.getElementById('histDate');
@@ -996,7 +1267,7 @@ async function loadHistory(){
   }).join('');
 }
 
-// ══ RAPPORT ═══════════════════════════════════════════════════════════════════
+// -- RAPPORT -------------------------------------------------------------------
 async function loadReport(){
   const from=document.getElementById('rptFrom').value,to=document.getElementById('rptTo').value;
   if(!from||!to){showToast('⚠️ Sélectionnez une période');return;}
@@ -1017,7 +1288,7 @@ async function loadReport(){
   }).join('')}</div>`;
 }
 
-// ══ ADMIN — USERS ════════════════════════════════════════════════════════════
+// -- ADMIN — USERS ------------------------------------------------------------
 function renderAdminUsers(){
   const el=document.getElementById('adminUsers');
   if(!users.length){el.innerHTML='<div class="loading">Aucun salarié.</div>';return;}
@@ -1055,7 +1326,7 @@ async function deleteUser(id,name){
   await api(`/api/users/${id}`,{method:'DELETE'});showToast(`🗑️ ${name} supprimé`);await loadAll();
 }
 
-// ══ ADMIN — ZONES ════════════════════════════════════════════════════════════
+// -- ADMIN — ZONES ------------------------------------------------------------
 function renderAdminZones(){
   const el=document.getElementById('adminZones');
   if(!zones.length){el.innerHTML='<div class="loading">Aucune zone. Créez Pharmacie, Dépôt, Réserve…</div>';return;}
@@ -1089,7 +1360,7 @@ async function deleteZone(id,name){
   await api(`/api/zones/${id}`,{method:'DELETE'});showToast(`🗑️ Zone supprimée`);await loadAll();
 }
 
-// ══ ADMIN — TASKS ════════════════════════════════════════════════════════════
+// -- ADMIN — TASKS ------------------------------------------------------------
 function renderAdminTasks(){
   const el=document.getElementById('adminTasks');
   if(!tasks.length){el.innerHTML='<div class="loading">Aucune tâche.</div>';return;}
@@ -1163,7 +1434,7 @@ async function deleteTask(id,name){
   await api(`/api/tasks/${id}`,{method:'DELETE'});showToast('🗑️ Tâche supprimée');await loadAll();
 }
 
-// ══ UTILS ═════════════════════════════════════════════════════════════════════
+// -- UTILS ---------------------------------------------------------------------
 function buildColorGrids(){
   ['colorGrid','zoneColorGrid'].forEach(gridId=>{
     const g=document.getElementById(gridId);
@@ -1200,6 +1471,8 @@ function switchTab(tab,el){
   el.classList.add('active');document.getElementById('page-'+tab).classList.add('active');
   if(tab==='manager')renderManager();
   if(tab==='history'){populateHistFilters();loadHistory();}
+  if(tab==='messages'){renderMsgWhoBar();}
+  if(tab==='stats'){loadStats();}
   if(tab==='admin'){if(adminToken){showAdminContent();loadPlanning();}else showAdminGate();}
 }
 function closeModal(id){document.getElementById(id).classList.remove('open');}
@@ -1409,6 +1682,325 @@ async function applyPlannedAttendance() {
     attendance = {};
     rows.forEach(r => attendance[r.userId] = r.status);
   } catch(e) {}
+}
+
+
+// DOCUMENTS
+let docsCurrentUser = null;
+let pendingFile = null;
+let allDocs = [];
+
+function renderDocsWhoBar() {
+  const btns = document.getElementById('docsWhoBtns');
+  if (!btns) return;
+  btns.innerHTML = users.map(u => {
+    const isActive = docsCurrentUser === u._id;
+    return `<button class="wbtn${isActive?' active':''}" style="${isActive?'background:'+u.color+';border-color:'+u.color:''}" onclick="selectDocsUser('${u._id}',this,'${u.color}')">👤 ${u.name}</button>`;
+  }).join('');
+}
+
+function selectDocsUser(id, btn, color) {
+  const u = users.find(x=>x._id===id);
+  openPinModal(u.name+' — Documents', 'Entrez votre PIN pour accéder', async (pin) => {
+    docsCurrentUser = id;
+    document.querySelectorAll('#docsWhoBtns .wbtn').forEach(b=>{b.classList.remove('active');b.style.background='';b.style.borderColor='';});
+    btn.classList.add('active'); btn.style.background=color; btn.style.borderColor=color;
+    document.getElementById('docsHint').textContent = 'Bonjour '+u.name+' !';
+    await loadUserDocs(id);
+  });
+}
+
+async function loadUserDocs(userId) {
+  const el = document.getElementById('docsList');
+  el.innerHTML = '<div class="loading">Chargement…</div>';
+  try {
+    const docs = await api('/api/documents?userId='+userId);
+    if (!docs.length) { el.innerHTML = '<div class="hempty">Aucun document disponible pour vous.</div>'; return; }
+    el.innerHTML = '<div class="doc-grid">'+docs.map(d => buildDocCard(d, false)).join('')+'</div>';
+  } catch(e) { el.innerHTML = '<div class="hempty">Erreur de chargement.</div>'; }
+}
+
+async function  {
+  const el = document.getElementById('docsAdminList');
+  el.innerHTML = '<div class="loading">Chargement…</div>';
+  try {
+    allDocs = await api('/api/documents');
+    if (!allDocs.length) { el.innerHTML = '<div class="hempty" style="padding:20px;text-align:center;color:var(--muted)">Aucun document déposé.</div>'; return; }
+    el.innerHTML = '<div class="doc-grid">'+allDocs.map(d => buildDocCard(d, true)).join('')+'</div>';
+  } catch(e) {}
+}
+
+function buildDocCard(d, isAdmin) {
+  const assigned = d.assignedUserIds || [];
+  const assignedNames = assigned.map(id => users.find(u=>u._id===id)?.name).filter(Boolean);
+  const sizeFmt = d.file_size ? (d.file_size/1024 > 1000 ? (d.file_size/1024/1024).toFixed(1)+'MB' : Math.round(d.file_size/1024)+'KB') : '';
+  const date = d.created_at ? new Date(parseInt(d.created_at)).toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'}) : '';
+  return `<div class="doc-card">
+    <div class="doc-card-top">
+      <div class="doc-icon">📄</div>
+      <div class="doc-info">
+        <div class="doc-name" title="${d.name}">${d.name}</div>
+        ${d.description?`<div class="doc-desc">${d.description}</div>`:''}
+        <div class="doc-meta">${date} ${sizeFmt?'· <span class="doc-size">'+sizeFmt+'</span>':''}</div>
+      </div>
+    </div>
+    <div class="doc-tags">
+      ${assigned.length===0 ? '<span class="doc-tag all">👥 Tout le monde</span>' : assignedNames.map(n=>`<span class="doc-tag" style="background:${users.find(u=>u.name===n)?.color||'#607D8B'}">${n}</span>`).join('')}
+    </div>
+    <div class="doc-actions">
+      <button class="doc-btn view" onclick="viewDoc('${d.id}','${d.name}')">👁 Consulter</button>
+      ${isAdmin ? '<div class="doc-btn-sep"></div><button class="doc-btn del" onclick="deleteDoc(''+d.id+'',''+d.name+'')">🗑 Supprimer</button>' : ''}
+    </div>
+  </div>`;
+}
+
+function viewDoc(id, name) {
+  window.open('/api/documents/'+id+'/file', '_blank');
+}
+
+async function deleteDoc(id, name) {
+  if (!confirm('Supprimer "'+name+'" ?')) return;
+  await api('/api/documents/'+id, { method:'DELETE' });
+  showToast('🗑️ Document supprimé');
+  
+}
+
+// Upload
+function dragOver(e) { e.preventDefault(); document.getElementById('uploadZone').classList.add('dragover'); }
+function dragLeave(e) { document.getElementById('uploadZone').classList.remove('dragover'); }
+function dropFile(e) {
+  e.preventDefault();
+  document.getElementById('uploadZone').classList.remove('dragover');
+  const file = e.dataTransfer.files[0];
+  if (file) processFile(file);
+}
+function fileSelected(e) { if (e.target.files[0]) processFile(e.target.files[0]); }
+
+function processFile(file) {
+  if (!file.name.endsWith('.pdf')) { showToast('⚠️ Seuls les fichiers PDF sont acceptés'); return; }
+  if (file.size > 5*1024*1024) { showToast('⚠️ Fichier trop volumineux (max 5MB)'); return; }
+  pendingFile = file;
+  document.getElementById('uploadForm').style.display = 'block';
+  document.getElementById('docName').value = file.name.replace('.pdf','');
+  document.getElementById('uploadFileInfo').innerHTML = '📄 '+file.name+' · '+(file.size/1024 > 1000 ? (file.size/1024/1024).toFixed(1)+'MB' : Math.round(file.size/1024)+'KB');
+  // Populate user checkboxes
+  document.getElementById('docUserList').innerHTML = users.map(u=>`
+    <div class="user-chk-item" data-uid="${u._id}" onclick="this.classList.toggle('sel');this.querySelector('.user-chk-tick').textContent=this.classList.contains('sel')?'✓':''">
+      <div class="user-chk-dot" style="background:${u.color}"></div>
+      <span class="user-chk-name">👤 ${u.name}</span>
+      <span class="user-chk-tick"></span>
+    </div>`).join('');
+}
+
+function cancelUpload() {
+  pendingFile = null;
+  document.getElementById('uploadForm').style.display = 'none';
+  document.getElementById('fileInput').value = '';
+}
+
+async function uploadDocument() {
+  if (!pendingFile) return;
+  const name = document.getElementById('docName').value.trim();
+  if (!name) { showToast('⚠️ Donnez un nom au document'); return; }
+  const desc = document.getElementById('docDesc').value.trim();
+  const assignedUserIds = [...document.querySelectorAll('#docUserList .user-chk-item.sel')].map(el=>el.dataset.uid);
+  const btn = document.getElementById('uploadBtn');
+  btn.textContent = '⏳ Envoi…'; btn.disabled = true;
+  try {
+    const reader = new FileReader();
+    reader.onload = async (e) => {
+      const base64 = e.target.result.split(',')[1];
+      await api('/api/documents', { method:'POST', body: JSON.stringify({
+        name, description: desc, fileData: base64,
+        fileSize: pendingFile.size, assignedUserIds, uploadedBy: 'admin'
+      })});
+      showToast('✅ Document déposé !');
+      cancelUpload();
+      
+      btn.textContent = '⬆️ Déposer'; btn.disabled = false;
+    };
+    reader.readAsDataURL(pendingFile);
+  } catch(e) { showToast('❌ Erreur'); btn.textContent = '⬆️ Déposer'; btn.disabled = false; }
+}
+
+
+
+
+// MESSAGES
+let msgCurrentUser = null, allMessages = [];
+
+function renderMsgWhoBar() {
+  const btns = document.getElementById('msgWhoBtns');
+  if (!btns) return;
+  btns.innerHTML = users.map(u => {
+    const isActive = msgCurrentUser === u._id;
+    return `<button class="wbtn${isActive?' active':''}" style="${isActive?'background:'+u.color+';border-color:'+u.color:''}" onclick="selectMsgUser('${u._id}',this,'${u.color}')">👤 ${u.name}</button>`;
+  }).join('');
+  // Populate TO select
+  const sel = document.getElementById('msgTo');
+  if (sel) sel.innerHTML = '<option value="">📢 Tout le monde</option>' + users.map(u=>`<option value="${u._id}">${u.name}</option>`).join('');
+}
+
+function selectMsgUser(id, btn, color) {
+  const u = users.find(x=>x._id===id);
+  openPinModal(u.name+' — Messages','Entrez votre PIN', async(pin) => {
+    msgCurrentUser = id;
+    document.querySelectorAll('#msgWhoBtns .wbtn').forEach(b=>{b.classList.remove('active');b.style.background='';b.style.borderColor='';});
+    btn.classList.add('active'); btn.style.background=color; btn.style.borderColor=color;
+    document.getElementById('msgNewBtn').style.display='flex';
+    await loadMessages();
+  });
+}
+
+async function loadMessages() {
+  if (!msgCurrentUser) return;
+  const el = document.getElementById('msgFeed');
+  el.innerHTML = '<div class="loading">Chargement…</div>';
+  try {
+    allMessages = await api('/api/messages?userId='+msgCurrentUser);
+    renderMessages();
+    updateMsgBadge();
+  } catch(e) {}
+}
+
+function renderMessages() {
+  const el = document.getElementById('msgFeed');
+  if (!allMessages.length) { el.innerHTML = '<div class="hempty" style="padding:20px;text-align:center;color:var(--muted)">Aucun message.</div>'; return; }
+  el.innerHTML = allMessages.map(m => {
+    const fromU = users.find(u=>u._id===m.fromUserId);
+    const toU = m.toUserId ? users.find(u=>u._id===m.toUserId) : null;
+    const isUnread = !m.readBy.includes(msgCurrentUser) && m.fromUserId !== msgCurrentUser;
+    const isMine = m.fromUserId === msgCurrentUser;
+    const time = new Date(parseInt(m.createdAt)).toLocaleString('fr-FR',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'});
+    return `<div class="msg-card${isMine?' mine':''}${isUnread?' unread':''}" id="msg-${m._id}" onclick="markRead('${m._id}')">
+      <div class="msg-header">
+        <div class="msg-avatar" style="background:${fromU?.color||'#607D8B'}">${fromU?.name?.slice(0,2).toUpperCase()||'?'}</div>
+        <div>
+          <div class="msg-from">${fromU?.name||'?'} ${isMine?'<span style="font-size:10px;color:var(--muted)">(moi)</span>':''}</div>
+          ${toU?`<div class="msg-to">→ ${toU.name}</div>`:'<div class="msg-to">→ 📢 Tout le monde</div>'}
+        </div>
+        <div class="msg-time">${time}</div>
+        ${isUnread?'<span class="msg-unread-badge">Nouveau</span>':''}
+        ${isMine?`<button class="msg-del" onclick="deleteMessage('${m._id}',event)">✕</button>`:''}
+      </div>
+      <div class="msg-content">${m.content}</div>
+    </div>`;
+  }).join('');
+}
+
+async function markRead(msgId) {
+  if (!msgCurrentUser) return;
+  const msg = allMessages.find(m=>m._id===msgId);
+  if (!msg || msg.readBy.includes(msgCurrentUser)) return;
+  await api('/api/messages/'+msgId+'/read',{method:'POST',body:JSON.stringify({userId:msgCurrentUser})});
+  msg.readBy.push(msgCurrentUser);
+  renderMessages(); updateMsgBadge();
+}
+
+async function deleteMessage(msgId, e) {
+  e.stopPropagation();
+  if (!confirm('Supprimer ce message ?')) return;
+  await api('/api/messages/'+msgId,{method:'DELETE'});
+  allMessages = allMessages.filter(m=>m._id!==msgId);
+  renderMessages(); updateMsgBadge();
+  showToast('🗑️ Message supprimé');
+}
+
+async function sendMessage() {
+  if (!msgCurrentUser) { showToast('👆 Sélectionnez votre prénom'); return; }
+  const content = document.getElementById('msgContent').value.trim();
+  if (!content) { showToast('⚠️ Écrivez un message'); return; }
+  const toUserId = document.getElementById('msgTo').value || null;
+  const u = users.find(x=>x._id===msgCurrentUser);
+  await api('/api/messages',{method:'POST',body:JSON.stringify({fromUserId:msgCurrentUser,toUserId,content,color:u?.color})});
+  document.getElementById('msgContent').value='';
+  document.getElementById('msgComposeArea').style.display='none';
+  showToast('📤 Message envoyé !');
+  await loadMessages();
+}
+
+function updateMsgBadge() {
+  const unread = allMessages.filter(m=>!m.readBy.includes(msgCurrentUser||'')&&m.fromUserId!==msgCurrentUser).length;
+  const badge = document.getElementById('msgNotif');
+  if (badge) { badge.style.display = unread>0?'flex':'none'; badge.textContent=unread; }
+}
+
+// STATS
+async function loadStats() {
+  const days = document.getElementById('statsPeriod').value;
+  const data = await api('/api/stats/forgotten?days='+days);
+  if (!data.tasks) return;
+  const uMap = Object.fromEntries(users.map(u=>[u._id,u]));
+
+  // Top tasks
+  const top = [...data.tasks].sort((a,b)=>b.rate-a.rate).filter(t=>t.expected>0).slice(0,8);
+  document.getElementById('statsTop').innerHTML = top.map(t => {
+    const col = t.rate>=80?'#4CAF50':t.rate>=50?'#FF9800':'#F44336';
+    return `<div class="stat-bar-row">
+      <div class="stat-task-name">${t.taskName}</div>
+      <div class="stat-track"><div class="stat-fill" style="background:${col};width:${t.rate||0}%"></div></div>
+      <div class="stat-pct" style="color:${col}">${t.rate!==null?t.rate+'%':'—'}</div>
+    </div>`;
+  }).join('') || '<div style="color:var(--muted);font-size:13px">Pas de données.</div>';
+
+  // Forgotten tasks
+  const forgotten = data.tasks.filter(t=>t.expected>0&&t.missed>0).slice(0,8);
+  document.getElementById('statsForgotten').innerHTML = forgotten.map(t => {
+    const col = t.rate>=80?'#4CAF50':t.rate>=50?'#FF9800':'#F44336';
+    return `<div class="stat-bar-row">
+      <div style="flex:1">
+        <div class="stat-task-name">${t.taskName}</div>
+        <div style="font-size:11px;color:var(--muted)">${t.section}</div>
+      </div>
+      <span class="stat-missed" style="background:#FFEBEE;color:var(--red)">${t.missed} manquée${t.missed>1?'s':''}</span>
+      <div class="stat-track"><div class="stat-fill" style="background:${col};width:${t.rate||0}%"></div></div>
+      <div class="stat-pct" style="color:${col}">${t.rate!==null?t.rate+'%':'—'}</div>
+    </div>`;
+  }).join('') || '<div style="color:#2E7D32;font-size:13px">🎉 Aucune tâche oubliée !</div>';
+
+  // Comments
+  const allComments = data.tasks.flatMap(t=>t.comments.map(c=>({...c,taskName:t.taskName}))).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,15);
+  document.getElementById('statsComments').innerHTML = allComments.length ? allComments.map(c => {
+    const u = uMap[c.userId];
+    return `<div class="stat-bar-row">
+      <span style="font-size:11px;font-weight:700;padding:2px 8px;border-radius:99px;color:#fff;background:${u?.color||'#607D8B'};flex-shrink:0">${u?.name||'?'}</span>
+      <div style="flex:1;font-size:13px">${c.comment}</div>
+      <div style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace;flex-shrink:0">${fmtDateShort(c.date)} · ${c.taskName.slice(0,25)}</div>
+    </div>`;
+  }).join('') : '<div style="color:var(--muted);font-size:13px">Aucun commentaire.</div>';
+}
+
+// DRAG & DROP task reorder
+let dragSrcId = null;
+
+function enableDragDrop() {
+  document.querySelectorAll('.tr').forEach(row => {
+    row.setAttribute('draggable','true');
+    row.addEventListener('dragstart', e => {
+      dragSrcId = row.dataset.id;
+      row.classList.add('dragging');
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    row.addEventListener('dragend', () => { row.classList.remove('dragging'); document.querySelectorAll('.tr').forEach(r=>r.classList.remove('drag-over')); });
+    row.addEventListener('dragover', e => { e.preventDefault(); e.dataTransfer.dropEffect='move'; row.classList.add('drag-over'); });
+    row.addEventListener('dragleave', () => row.classList.remove('drag-over'));
+    row.addEventListener('drop', async e => {
+      e.preventDefault(); e.stopPropagation();
+      row.classList.remove('drag-over');
+      if (dragSrcId === row.dataset.id) return;
+      // Reorder in same section
+      const srcTask = tasks.find(t=>t._id===dragSrcId);
+      const dstTask = tasks.find(t=>t._id===row.dataset.id);
+      if (!srcTask || !dstTask || srcTask.section !== dstTask.section) { showToast('⚠️ Glisser uniquement dans la même section'); return; }
+      // Swap orders
+      const srcOrd = srcTask.order, dstOrd = dstTask.order;
+      srcTask.order = dstOrd; dstTask.order = srcOrd;
+      await api('/api/tasks/reorder',{method:'POST',body:JSON.stringify({order:[{id:srcTask._id,ord:dstOrd},{id:dstTask._id,ord:srcOrd}]})});
+      tasks.sort((a,b)=>a.sectionOrder-b.sectionOrder||a.order-b.order);
+      renderSections();
+      showToast('Ordre mis a jour');
+    });
+  });
 }
 
 init();
