@@ -259,32 +259,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .plan-add{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px;background:var(--bg);border-radius:10px;margin-top:8px}
 .plan-add .fs{padding:7px 10px;font-size:13px}
 .plan-add .fi{padding:7px 10px;font-size:13px}
-
-/* DOCUMENTS */
-.doc-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:14px}
-.doc-card{background:var(--card);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;transition:.15s}
-.doc-card:hover{box-shadow:var(--sh2);transform:translateY(-2px)}
-.doc-card-top{padding:16px;display:flex;align-items:flex-start;gap:12px}
-.doc-icon{width:44px;height:44px;border-radius:10px;background:#FFEBEE;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0}
-.doc-info{flex:1;min-width:0}
-.doc-name{font-size:14px;font-weight:700;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.doc-desc{font-size:12px;color:var(--muted);margin-top:2px}
-.doc-meta{font-size:10px;color:var(--muted);margin-top:4px;font-family:'DM Mono',monospace}
-.doc-tags{display:flex;gap:4px;flex-wrap:wrap;padding:0 16px 10px}
-.doc-tag{font-size:10px;font-weight:700;padding:2px 7px;border-radius:99px;color:#fff}
-.doc-tag.all{background:#00897B}
-.doc-actions{display:flex;border-top:1px solid var(--border)}
-.doc-btn{flex:1;padding:10px;border:none;background:none;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;transition:.15s;display:flex;align-items:center;justify-content:center;gap:5px}
-.doc-btn.view{color:var(--teal)}.doc-btn.view:hover{background:var(--tl)}
-.doc-btn.del{color:var(--red)}.doc-btn.del:hover{background:#FFEBEE}
-.doc-btn-sep{width:1px;background:var(--border)}
-.doc-upload-zone{border:2px dashed var(--border);border-radius:var(--r);padding:28px;text-align:center;cursor:pointer;transition:.15s;background:var(--bg)}
-.doc-upload-zone:hover{border-color:var(--teal);background:var(--tl)}
-.doc-upload-zone.dragover{border-color:var(--teal);background:var(--tl)}
-.doc-upload-icon{font-size:36px;margin-bottom:8px}
-.doc-upload-txt{font-size:14px;font-weight:600;color:var(--muted)}
-.doc-upload-sub{font-size:12px;color:var(--muted);margin-top:4px}
-.doc-size{font-size:10px;font-weight:600;padding:2px 6px;border-radius:99px;background:#E8F5E9;color:#2E7D32}
 </style>
 </head>
 <body>
@@ -305,7 +279,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
   <div class="tab" onclick="switchTab('manager',this)">👁 Tableau de bord</div>
   <div class="tab" onclick="switchTab('history',this)">📜 Historique</div>
   <div class="tab" onclick="switchTab('report',this)">📊 Rapport</div>
-  <div class="tab" onclick="switchTab('docs',this)">📄 Documents</div>
   <div class="tab" id="adminTab" onclick="handleAdminTab(this)">⚙️ Admin</div>
 </nav>
 
@@ -397,53 +370,6 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
     </div>
   </div>
   <div id="rptBody"><div class="hempty">Sélectionnez une période et cliquez sur "Générer".</div></div>
-</div>
-
-<!-- DOCUMENTS -->
-<div class="page" id="page-docs">
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px">
-    <div style="font-size:20px;font-weight:700;color:var(--navy)">📄 Documents</div>
-  </div>
-
-  <!-- Vue salarié : sélectionner qui je suis + PIN pour accéder -->
-  <div id="docsUserView">
-    <div class="card">
-      <div class="who-bar" id="docsWhoBar">
-        <span class="who-lbl">Accéder en tant que :</span>
-        <div class="who-btns" id="docsWhoBtns"></div>
-        <span class="who-hint" id="docsHint">Sélectionnez votre prénom</span>
-      </div>
-    </div>
-    <div id="docsList"><div class="loading">Sélectionnez votre prénom pour accéder aux documents.</div></div>
-  </div>
-
-  <!-- Vue admin : upload + gestion -->
-  <div id="docsAdminView" style="display:none">
-    <div class="card">
-      <div style="font-size:13px;font-weight:700;color:var(--navy);margin-bottom:14px">⬆️ Déposer un document</div>
-      <div class="doc-upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropFile(event)">
-        <div class="doc-upload-icon">📄</div>
-        <div class="doc-upload-txt">Cliquez ou glissez un PDF ici</div>
-        <div class="doc-upload-sub">Maximum 5 MB</div>
-      </div>
-      <input type="file" id="fileInput" accept=".pdf" style="display:none" onchange="fileSelected(event)">
-      <div id="uploadForm" style="display:none;margin-top:14px">
-        <div class="fg"><label class="fl">Nom du document *</label><input class="fi" id="docName" placeholder="Ex : Procédure réception OCP"></div>
-        <div class="fg"><label class="fl">Description</label><input class="fi" id="docDesc" placeholder="Ex : Étapes à suivre pour la réception"></div>
-        <div class="fg">
-          <label class="fl">Visible par</label>
-          <div class="user-chk-list" id="docUserList"></div>
-          <div style="font-size:11px;color:var(--muted);margin-top:5px">Laisser vide = visible par tout le monde</div>
-        </div>
-        <div id="uploadFileInfo" style="font-size:12px;color:var(--muted);margin-bottom:12px"></div>
-        <div class="mbtns">
-          <button class="btn-s" onclick="cancelUpload()">Annuler</button>
-          <button class="btn-p" id="uploadBtn" onclick="uploadDocument()">⬆️ Déposer</button>
-        </div>
-      </div>
-    </div>
-    <div id="docsAdminList"><div class="loading">Chargement…</div></div>
-  </div>
 </div>
 
 <!-- ══ ADMIN ══ -->
@@ -716,12 +642,6 @@ function showAdminContent() {
   document.getElementById('adminGate').style.display='none';
   document.getElementById('adminContent').style.display='block';
   renderAdminUsers(); renderAdminZones(); renderAdminTasks(); loadPlanning();
-  // Update docs view if on docs tab
-  if(document.getElementById('page-docs').classList.contains('active')){
-    document.getElementById('docsUserView').style.display='none';
-    document.getElementById('docsAdminView').style.display='block';
-    loadAdminDocs();
-  }
 }
 function updateAdminBadge() {
   document.getElementById('adminPill').style.display=adminToken?'block':'none';
@@ -1489,162 +1409,6 @@ async function applyPlannedAttendance() {
     attendance = {};
     rows.forEach(r => attendance[r.userId] = r.status);
   } catch(e) {}
-}
-
-
-// DOCUMENTS
-let docsCurrentUser = null;
-let pendingFile = null;
-let allDocs = [];
-
-function renderDocsWhoBar() {
-  const btns = document.getElementById('docsWhoBtns');
-  if (!btns) return;
-  btns.innerHTML = users.map(u => {
-    const isActive = docsCurrentUser === u._id;
-    return `<button class="wbtn${isActive?' active':''}" style="${isActive?'background:'+u.color+';border-color:'+u.color:''}" onclick="selectDocsUser('${u._id}',this,'${u.color}')">👤 ${u.name}</button>`;
-  }).join('');
-}
-
-function selectDocsUser(id, btn, color) {
-  const u = users.find(x=>x._id===id);
-  openPinModal(u.name+' — Documents', 'Entrez votre PIN pour accéder', async (pin) => {
-    docsCurrentUser = id;
-    document.querySelectorAll('#docsWhoBtns .wbtn').forEach(b=>{b.classList.remove('active');b.style.background='';b.style.borderColor='';});
-    btn.classList.add('active'); btn.style.background=color; btn.style.borderColor=color;
-    document.getElementById('docsHint').textContent = 'Bonjour '+u.name+' !';
-    await loadUserDocs(id);
-  });
-}
-
-async function loadUserDocs(userId) {
-  const el = document.getElementById('docsList');
-  el.innerHTML = '<div class="loading">Chargement…</div>';
-  try {
-    const docs = await api('/api/documents?userId='+userId);
-    if (!docs.length) { el.innerHTML = '<div class="hempty">Aucun document disponible pour vous.</div>'; return; }
-    el.innerHTML = '<div class="doc-grid">'+docs.map(d => buildDocCard(d, false)).join('')+'</div>';
-  } catch(e) { el.innerHTML = '<div class="hempty">Erreur de chargement.</div>'; }
-}
-
-async function loadAdminDocs() {
-  const el = document.getElementById('docsAdminList');
-  el.innerHTML = '<div class="loading">Chargement…</div>';
-  try {
-    allDocs = await api('/api/documents');
-    if (!allDocs.length) { el.innerHTML = '<div class="hempty" style="padding:20px;text-align:center;color:var(--muted)">Aucun document déposé.</div>'; return; }
-    el.innerHTML = '<div class="doc-grid">'+allDocs.map(d => buildDocCard(d, true)).join('')+'</div>';
-  } catch(e) {}
-}
-
-function buildDocCard(d, isAdmin) {
-  const assigned = d.assignedUserIds || [];
-  const assignedNames = assigned.map(id => users.find(u=>u._id===id)?.name).filter(Boolean);
-  const sizeFmt = d.file_size ? (d.file_size/1024 > 1000 ? (d.file_size/1024/1024).toFixed(1)+'MB' : Math.round(d.file_size/1024)+'KB') : '';
-  const date = d.created_at ? new Date(parseInt(d.created_at)).toLocaleDateString('fr-FR',{day:'numeric',month:'short',year:'numeric'}) : '';
-  return `<div class="doc-card">
-    <div class="doc-card-top">
-      <div class="doc-icon">📄</div>
-      <div class="doc-info">
-        <div class="doc-name" title="${d.name}">${d.name}</div>
-        ${d.description?`<div class="doc-desc">${d.description}</div>`:''}
-        <div class="doc-meta">${date} ${sizeFmt?'· <span class="doc-size">'+sizeFmt+'</span>':''}</div>
-      </div>
-    </div>
-    <div class="doc-tags">
-      ${assigned.length===0 ? '<span class="doc-tag all">👥 Tout le monde</span>' : assignedNames.map(n=>`<span class="doc-tag" style="background:${users.find(u=>u.name===n)?.color||'#607D8B'}">${n}</span>`).join('')}
-    </div>
-    <div class="doc-actions">
-      <button class="doc-btn view" onclick="viewDoc('${d.id}','${d.name}')">👁 Consulter</button>
-      ${isAdmin ? '<div class="doc-btn-sep"></div><button class="doc-btn del" onclick="deleteDoc(''+d.id+'',''+d.name+'')">🗑 Supprimer</button>' : ''}
-    </div>
-  </div>`;
-}
-
-function viewDoc(id, name) {
-  window.open('/api/documents/'+id+'/file', '_blank');
-}
-
-async function deleteDoc(id, name) {
-  if (!confirm('Supprimer "'+name+'" ?')) return;
-  await api('/api/documents/'+id, { method:'DELETE' });
-  showToast('🗑️ Document supprimé');
-  loadAdminDocs();
-}
-
-// Upload
-function dragOver(e) { e.preventDefault(); document.getElementById('uploadZone').classList.add('dragover'); }
-function dragLeave(e) { document.getElementById('uploadZone').classList.remove('dragover'); }
-function dropFile(e) {
-  e.preventDefault();
-  document.getElementById('uploadZone').classList.remove('dragover');
-  const file = e.dataTransfer.files[0];
-  if (file) processFile(file);
-}
-function fileSelected(e) { if (e.target.files[0]) processFile(e.target.files[0]); }
-
-function processFile(file) {
-  if (!file.name.endsWith('.pdf')) { showToast('⚠️ Seuls les fichiers PDF sont acceptés'); return; }
-  if (file.size > 5*1024*1024) { showToast('⚠️ Fichier trop volumineux (max 5MB)'); return; }
-  pendingFile = file;
-  document.getElementById('uploadForm').style.display = 'block';
-  document.getElementById('docName').value = file.name.replace('.pdf','');
-  document.getElementById('uploadFileInfo').innerHTML = '📄 '+file.name+' · '+(file.size/1024 > 1000 ? (file.size/1024/1024).toFixed(1)+'MB' : Math.round(file.size/1024)+'KB');
-  // Populate user checkboxes
-  document.getElementById('docUserList').innerHTML = users.map(u=>`
-    <div class="user-chk-item" data-uid="${u._id}" onclick="this.classList.toggle('sel');this.querySelector('.user-chk-tick').textContent=this.classList.contains('sel')?'✓':''">
-      <div class="user-chk-dot" style="background:${u.color}"></div>
-      <span class="user-chk-name">👤 ${u.name}</span>
-      <span class="user-chk-tick"></span>
-    </div>`).join('');
-}
-
-function cancelUpload() {
-  pendingFile = null;
-  document.getElementById('uploadForm').style.display = 'none';
-  document.getElementById('fileInput').value = '';
-}
-
-async function uploadDocument() {
-  if (!pendingFile) return;
-  const name = document.getElementById('docName').value.trim();
-  if (!name) { showToast('⚠️ Donnez un nom au document'); return; }
-  const desc = document.getElementById('docDesc').value.trim();
-  const assignedUserIds = [...document.querySelectorAll('#docUserList .user-chk-item.sel')].map(el=>el.dataset.uid);
-  const btn = document.getElementById('uploadBtn');
-  btn.textContent = '⏳ Envoi…'; btn.disabled = true;
-  try {
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const base64 = e.target.result.split(',')[1];
-      await api('/api/documents', { method:'POST', body: JSON.stringify({
-        name, description: desc, fileData: base64,
-        fileSize: pendingFile.size, assignedUserIds, uploadedBy: 'admin'
-      })});
-      showToast('✅ Document déposé !');
-      cancelUpload();
-      loadAdminDocs();
-      btn.textContent = '⬆️ Déposer'; btn.disabled = false;
-    };
-    reader.readAsDataURL(pendingFile);
-  } catch(e) { showToast('❌ Erreur'); btn.textContent = '⬆️ Déposer'; btn.disabled = false; }
-}
-
-// Override switchTab to handle docs
-const _origSwitchTab = switchTab;
-function switchTab(tab, el) {
-  _origSwitchTab(tab, el);
-  if (tab === 'docs') {
-    renderDocsWhoBar();
-    document.getElementById('docsUserView').style.display = 'block';
-    document.getElementById('docsAdminView').style.display = 'none';
-    // If admin is logged in, show admin view
-    if (adminToken) {
-      document.getElementById('docsUserView').style.display = 'none';
-      document.getElementById('docsAdminView').style.display = 'block';
-      loadAdminDocs();
-    }
-  }
 }
 
 init();
