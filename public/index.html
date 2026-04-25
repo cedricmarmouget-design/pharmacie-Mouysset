@@ -233,10 +233,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .loading{text-align:center;padding:40px;color:var(--muted);font-size:14px}
 @media(max-width:620px){.main{padding:12px 8px}.mgr-grid,.rpt-cards{grid-template-columns:1fr}.tn{font-size:13px}}
+
+#fw-canvas{position:fixed;inset:0;pointer-events:none;z-index:9999;display:none}
+.fw-msg{position:fixed;top:50%;left:50%;transform:translate(-50%,-60%);z-index:10000;text-align:center;pointer-events:none;opacity:0;transition:opacity .4s}
+.fw-msg-inner{background:linear-gradient(135deg,#0F2240,#1A3A5C);color:#fff;padding:20px 32px;border-radius:20px;box-shadow:0 8px 40px rgba(0,0,0,.4)}
+.fw-emoji{font-size:52px;display:block;margin-bottom:8px}
+.fw-name{font-size:24px;font-weight:800;color:#F9A825}
+.fw-sub{font-size:14px;color:rgba(255,255,255,.7);margin-top:4px}
 </style>
 </head>
 <body>
 
+<canvas id="fw-canvas"></canvas>
+<div class="fw-msg" id="fwMsg"><div class="fw-msg-inner"><span class="fw-emoji">🎉</span><div class="fw-name" id="fwName"></div><div class="fw-sub">Toutes les taches accomplies !</div></div></div>
 <header class="hdr">
   <div class="logo">💊 Pharmacie <span>Mouysset</span></div>
   <div class="hdr-r">
@@ -812,7 +821,7 @@ async function toggleTask(taskId,pin){
     if(result.done){
       const entry={taskId,userId:currentUser,date:today(),done:true,doneAt:Date.now()};
       if(idx>=0)checks[idx]=entry;else checks.push(entry);
-      showToast(`✅ ${users.find(u=>u._id===currentUser)?.name} — validé`);
+      showToast(`✅ ${users.find(u=>u._id===currentUser)?.name} — validé`); setTimeout(checkAllTasksDone, 500);
     } else {
       if(idx>=0)checks.splice(idx,1);
       showToast('↩ Décochée');
@@ -1162,6 +1171,67 @@ function fmtDate(d){if(!d)return'';return new Date(d+'T12:00:00').toLocaleDateSt
 function fmtDateShort(d){if(!d)return'';return new Date(d+'T12:00:00').toLocaleDateString('fr-FR',{weekday:'short',day:'numeric',month:'short'});}
 let _t;
 function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');clearTimeout(_t);_t=setTimeout(()=>el.classList.remove('show'),2800);}
+
+
+function launchFireworks(userName, color) {
+  var canvas = document.getElementById('fw-canvas');
+  var msg = document.getElementById('fwMsg');
+  var ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  canvas.style.display = 'block';
+  document.getElementById('fwName').textContent = userName + ' - Bravo !';
+  msg.style.opacity = '1';
+  try {
+    var ac = new AudioContext();
+    [0,0.1,0.2,0.35,0.5,0.65].forEach(function(t,i){
+      var o=ac.createOscillator(),g=ac.createGain();
+      o.connect(g);g.connect(ac.destination);
+      o.frequency.value=280+i*140;
+      g.gain.setValueAtTime(0.25,ac.currentTime+t);
+      g.gain.exponentialRampToValueAtTime(0.001,ac.currentTime+t+0.35);
+      o.start(ac.currentTime+t);o.stop(ac.currentTime+t+0.35);
+    });
+  } catch(e){}
+  var particles=[];
+  var cols=[color,'#F9A825','#ffffff','#00897B','#AD1457','#ff6b6b','#4ecdc4','#ffe66d','#a29bfe'];
+  for(var b=0;b<10;b++){
+    var bx=Math.random()*canvas.width;
+    var by=Math.random()*canvas.height*0.65+40;
+    for(var i=0;i<50;i++){
+      var angle=(Math.PI*2/50)*i;
+      var speed=2+Math.random()*7;
+      particles.push({x:bx,y:by,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,color:cols[Math.floor(Math.random()*cols.length)],alpha:1,size:2+Math.random()*4,gravity:0.09});
+    }
+  }
+  var frame=0;
+  function animate(){
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    particles.forEach(function(p){
+      p.x+=p.vx;p.y+=p.vy;p.vy+=p.gravity;p.alpha-=0.013;p.vx*=0.99;
+      if(p.alpha<=0)return;
+      ctx.save();ctx.globalAlpha=p.alpha;ctx.fillStyle=p.color;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.size,0,Math.PI*2);ctx.fill();ctx.restore();
+    });
+    frame++;
+    if(frame<150)requestAnimationFrame(animate);
+    else{canvas.style.display='none';msg.style.opacity='0';ctx.clearRect(0,0,canvas.width,canvas.height);}
+  }
+  animate();
+  setTimeout(function(){msg.style.opacity='0';},3500);
+}
+
+function checkAllTasksDone(){
+  if(!currentUser)return;
+  var u=users.find(function(x){return x._id===currentUser;});
+  if(!u)return;
+  if((attendance[currentUser]||'present')!=='present')return;
+  var assigned=tasks.filter(function(t){return (t.assignedUserIds||[]).includes(currentUser);});
+  var myTasks=assigned.length>0?assigned:tasks.filter(function(t){return (t.assignedUserIds||[]).length===0;});
+  if(myTasks.length===0)return;
+  var allDone=myTasks.every(function(t){return checks.some(function(c){return c.taskId===t._id&&c.userId===currentUser&&c.done;});});
+  if(allDone)launchFireworks(u.name,u.color);
+}
 
 init();
 </script>
