@@ -23,6 +23,16 @@ async function initDB() {
   await db(`CREATE TABLE IF NOT EXISTS checks (id TEXT PRIMARY KEY, task_id TEXT NOT NULL, user_id TEXT NOT NULL, date TEXT NOT NULL, done BOOLEAN DEFAULT true, done_at BIGINT, UNIQUE(task_id, user_id, date))`);
   await db(`CREATE TABLE IF NOT EXISTS history (id TEXT PRIMARY KEY, task_id TEXT, user_id TEXT, date TEXT, action TEXT, created_at BIGINT)`);
   await db(`CREATE TABLE IF NOT EXISTS attendance (id TEXT PRIMARY KEY, user_id TEXT, date TEXT, status TEXT DEFAULT 'present', updated_at BIGINT, UNIQUE(user_id, date))`);
+  await db(`CREATE TABLE IF NOT EXISTS documents (
+    id TEXT PRIMARY KEY,
+    name TEXT NOT NULL,
+    description TEXT DEFAULT '',
+    file_data TEXT NOT NULL,
+    file_size INT DEFAULT 0,
+    assigned_user_ids TEXT DEFAULT '[]',
+    uploaded_by TEXT DEFAULT '',
+    created_at BIGINT
+  )`);
 }
 
 async function seed() {
@@ -84,9 +94,60 @@ app.post('/api/admin/verify', (req, res) => {
   res.json({ ok: req.body.token === Buffer.from(ADMIN_PWD).toString('base64') });
 });
 
+// DOCUMENTS
+app.get('/api/documents', async (req, res) => {
+  try {
+    const { userId } = req.query;
+    let rows;
+    if (userId) {
+      // Get docs for this user (assigned to them or to everyone)
+      const all = await db('SELECT id, name, description, assigned_user_ids, uploaded_by, file_size, created_at FROM documents ORDER BY created_at DESC');
+      rows = all.rows.filter(d => {
+        const assigned = JSON.parse(d.assigned_user_ids || '[]');
+        return assigned.length === 0 || assigned.includes(userId);
+      });
+    } else {
+      const result = await db('SELECT id, name, description, assigned_user_ids, uploaded_by, file_size, created_at FROM documents ORDER BY created_at DESC');
+      rows = result.rows;
+    }
+    res.json(rows.map(d => ({ ...d, assignedUserIds: JSON.parse(d.assigned_user_ids||'[]') })));
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
+app.get('/api/documents/:id/file', async (req, res) => {
+  try {
+    const { rows } = await db('SELECT * FROM documents WHERE id=$1', [req.params.id]);
+    if (!rows.length) return res.status(404).json({ error: 'Document introuvable' });
+    const doc = rows[0];
+    const buf = Buffer.from(doc.file_data, 'base64');
+    res.setHeader('Content-Type', 'application/pdf');
+    res.setHeader('Content-Disposition', `inline; filename="${doc.name}.pdf"`);
+    res.send(buf);
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
+app.post('/api/documents', async (req, res) => {
+  try {
+    const { name, description, fileData, fileSize, assignedUserIds, uploadedBy } = req.body;
+    if (!name || !fileData) return res.status(400).json({ error: 'name et fileData requis' });
+    if (fileSize > 5 * 1024 * 1024) return res.status(400).json({ error: 'Fichier trop volumineux (max 5MB)' });
+    const id = require('uuid').v4();
+    await db('INSERT INTO documents VALUES($1,$2,$3,$4,$5,$6,$7,$8)',
+      [id, name, description||'', fileData, fileSize||0, JSON.stringify(assignedUserIds||[]), uploadedBy||'', Date.now()]);
+    res.json({ ok: true, id });
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
+app.delete('/api/documents/:id', async (req, res) => {
+  try {
+    await db('DELETE FROM documents WHERE id=$1', [req.params.id]);
+    res.json({ ok: true });
+  } catch(e) { res.status(500).json({ error: e.message }); }
+});
+
 app.get('/api/users', async (req, res) => {
   try { const { rows } = await db('SELECT * FROM users WHERE active=true ORDER BY created_at'); res.json(rows.map(su)); }
-  catch(e) { console.error('USERS ERROR:', e); res.status(500).json({ error: e.message, detail: e.detail, code: e.code }); }
+  catch(e) { res.status(500).json({ error: e.message }); }
 });
 app.post('/api/users', async (req, res) => {
   try {
@@ -319,8 +380,3 @@ async function start() {
   }
 }
 start();
-// Garder Neon actif - ping toutes les 4 minutes
-setInterval(async () => {
-  try { await db('SELECT 1'); console.log('💓 Neon actif'); }
-  catch(e) { console.log('⚠️ Ping échoué:', e.message); }
-}, 240000);
