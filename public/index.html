@@ -883,7 +883,7 @@ function renderManager(){
     const done=myTasks.filter(t=>checks.some(c=>c.taskId===t._id&&c.userId===u._id&&c.done)).length;
     const pct=att==='present'&&myTasks.length?Math.round(done/myTasks.length*100):null;
     const absBar=att!=='present'?`<div style="padding:8px 16px;background:#FFF3E0;font-size:12px;font-weight:700;color:${att==='absent'?'var(--red)':'#6A1B9A'}">${att==='absent'?'❌ Absent':'🏖 Congé'}</div>`:'';
-    const rows=tasks.map(t=>{
+    const rows=myTasks.map(t=>{
       const chks=taskChecks(t._id);
       const isDone=chks.length>0;
       const cls=att!=='present'?'skip':isDone?'done':'';
