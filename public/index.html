@@ -1042,6 +1042,13 @@ function openPinModal(title,sub,onSuccess){
   renderPinDots();
   document.getElementById('pinModal').classList.add('open');
 }
+// Clavier physique pour le PIN
+document.addEventListener('keydown', function(e){
+  if(!document.getElementById('pinModal').classList.contains('open')) return;
+  if(e.key>='0' && e.key<='9') { pinKey(e.key); e.preventDefault(); }
+  else if(e.key==='Backspace') { pinKey('del'); e.preventDefault(); }
+  else if(e.key==='Escape') { closeModal('pinModal'); e.preventDefault(); }
+});
 function renderPinDots(){document.getElementById('pinDots').innerHTML=[0,1,2,3].map(i=>`<div class="pd${i<pinBuffer.length?' filled':''}"></div>`).join('');}
 function pinKey(k){
   if(k==='del'){pinBuffer=pinBuffer.slice(0,-1);renderPinDots();document.getElementById('pinErr').textContent='';return;}
@@ -2006,4 +2013,3 @@ init();
 </script>
 </body>
 </html>
- 
