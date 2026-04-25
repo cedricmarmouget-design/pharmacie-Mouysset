@@ -851,9 +851,7 @@ function showAdminContent() {
   renderAdminUsers(); renderAdminZones(); renderAdminTasks(); loadPlanning();
   // Update docs view if on docs tab
   if(document.getElementById('page-docs').classList.contains('active')){
-    
-    
-    
+    loadAdminDocs();
   }
 }
 function updateAdminBadge() {
@@ -1474,6 +1472,7 @@ function switchTab(tab,el){
   if(tab==='messages'){renderMsgWhoBar();}
   if(tab==='stats'){loadStats();}
   if(tab==='admin'){if(adminToken){showAdminContent();loadPlanning();}else showAdminGate();}
+  if(tab==='docs'){if(adminToken){loadAdminDocs();}else if(currentUser){loadUserDocs(currentUser);}}
 }
 function closeModal(id){document.getElementById(id).classList.remove('open');}
 document.querySelectorAll('.ov').forEach(o=>o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('open');}));
@@ -1720,7 +1719,7 @@ async function loadUserDocs(userId) {
   } catch(e) { el.innerHTML = '<div class="hempty">Erreur de chargement.</div>'; }
 }
 
-async function  {
+async function loadAdminDocs() {
   const el = document.getElementById('docsAdminList');
   el.innerHTML = '<div class="loading">Chargement…</div>';
   try {
@@ -1749,7 +1748,7 @@ function buildDocCard(d, isAdmin) {
     </div>
     <div class="doc-actions">
       <button class="doc-btn view" onclick="viewDoc('${d.id}','${d.name}')">👁 Consulter</button>
-      ${isAdmin ? '<div class="doc-btn-sep"></div><button class="doc-btn del" onclick="deleteDoc(''+d.id+'',''+d.name+'')">🗑 Supprimer</button>' : ''}
+      ${isAdmin ? `<div class="doc-btn-sep"></div><button class="doc-btn del" onclick="deleteDoc('${d.id}','${d.name}')">🗑 Supprimer</button>` : ''}
     </div>
   </div>`;
 }
