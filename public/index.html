@@ -641,7 +641,7 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min
 </div>
 
 <!-- PIN MODAL -->
-<div class="ov" id="pinModal">
+<div class="ov" id="pinModal" tabindex="-1">
   <div class="modal">
     <h2 id="pinTitle">Confirmer</h2>
     <div class="modal-sub" id="pinSub">Entrez votre code PIN à 4 chiffres</div>
@@ -1040,7 +1040,10 @@ function openPinModal(title,sub,onSuccess){
   document.getElementById('pinSub').textContent=sub;
   document.getElementById('pinErr').textContent='';
   renderPinDots();
-  document.getElementById('pinModal').classList.add('open');
+  const modal = document.getElementById('pinModal');
+  modal.classList.add('open');
+  // Focus le modal pour que les touches clavier soient captées
+  setTimeout(() => { modal.focus(); }, 50);
 }
 // Clavier physique pour le PIN
 document.addEventListener('keydown', function(e){
