@@ -86,7 +86,7 @@ app.post('/api/admin/verify', (req, res) => {
 
 app.get('/api/users', async (req, res) => {
   try { const { rows } = await db('SELECT * FROM users WHERE active=true ORDER BY created_at'); res.json(rows.map(su)); }
-  catch(e) { res.status(500).json({ error: e.message }); }
+  catch(e) { console.error('USERS ERROR:', e); res.status(500).json({ error: e.message, detail: e.detail, code: e.code }); }
 });
 app.post('/api/users', async (req, res) => {
   try {
