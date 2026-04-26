@@ -1079,8 +1079,10 @@ function openPinModal(title,sub,onSuccess){
   modal.classList.add('open');
   setTimeout(()=>{ const i=document.getElementById('pinHiddenInput2'); if(i){i.value='';i.focus();} },50);
 }
-// Écoute l'input sur les champs cachés (meilleur support mobile/desktop)
+// Écoute l'input sur les champs cachés uniquement (meilleur support mobile/desktop)
 document.addEventListener('input', function(e){
+  // N'intercepter QUE les deux champs PIN cachés — laisser tous les autres inputs tranquilles
+  if(e.target.id !== 'pinHiddenInput' && e.target.id !== 'pinHiddenInput2') return;
   const val = e.target.value;
   e.target.value = '';
   if(!val) return;
