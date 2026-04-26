@@ -1069,11 +1069,15 @@ function taskChecks(id){return checks.filter(c=>c.taskId===id&&c.done);}
 function myCheck(id){return currentUser?checks.find(c=>c.taskId===id&&c.userId===currentUser&&c.done):null;}
 
 // -- PIN FLOW ------------------------------------------------------------------
-function openPinModal(title,sub,onSuccess){
-  pinCallback=onSuccess; pinBuffer='';
-  document.getElementById('pinTitle').textContent=title;
-  document.getElementById('pinSub').textContent=sub;
-  document.getElementById('pinErr').textContent='';
+let pinUserId = null; // userId ciblé pour la vérification PIN (peut différer de currentUser)
+
+function openPinModal(title, sub, onSuccess, userId){
+  pinCallback = onSuccess;
+  pinUserId = userId || currentUser; // si pas précisé, on prend currentUser (page Tâches)
+  pinBuffer = '';
+  document.getElementById('pinTitle').textContent = title;
+  document.getElementById('pinSub').textContent = sub;
+  document.getElementById('pinErr').textContent = '';
   renderPinDots();
   const modal = document.getElementById('pinModal');
   modal.classList.add('open');
@@ -1112,7 +1116,8 @@ function pinKey(k){
   if(pinBuffer.length===4)submitPin();
 }
 async function submitPin(){
-  const r=await api('/api/users/verify-pin',{method:'POST',body:JSON.stringify({userId:currentUser,pin:pinBuffer})});
+  if(!pinUserId){document.getElementById('pinErr').textContent='Aucun utilisateur sélectionné';pinBuffer='';renderPinDots();return;}
+  const r=await api('/api/users/verify-pin',{method:'POST',body:JSON.stringify({userId:pinUserId,pin:pinBuffer})});
   if(r.ok){closeModal('pinModal');if(pinCallback)pinCallback(pinBuffer);}
   else{document.getElementById('pinErr').textContent=r.error||'PIN incorrect';pinBuffer='';renderPinDots();}
 }
@@ -1128,7 +1133,7 @@ function handleTaskClick(taskId){
   if(myChk) {
     // Uncheck - just PIN
     const u=users.find(x=>x._id===currentUser);
-    openPinModal(u.name+' — Décocher','Entrez votre PIN pour décocher',(pin)=>toggleTask(taskId,pin,''));
+    openPinModal(u.name+' — Décocher','Entrez votre PIN pour décocher',(pin)=>toggleTask(taskId,pin,''), currentUser);
     return;
   }
   // Check - open comment modal
@@ -1300,7 +1305,7 @@ function askReset(){
     if(!confirm('Remettre toutes les tâches à zéro ?\n(L\'historique est conservé)'))return;
     await api('/api/checks/reset',{method:'POST',body:JSON.stringify({userId:currentUser,pin})});
     await loadAll(); showToast('🌅 Nouvelle journée !');
-  });
+  }, currentUser);
 }
 
 // -- HISTORY -------------------------------------------------------------------
@@ -1803,7 +1808,7 @@ function selectDocsUser(id, btn, color) {
     btn.classList.add('active'); btn.style.background=color; btn.style.borderColor=color;
     document.getElementById('docsHint').textContent = 'Bonjour '+u.name+' !';
     await loadUserDocs(id);
-  });
+  }, id); // ← passe l'id du salarié sélectionné, pas currentUser
 }
 
 async function loadUserDocs(userId) {
@@ -1980,7 +1985,7 @@ function selectMsgUser(id, btn, color) {
     btn.classList.add('active'); btn.style.background=color; btn.style.borderColor=color;
     document.getElementById('msgNewBtn').style.display='flex';
     await loadMessages();
-  });
+  }, id); // ← passe l'id du salarié sélectionné
 }
 
 async function loadMessages() {
